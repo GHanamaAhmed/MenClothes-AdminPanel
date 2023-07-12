@@ -1,7 +1,11 @@
 import React from 'react'
+import SpeedyDial from '../components/speedDial';
 
 export default function page() {
   return (
-    <div>orders</div>
-  )
+		<div className="shadow-lg rounded-xl h-fit md:h-full w-full grid row-span-3 mx-5  bg-white">
+			<SpeedyDial />
+			orders
+		</div>
+	);
 }

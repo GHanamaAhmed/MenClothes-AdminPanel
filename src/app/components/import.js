@@ -2,6 +2,11 @@
 
 import {
 	CardBody,
+	Tabs,
+	TabsHeader,
+	Tab,
+	Avatar,
+	Tooltip,
 	Input,
 	CardFooter,
 	CardHeader,
@@ -24,16 +29,11 @@ import {
 	SpeedDialAction,
 } from "@material-tailwind/react";
 export {
-	Input,
 	Drawer,
-	Button,
-	Typography,
-	IconButton,
 	List,
 	ListItem,
 	ListItemPrefix,
 	ListItemSuffix,
-	Chip,
 	Navbar,
 	MobileNav,
 	Card,
@@ -45,4 +45,14 @@ export {
 	CardFooter,
 	CardHeader,
 	Checkbox,
+	Input,
+	Typography,
+	Button,
+	Chip,
+	Tabs,
+	TabsHeader,
+	Tab,
+	Avatar,
+	IconButton,
+	Tooltip,
 };
