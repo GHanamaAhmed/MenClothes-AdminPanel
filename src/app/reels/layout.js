@@ -2,7 +2,7 @@ import Navbar from "../components/navbar";
 import SpeedyDial from "../components/speedDial";
 export default function RootLayout({ children }) {
 	return (
-		<div className="flex flex-row h-fit md:h-screen justify-start gap-2 z-0 bg-blue-gray-50 scroll-my-0">
+		<div className="flex flex-row h-fit w-fit md:w-full justify-start md:gap-2 z-0 bg-blue-gray-50 scroll-my-0">
 			<Navbar />
 			{children}
 		</div>

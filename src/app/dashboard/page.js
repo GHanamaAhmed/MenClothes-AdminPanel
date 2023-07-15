@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Cicharts from "../components/charts";
 import CiCard from "../components/cards";
 import {
 	PresentationChartBarIcon,
@@ -16,6 +15,7 @@ import {
 } from "@heroicons/react/24/solid";
 import SpeedyDial from "../components/speedDial";
 import CiTable from "../components/table";
+
 export default function Home() {
 	return (
 		<div className="shadow-lg p-1 m-1 rounded-xl h-fit md:h-full w-fit md:w-full  grid row-span-3 md:m-5 md:p-5  bg-white">
@@ -59,9 +59,6 @@ export default function Home() {
 				/>
 			</div>
 
-			<div className="h-1/3 m-5 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-8">
-				number of users / guests stats
-			</div>
 
 			<div className="w-">
 				<CiTable />

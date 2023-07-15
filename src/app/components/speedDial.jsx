@@ -32,8 +32,8 @@ import React from "react";
 
 export default function SpeedyDial() {
 	return (
-		<div className="sticky top-4 left-4 m-4  w-fit h-fit  z-50 md:hidden">
-			<SpeedDial placement="bottom">
+		<div className="fixed bottom-10 right-4 m-4  w-fit h-fit  z-50 md:hidden">
+			<SpeedDial placement="top">
 				<SpeedDialHandler>
 					<IconButton size="lg" className="rounded-full bg-scandaryColor">
 						<PlusIcon className="h-5 w-5 transition-transform group-hover:rotate-45" />

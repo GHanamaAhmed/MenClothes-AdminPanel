@@ -24,16 +24,16 @@ const TABS = [
 		value: "all",
 	},
 	{
-		label: "Monitored",
-		value: "monitored",
+		label: "google",
+		value: "google",
 	},
 	{
-		label: "Unmonitored",
-		value: "unmonitored",
+		label: "meta",
+		value: "meta",
 	},
 ];
 
-const TABLE_HEAD = ["user", "amount", "Status", "joined"];
+const TABLE_HEAD = ["user", "amount", "account", "joined"];
 
 const TABLE_ROWS = [
 	{
@@ -83,7 +83,7 @@ const TABLE_ROWS = [
 	},
 ];
 
-export default function CiTable() {
+export default function CiTable( ) {
 	return (
 		<Card className="h-full  md:w-fit lg:w-full shadow-lg">
 			<CardHeader floated={false} shadow={false} className="rounded-none">
@@ -99,9 +99,6 @@ export default function CiTable() {
 					<div className="flex shrink-0 flex-col gap-2 sm:flex-row">
 						<Button variant="outlined" color="blue-gray" size="sm">
 							view all
-						</Button>
-						<Button className="flex items-center gap-3" color="blue" size="sm">
-							<UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add member
 						</Button>
 					</div>
 				</div>
@@ -197,8 +194,8 @@ export default function CiTable() {
 												<Chip
 													variant="ghost"
 													size="sm"
-													value={online ? "on" : "off"}
-													color={online ? "green" : "blue-gray"}
+													value={online ? "google" : "meta"}
+													color={online ? "green" : "blue"}
 												/>
 											</div>
 										</td>

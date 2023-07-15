@@ -1,0 +1,1 @@
+export const selep=(temp=2000)=> new Promise(resolve=>setTimeout(resolve,temp))

@@ -83,14 +83,6 @@ export default function Navbar() {
 						<Typography color="white"> reels</Typography>
 					</ListItem>
 				</Link>
-				<Link href='/settings'>
-					<ListItem className="hover:bg-scandaryColor">
-						<ListItemPrefix>
-							<Cog6ToothIcon className="h-5 w-5" />
-						</ListItemPrefix>
-						<Typography color="white">settings</Typography>
-					</ListItem>
-				</Link>
 				<Link href="/">
 					<ListItem className="hover:bg-scandaryColor">
 						<ListItemPrefix>
