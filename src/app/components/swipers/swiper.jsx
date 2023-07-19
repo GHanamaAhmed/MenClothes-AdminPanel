@@ -44,6 +44,7 @@ export default function Swipers() {
 					slidesPerView: 4.5,
 					spaceBetween: 60,
 				},
+				
 			}}
 		>
 			{[...Array(10)].map((e, i) => (

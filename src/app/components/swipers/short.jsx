@@ -1,3 +1,4 @@
+'use client'
 import {
 	ChatBubbleBottomCenterIcon,
 	EyeIcon,
@@ -5,8 +6,15 @@ import {
 } from "@heroicons/react/24/outline";
 import reel from "./img/reels.png";
 import Image from "next/image";
-import { TrashIcon } from "@heroicons/react/24/solid";
+import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, IconButton } from "./../import";
+import { useState } from "react";
+import Reels from "../reels";
+import Reels2 from "../reels2";
 export default function Short({ likes, comments, views, title, subtitle }) {
+		const [open, setOpen] = useState(false);
+
+		const handleOpen = () => setOpen(!open);
 	if (likes == null) {
 		likes = "0";
 	}
@@ -47,6 +55,49 @@ export default function Short({ likes, comments, views, title, subtitle }) {
 				<p className="text-sm text-trueblue flex flex-row-reverse items-center justify-end">
 					{views} <EyeIcon className="" width={25} height={25} />
 				</p>
+			</div>
+			<div className="absolute top-[5%] right-[10%]  lg:right-1 z-10 flex flex-col gap-2 text-right">
+				<IconButton className="bg-transparent shadow-none hover:shadow-red-500">
+					<p className="text-sm text-red-500 flex flex-row-reverse items-center justify-end ">
+						<TrashIcon width={25} height={25} className="text-sm" />
+					</p>
+				</IconButton>
+
+				<IconButton
+					className="bg-transparent shadow-none hover:shadow-lightSolid"
+					onClick={handleOpen}
+				>
+					<p className="text-sm text-lightSolid flex flex-row-reverse items-center justify-end ">
+						<PencilIcon width={25} height={25} className="" />
+					</p>
+				</IconButton>
+				<Dialog open={open} handler={handleOpen}>
+					<DialogBody
+						divider
+						className="h-[40rem]  overflow-scroll flex flex-row justify-center items-center"
+					>
+						<Reels2
+							tit={title}
+							comm={comments}
+							like={likes}
+							views={views}
+							subtit={subtitle}
+						></Reels2>
+					</DialogBody>
+					<DialogFooter className="space-x-2">
+						<Button
+							variant="text"
+							color="red"
+							onClick={handleOpen}
+							className="mr-1"
+						>
+							<span>اغلاق</span>
+						</Button>
+						<Button variant="gradient" color="green" onClick={handleOpen}>
+							<span>تحديث</span>
+						</Button>
+					</DialogFooter>
+				</Dialog>
 			</div>
 		</div>
 	);
