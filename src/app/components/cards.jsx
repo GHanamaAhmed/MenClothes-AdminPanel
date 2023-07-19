@@ -17,14 +17,17 @@ export default function CiCard({
 	footervalue,
 }) {
 	return (
-		<Card className=''>
+		<Card className="font-Hacen-Tunisia">
 			<CardHeader
-				className={` absolute -mt-4 grid h-16 w-16 place-items-center ${color}`}
+				className={` font-Hacen-Tunisia absolute -mt-4 grid h-16 w-16 place-items-center ${color}`}
 			>
 				{icon}
 			</CardHeader>
-			<CardBody className=" p-8 text-right ">
-				<Typography variant="small" className="font-normal  text-blue-gray-600">
+			<CardBody className=" font-Hacen-Tunisia p-8 text-left ">
+				<Typography
+					variant="small"
+					className=" font-Hacen-Tunisia text-blue-gray-600"
+				>
 					{title}
 				</Typography>
 				<Typography variant="h4" color="blue-gray">
@@ -32,10 +35,10 @@ export default function CiCard({
 				</Typography>
 			</CardBody>
 			{footer && (
-				<CardFooter className="border-t border-blue-gray-50 p-4">
-					<Typography className="font-normal text-blue-gray-600">
-						<strong className={footercolor}>{footervalue}</strong>
-						&nbsp;{footer}
+				<CardFooter className="border-t border-blue-gray-50 p-4 font-Hacen-Tunisia">
+					<Typography className="font-Hacen-Tunisia text-blue-gray-600 text-right">
+						{footer}&nbsp;
+						<strong className={footercolor }>{footervalue}</strong>
 					</Typography>
 				</CardFooter>
 			)}

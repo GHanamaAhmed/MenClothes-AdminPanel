@@ -48,7 +48,7 @@ export default function page() {
 					footercolor={"text-green-400"}
 				/>
 			</div>
-			<section className="w-full overflow-hidden h-fit flex flex-row justify-center items-center">
+			<section className="w-full overflow-hidden  h-fit flex flex-row justify-center items-center">
 				<div className="hidden gap-7 md:flex">
 					<button className="prevEl">
 						<ArrowRightIcon />

@@ -1,6 +1,5 @@
-'use client';
+"use client";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
 import {
 	Card,
 	CardHeader,
@@ -14,15 +13,19 @@ import {
 	TabsHeader,
 	Tab,
 	Avatar,
-	IconButton,
-	Tooltip,
+	Dialog,
+	DialogHeader,
+	DialogBody,
+	DialogFooter,
 } from "./import";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 
 
-export default function CiTable({ TABS , TABLE_HEAD ,TABLE_ROWS}) {
+export default function CiTable2({ TABS, TABLE_HEAD, TABLE_ROWS }) {
+	const [open, setOpen] = useState(false);
 
+	const handleOpen = () => setOpen(!open);
 	return (
 		<Card className="h-full  md:w-fit lg:w-full shadow-lg text-right">
 			<CardHeader floated={false} shadow={false} className="rounded-none">
@@ -60,25 +63,27 @@ export default function CiTable({ TABS , TABLE_HEAD ,TABLE_ROWS}) {
 							))}
 						</TabsHeader>
 					</Tabs>
-					<div className="w-full md:w-60 flex flex-row justify-evenly items-center">
-						<MagnifyingGlassIcon className="h-5 w-5  " />
-						<Input className="gap-1" label="بحث" />
+					<div className="w-full md:w-60">
+						<Input
+							label="Search"
+							icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+						/>
 					</div>
 				</div>
 			</CardHeader>
-			<CardBody className="overflow-scroll px-0">
-				<table className="mt-4 w-full min-w-max table-auto text-right font-Hacen-Tunisia">
+			<CardBody className="overflow-scroll px-0 text-right">
+				<table className="mt-4 w-full min-w-max table-auto  text-right">
 					<thead>
-						<tr className="font-Hacen-Tunisia">
+						<tr>
 							{TABLE_HEAD.map((head) => (
 								<th
 									key={head}
-									className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 "
+									className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
 								>
 									<Typography
 										variant="small"
 										color="blue-gray"
-										className="font-Hacen-Tunisia leading-none opacity-70"
+										className="font-normal leading-none opacity-70"
 									>
 										{head}
 									</Typography>
@@ -88,7 +93,7 @@ export default function CiTable({ TABS , TABLE_HEAD ,TABLE_ROWS}) {
 					</thead>
 					<tbody>
 						{TABLE_ROWS.map(
-							({ img, name, email, items, paid, online, date }, index) => {
+							({ img, name, email, items, paid, order, date }, index) => {
 								const isLast = index === TABLE_ROWS.length - 1;
 								const classes = isLast
 									? "p-4"
@@ -137,12 +142,32 @@ export default function CiTable({ TABS , TABLE_HEAD ,TABLE_ROWS}) {
 										</td>
 										<td className={classes}>
 											<div className="w-max">
-												<Chip
-													variant="ghost"
-													size="sm"
-													value={online ? "google" : "meta"}
-													color={online ? "green" : "blue"}
-												/>
+												<Button onClick={handleOpen} variant="gradient">
+													الطلبية
+												</Button>
+												<Dialog open={open} handler={handleOpen}>
+													<DialogHeader>الطلبية</DialogHeader>
+													<DialogBody divider>
+														{order}
+													</DialogBody>
+													<DialogFooter>
+														<Button
+															variant="text"
+															color="red"
+															onClick={handleOpen}
+															className="mr-1"
+														>
+															<span>اغلاق</span>
+														</Button>
+														<Button
+															variant="gradient"
+															color="green"
+															onClick={handleOpen}
+														>
+															<span>قبول الطلبية</span>
+														</Button>
+													</DialogFooter>
+												</Dialog>
 											</div>
 										</td>
 										<td className={classes}>

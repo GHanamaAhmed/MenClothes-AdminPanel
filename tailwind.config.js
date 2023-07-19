@@ -10,6 +10,9 @@ module.exports = withMT({
 	],
 	theme: {
 		extend: {
+			FontFace: {
+				"Hacen-Tunisia": "Hacen Tunisia",
+			},
 			colors: {
 				primaryColor: "#191919",
 				scandaryColor: "#1FAB71",

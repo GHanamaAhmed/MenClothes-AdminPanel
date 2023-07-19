@@ -28,6 +28,10 @@ import {
 	SpeedDialHandler,
 	SpeedDialContent,
 	SpeedDialAction,
+	Dialog,
+	DialogHeader,
+	DialogBody,
+	DialogFooter,
 } from "@material-tailwind/react";
 export {
 	Drawer,
@@ -57,4 +61,8 @@ export {
 	Avatar,
 	IconButton,
 	Tooltip,
+	Dialog,
+	DialogHeader,
+	DialogBody,
+	DialogFooter,
 };

@@ -15,6 +15,70 @@ import {
 } from "@heroicons/react/24/solid";
 import SpeedyDial from "../components/speedDial";
 import CiTable from "../components/table";
+const TABS = [
+	{
+		label: "All",
+		value: "all",
+	},
+	{
+		label: "google",
+		value: "google",
+	},
+	{
+		label: "meta",
+		value: "meta",
+	},
+];
+
+const TABLE_HEAD = ["المستخدمين", "الكمية", "حساب", "سجل"];
+
+const TABLE_ROWS = [
+	{
+		img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
+		name: "John Michael",
+		email: "john@creative-tim.com",
+		items: "77",
+		paid: "5822$",
+		subsicribed: true,
+		date: "23/04/18",
+	},
+	{
+		img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
+		name: "Alexa Liras",
+		email: "alexa@creative-tim.com",
+		items: "65",
+		paid: "4930$",
+		subsicribed: false,
+		date: "23/04/18",
+	},
+	{
+		img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
+		name: "Laurent Perrier",
+		email: "laurent@creative-tim.com",
+		items: "59",
+		paid: "4450$",
+		subsicribed: false,
+		date: "19/09/17",
+	},
+	{
+		img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
+		name: "Michael Levi",
+		email: "michael@creative-tim.com",
+		items: "55",
+		paid: "4200$",
+		subsicribed: true,
+		date: "24/12/08",
+	},
+	{
+		img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
+		name: "Richard Gran",
+		email: "richard@creative-tim.com",
+		items: "52",
+		paid: "3910$",
+		subsicribed: false,
+		date: "04/10/21",
+	},
+];
 
 export default function Home() {
 	return (
@@ -24,44 +88,43 @@ export default function Home() {
 				<CiCard
 					icon={<UserIcon className="w-8 h-8 text-white" />}
 					color={"bg-scandaryColor"}
-					title={"users"}
+					title={"المستخدمين"}
 					value={"187"}
-					footer={"	last month"}
-					footervalue={"+20%"}
+					footer={"الشهر الماضي"}
+					footervalue={"%20+"}
 					footercolor={"text-green-400"}
 				/>
 				<CiCard
 					icon={<ShoppingBagIcon className="w-8 h-8 text-white" />}
 					color={"bg-azure"}
-					title={"sold"}
+					title={"تم بيعه"}
 					value={"219"}
-					footer={"	last month"}
-					footervalue={"-1%"}
+					footer={"الشهر الماضي"}
+					footervalue={"%1-"}
 					footercolor={"text-red-400"}
 				/>
 				<CiCard
 					icon={<CurrencyDollarIcon className="w-8 h-8 text-white" />}
 					color={"bg-pink-500"}
-					title={"revenue"}
+					title={"الارباح"}
 					value={"1500$"}
-					footer={"	last month"}
-					footervalue={"+5%"}
+					footer={"الشهر الماضي"}
+					footervalue={"%5+"}
 					footercolor={"text-green-400"}
 				/>
 				<CiCard
 					icon={<EyeIcon className="w-8 h-8 text-white" />}
 					color={"bg-red-400"}
-					title={"views"}
+					title={"المشاهدات"}
 					value={"2833"}
-					footer={"	last month"}
-					footervalue={"+10%"}
+					footer={"الشهر الماضي"}
+					footervalue={"%10+"}
 					footercolor={"text-green-400"}
 				/>
 			</div>
 
-
 			<div className="w-">
-				<CiTable />
+				<CiTable TABS={TABS} TABLE_HEAD={TABLE_HEAD} TABLE_ROWS={TABLE_ROWS} />
 			</div>
 		</div>
 	);

@@ -22,37 +22,43 @@ export default function Navbar() {
 	return (
 		<aside className="sticky top-16 left-0 mx-1 h-5/6 w-fit  p-4  shadow-lg rounded-xl  bg-primaryColor z-50 hidden md:block">
 			<div className="mb-2 p-4">
-				<Typography variant="h5" color="white">
-					Fri7a admin panel
+				<Typography variant="h5" color="white" className="font-Hacen-Tunisia">
+					مركز القيادة
 				</Typography>
 			</div>
 
 			<List>
 				<Link href="/dashboard">
-					<ListItem className="hover:bg-scandaryColor">
+					<ListItem className="hover:bg-scandaryColor gap-1 ">
 						<ListItemPrefix>
 							<PresentationChartBarIcon className="h-5 w-5" />
 						</ListItemPrefix>
 
-						<Typography color="white">dashboard</Typography>
+						<Typography color="white" className="font-Hacen-Tunisia">
+							لوحة التحكم
+						</Typography>
 					</ListItem>
 				</Link>
 				<Link href="#">
-					<ListItem className="hover:bg-scandaryColor">
+					<ListItem className="hover:bg-scandaryColor gap-1">
 						<ListItemPrefix>
 							<ShoppingBagIcon className="h-5 w-5" />
 						</ListItemPrefix>
 
-						<Typography color="white">e-commerce</Typography>
+						<Typography color="white" className="font-Hacen-Tunisia">
+							الموقع
+						</Typography>
 					</ListItem>
 				</Link>
 				<Link href="/orders">
-					<ListItem className="hover:bg-scandaryColor">
+					<ListItem className="hover:bg-scandaryColor gap-1">
 						<ListItemPrefix>
 							<InboxIcon className="h-5 w-5" />
 						</ListItemPrefix>
 
-						<Typography color="white">orders</Typography>
+						<Typography color="white" className="font-Hacen-Tunisia">
+							الطلبيات
+						</Typography>
 
 						<ListItemSuffix>
 							<Chip
@@ -66,30 +72,38 @@ export default function Navbar() {
 					</ListItem>
 				</Link>
 				<Link href="/products">
-					<ListItem className="hover:bg-scandaryColor">
+					<ListItem className="hover:bg-scandaryColor gap-1">
 						<ListItemPrefix>
 							<PlusCircleIcon className="h-5 w-5" />
 						</ListItemPrefix>
 
-						<Typography color="white"> products</Typography>
+						<Typography color="white" className="font-Hacen-Tunisia">
+							{" "}
+							المنتجات
+						</Typography>
 					</ListItem>
 				</Link>
 				<Link href="/reels">
-					<ListItem className="hover:bg-scandaryColor">
+					<ListItem className="hover:bg-scandaryColor gap-1 ">
 						<ListItemPrefix>
 							<CameraIcon className="h-5 w-5" />
 						</ListItemPrefix>
 
-						<Typography color="white"> reels</Typography>
+						<Typography color="white" className="font-Hacen-Tunisia">
+							{" "}
+							ريلز
+						</Typography>
 					</ListItem>
 				</Link>
 				<Link href="/">
-					<ListItem className="hover:bg-scandaryColor">
+					<ListItem className="hover:bg-scandaryColor gap-1">
 						<ListItemPrefix>
 							<PowerIcon className="h-5 w-5" />
 						</ListItemPrefix>
 
-						<Typography color="white">logout</Typography>
+						<Typography color="white" className="font-Hacen-Tunisia">
+							تسجيل الخروج
+						</Typography>
 					</ListItem>{" "}
 				</Link>
 			</List>

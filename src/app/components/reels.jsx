@@ -18,6 +18,10 @@ import Shorty from './short2';
 export default function Reels() {
       const [open, setOpen] = useState(false);
 			const toggleOpen = () => setOpen((cur) => !cur);
+			const [title, setTitle] = useState("");
+			const handleTitle = (e) => {setTitle(e.target.value)}
+			const [subtitle, setSubtitle] = useState("");
+			const handleSubtitle = (e2) => {setSubtitle(e2.target.value)}	
   return (
 		<>
 			<div className="flex flex-row items-center  justify-center p-2 md:w-fit">
@@ -29,10 +33,23 @@ export default function Reels() {
 					</CardHeader>
 					<CardBody className="flex flex-row items-center justify-center gap-2">
 						<div className="flex flex-col items-center justify-center gap-2">
-							<Input type="text" label="Reel name" size="md" color="teal" />
-							<Input type="text" label="description" size="md" color="teal" />
-							<Input type="file" label="video" size="md" color="teal" />
-							<Shorty />
+							<Input
+								type="text"
+								label="Reel name"
+								size="md"
+								color="teal"
+								onChange={handleTitle}
+							/>
+							<Input
+								type="text"
+								label="description"
+								size="md"
+								color="teal"
+								onChange={handleSubtitle}
+							/>
+							<label htmlFor="Myfile">video</label>
+							<input type="file"  name='Myfile' id='Myfile' className='hidden' />
+							<Shorty title={title} subtitle={subtitle} />
 
 							<div className="flex flex-col items-center justify-center gap-2">
 								<Button onClick={toggleOpen} className="rounded-xl bg-card1">
@@ -40,10 +57,17 @@ export default function Reels() {
 								</Button>
 								<div>
 									<Card
-										className={`flex transition-all flex-row items-center justify-center  md:w-fit ${open ? "" : "hidden"}`}
+										className={`flex transition-all flex-row items-center justify-center  md:w-fit ${
+											open ? "" : "hidden"
+										}`}
 									>
 										<CardBody className="w-fit flex flex-row items-center justify-center ">
-											<Input type="file" label="video" color="teal" className='max-w-[200px]' />
+											<Input
+												type="text"
+												label="link"
+												color="teal"
+												className="max-w-[200px]"
+											/>
 										</CardBody>
 									</Card>
 								</div>
