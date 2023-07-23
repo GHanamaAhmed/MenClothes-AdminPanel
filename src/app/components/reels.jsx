@@ -24,7 +24,7 @@ export default function Reels() {
 			const handleSubtitle = (e2) => {setSubtitle(e2.target.value)}	
   return (
 		<>
-			<div className="flex flex-row items-center  justify-center p-2 md:w-fit">
+			<div className="flex flex-row items-center  justify-center  md:w-full">
 				<Card className=" w-fit max-w-2/3 bg-white shadow-lg rounded-lg p-4">
 					<CardHeader className="mb-4 grid h-28 place-items-center bg-card1">
 						<Typography variant="h3" color="white">
@@ -47,7 +47,7 @@ export default function Reels() {
 								color="teal"
 								onChange={handleSubtitle}
 							/>
-							<label htmlFor="Myfile">video</label>
+							<label htmlFor="Myfile" className='bg-scandaryColor rounded-lg p-2 text-white hover:shadow-scandaryColor cursor-pointer shadow-md transition-all ease-in-out delay-150'>video</label>
 							<input type="file"  name='Myfile' id='Myfile' className='hidden' />
 							<Shorty title={title} subtitle={subtitle} />
 

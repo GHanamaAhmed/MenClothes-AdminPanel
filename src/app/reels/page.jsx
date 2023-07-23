@@ -57,7 +57,7 @@ export default function page() {
 						<ArrowLeftIcon />
 					</button>
 				</div>
-				<div className="w-11/12">
+				<div className="w-full">
 					<Swipers />
 				</div>
 			</section>

@@ -22,7 +22,7 @@ export default function Swipers() {
 	return !isLoading ? (
 		<Swiper
 			modules={[A11y, Navigation, Pagination]}
-			spaceBetween={50}
+			spaceBetween={40}
 			slidesPerView={1.5}
 			scrollbar={{ draggable: true }}
 			freeMode={true}
@@ -33,16 +33,16 @@ export default function Swipers() {
 			watchOverflow={false}
 			breakpoints={{
 				640: {
-					slidesPerView: 2.5,
-					spaceBetween: 20,
+					slidesPerView: 2,
+					spaceBetween: 15,
 				},
 				960: {
-					slidesPerView: 3.5,
-					spaceBetween: 40,
+					slidesPerView: 3,
+					spaceBetween: 35,
 				},
 				1160: {
-					slidesPerView: 4.5,
-					spaceBetween: 60,
+					slidesPerView: 4,
+					spaceBetween: 55,
 				},
 				
 			}}

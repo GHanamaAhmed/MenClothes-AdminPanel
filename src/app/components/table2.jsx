@@ -26,8 +26,9 @@ export default function CiTable2({ TABS, TABLE_HEAD, TABLE_ROWS }) {
 	const [open, setOpen] = useState(false);
 
 	const handleOpen = () => setOpen(!open);
+	
 	return (
-		<Card className="h-full  md:w-fit lg:w-full shadow-lg text-right">
+		<Card className="h-full  md:w-fit lg:w-full shadow-lg text-right " >
 			<CardHeader floated={false} shadow={false} className="rounded-none">
 				<div className="mb-8 flex items-center justify-between gap-8">
 					<div>
@@ -63,10 +64,9 @@ export default function CiTable2({ TABS, TABLE_HEAD, TABLE_ROWS }) {
 							))}
 						</TabsHeader>
 					</Tabs>
-					<div className="w-full md:w-60">
+					<div className="w-full md:w-60 ">
 						<Input
-							label="Search"
-							icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+							label="بحث"
 						/>
 					</div>
 				</div>
@@ -83,7 +83,7 @@ export default function CiTable2({ TABS, TABLE_HEAD, TABLE_ROWS }) {
 									<Typography
 										variant="small"
 										color="blue-gray"
-										className="font-normal leading-none opacity-70"
+										className="font-Hacen-Tunisia leading-none opacity-70"
 									>
 										{head}
 									</Typography>
@@ -100,22 +100,22 @@ export default function CiTable2({ TABS, TABLE_HEAD, TABLE_ROWS }) {
 									: "p-4 border-b border-blue-gray-50";
 
 								return (
-									<tr key={name}>
-										<td className={classes}>
+									<tr key={name}  >
+										<td className={classes} >
 											<div className="flex items-center gap-3">
-												<Avatar src={img} alt={name} size="sm" />
+												<Avatar src={img} alt={name} size="sm" className="z-10"  />
 												<div className="hidden flex-col  md:flex">
 													<Typography
 														variant="small"
 														color="blue-gray"
-														className="font-normal"
+														className="font-Hacen-Tunisia"
 													>
 														{name}
 													</Typography>
 													<Typography
 														variant="small"
 														color="blue-gray"
-														className="font-normal opacity-70"
+														className="font-Hacen-Tunisia opacity-70"
 													>
 														{email}
 													</Typography>
@@ -127,14 +127,14 @@ export default function CiTable2({ TABS, TABLE_HEAD, TABLE_ROWS }) {
 												<Typography
 													variant="small"
 													color="blue-gray"
-													className="font-normal"
+													className="font-Hacen-Tunisia"
 												>
 													{items}
 												</Typography>
 												<Typography
 													variant="small"
 													color="blue-gray"
-													className="font-normal opacity-70"
+													className="font-Hacen-Tunisia opacity-70"
 												>
 													{paid}
 												</Typography>
@@ -174,7 +174,7 @@ export default function CiTable2({ TABS, TABLE_HEAD, TABLE_ROWS }) {
 											<Typography
 												variant="small"
 												color="blue-gray"
-												className="font-normal"
+												className="font-Hacen-Tunisia"
 											>
 												{date}
 											</Typography>
@@ -187,7 +187,7 @@ export default function CiTable2({ TABS, TABLE_HEAD, TABLE_ROWS }) {
 				</table>
 			</CardBody>
 			<CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-				<Typography variant="small" color="blue-gray" className="font-normal">
+				<Typography variant="small" color="blue-gray" className="font-Hacen-Tunisia">
 					Page 1 of 10
 				</Typography>
 				<div className="flex gap-2">

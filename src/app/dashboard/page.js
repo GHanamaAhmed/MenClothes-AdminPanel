@@ -124,7 +124,7 @@ export default function Home() {
 			</div>
 
 			<div className="w-">
-				<CiTable TABS={TABS} TABLE_HEAD={TABLE_HEAD} TABLE_ROWS={TABLE_ROWS} />
+				<CiTable TABS={TABS} TABLE_HEAD={TABLE_HEAD} TABLE_ROWS={TABLE_ROWS} Header={'المستخدمون الاوفياء'} subheader={"عرض معلومات حول هؤلاء المستخدمين"}/>
 			</div>
 		</div>
 	);

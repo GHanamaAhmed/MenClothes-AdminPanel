@@ -77,7 +77,6 @@ export default function Reels2({tit ,subtit ,like ,comm ,views}) {
 							</div>
 						</div>
 					</CardBody>
-
 				</Card>
 			</div>
 		</>

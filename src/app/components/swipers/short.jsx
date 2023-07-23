@@ -36,26 +36,22 @@ export default function Short({ likes, comments, views, title, subtitle }) {
 				<p className="text-lg text-white">{title}</p>
 				<p className="text-sm text-white">{subtitle}</p>
 			</div>
-			<div className="relative flex items-center justify-start text-right">
-				<Image
-					priority
-					className="m-0 h-72 max-h-none w-52 max-w-none rounded-lg md:h-80 md:w-60"
-					src={reel}
-					alt="reel"
-				/>
+			<div className="relative m-0  max-w-none rounded-lg h-72 max-h-none w-52 md:h-80 md:w-60 flex items-center justify-start text-right">
+				<Image priority fill className=" " src={reel} alt="reel" />
+				<div className="absolute bottom-1 left-1  lg:left-2 z-10 flex flex-col text-right">
+					<p className="text-sm text-red-500 flex flex-row-reverse items-center justify-end ">
+						{likes} <HeartIcon width={25} height={25} className="text-sm" />
+					</p>
+					<p className="text-sm text-scandaryColor flex flex-row-reverse items-center justify-end ">
+						{comments}{" "}
+						<ChatBubbleBottomCenterIcon width={25} height={25} className="" />
+					</p>
+					<p className="text-sm text-trueblue flex flex-row-reverse items-center justify-end">
+						{views} <EyeIcon className="" width={25} height={25} />
+					</p>
+				</div>
 			</div>
-			<div className="absolute bottom-[5%] left-[10%]  lg:-left-[15%] z-10 flex flex-col text-right">
-				<p className="text-sm text-red-500 flex flex-row-reverse items-center justify-end ">
-					{likes} <HeartIcon width={25} height={25} className="text-sm" />
-				</p>
-				<p className="text-sm text-scandaryColor flex flex-row-reverse items-center justify-end ">
-					{comments}{" "}
-					<ChatBubbleBottomCenterIcon width={25} height={25} className="" />
-				</p>
-				<p className="text-sm text-trueblue flex flex-row-reverse items-center justify-end">
-					{views} <EyeIcon className="" width={25} height={25} />
-				</p>
-			</div>
+
 			<div className="absolute top-[5%] right-[10%]  lg:right-1 z-10 flex flex-col gap-2 text-right">
 				<IconButton className="bg-transparent shadow-none hover:shadow-red-500">
 					<p className="text-sm text-red-500 flex flex-row-reverse items-center justify-end ">
