@@ -233,7 +233,10 @@ export default function ProductTable({
 						<Button
 							variant="gradient"
 							color="blue"
-							onClick={() => {handleOpen2();handleOpen();}}
+							onClick={() => {
+								handleOpen2();
+								handleOpen();
+							}}
 							className="mr-1"
 						>
 							<span>عرض المنتج</span>
@@ -249,9 +252,12 @@ export default function ProductTable({
 					</DialogFooter>
 				</Dialog>
 			</CardFooter>
-			<Dialog open={open} handler={handleOpen}>
+			<Dialog open={open} handler={handleOpen} size="lg">
 				<DialogHeader>Product</DialogHeader>
-				<DialogBody divider> <Edit></Edit></DialogBody>
+				<DialogBody divider className="flex flex-col items-center justify-center gap-4">
+
+					<Edit />
+				</DialogBody>
 				<DialogFooter className="flex items-center justify-end gap-4">
 					<Button
 						variant="text"

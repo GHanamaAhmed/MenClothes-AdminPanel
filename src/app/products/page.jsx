@@ -9,6 +9,7 @@ import CiCard from "../components/cards";
 import { ReceiptRefundIcon } from "@heroicons/react/24/solid";
 import CiTable from "../components/table";
 import ProductTable from "../components/ProductTable";
+import Gallary from "../components/gallary";
 const TABS = [
 	{
 		label: "All",
@@ -124,6 +125,7 @@ export default function page() {
 					footercolor={"text-green-400"}
 				/>
 			</div>
+			<div className="w-full h-full overflow-hidden"><Gallary/></div>
 			<div>
 				<ProductTable
 					TABLE_HEAD={TABLE_HEAD}

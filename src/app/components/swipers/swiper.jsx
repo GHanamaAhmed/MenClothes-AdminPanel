@@ -12,8 +12,7 @@ import { useEffect, useState } from "react";
 import Short from "./short";
 import { selep } from "./sleep";
 import SwiperLoading from "./swiperLoading";
-import { HeartIcon } from "@heroicons/react/24/solid";
-import { ChatBubbleBottomCenterIcon, EyeIcon } from "@heroicons/react/24/outline";
+
 export default function Swipers() {
 	const [isLoading, setIsLoading] = useState(true);
 	useEffect(() => {

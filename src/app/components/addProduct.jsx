@@ -63,7 +63,7 @@ export default function AddProduct() {
 								</x.Button>
 								<x.Button
 									onClick={addDetails}
-									variant=""
+									variant="gradient"
 									className="flex flex-row items-center justify-center gap-2"
 								>
 									<PlusIcon className="h-5 w-5"></PlusIcon>

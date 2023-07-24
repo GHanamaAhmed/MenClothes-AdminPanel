@@ -32,8 +32,16 @@ import {
 	DialogHeader,
 	DialogBody,
 	DialogFooter,
+	Menu,
+	MenuHandler,
+	MenuList,
+	MenuItem,
+	Select,
+	Option,
+	tooltip,
 } from "@material-tailwind/react";
 export {
+	tooltip,
 	Drawer,
 	List,
 	ListItem,
@@ -65,4 +73,10 @@ export {
 	DialogHeader,
 	DialogBody,
 	DialogFooter,
+	Menu,
+	MenuHandler,
+	MenuList,
+	MenuItem,
+	Select,
+	Option,
 };
