@@ -22,6 +22,7 @@ import {
 	ListItemSuffix,
 	Chip,
 	Navbar,
+	Carousel,
 	MobileNav,
 	Card,
 	SpeedDial,
@@ -78,5 +79,6 @@ export {
 	MenuList,
 	MenuItem,
 	Select,
+	Carousel,
 	Option,
 };

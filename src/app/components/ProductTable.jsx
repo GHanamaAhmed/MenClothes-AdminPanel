@@ -252,8 +252,8 @@ export default function ProductTable({
 					</DialogFooter>
 				</Dialog>
 			</CardFooter>
-			<Dialog open={open} handler={handleOpen} size="lg">
-				<DialogHeader>Product</DialogHeader>
+			<Dialog open={open} handler={handleOpen} size="xl" className="w-full h-fit">
+				<DialogHeader>المنتج</DialogHeader>
 				<DialogBody divider className="flex flex-col items-center justify-center gap-4">
 
 					<Edit />

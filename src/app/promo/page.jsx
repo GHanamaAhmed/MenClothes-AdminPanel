@@ -11,6 +11,8 @@ import CiTable from "../components/table";
 import ProductTable from "../components/ProductTable";
 import Gallary from "../components/gallary";
 import Promo from "../components/promo";
+import { BiSolidCoupon } from "react-icons/bi";
+import { FcExpired } from "react-icons/fc";
 const TABS = [
 	{
 		label: "All",
@@ -90,10 +92,10 @@ export default function page() {
 			<SpeedyDial />
 			<div className="h-1/3 m-5 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-8">
 				<CiCard
-					icon={<CubeIcon className="w-8 h-8 text-white" />}
+					icon={<BiSolidCoupon className="h-8 w-8 text-white" />}
 					color={"bg-primaryColor"}
-					title={"منتجات"}
-					value={"53"}
+					title={"promo codes"}
+					value={"12"}
 					footer={"الشهر السابق"}
 					footervalue={"%20+"}
 					footercolor={"text-green-400"}
@@ -101,8 +103,8 @@ export default function page() {
 				<CiCard
 					icon={<HeartIcon className="w-8 h-8 text-white" />}
 					color={"bg-azure"}
-					title={"اعحاب"}
-					value={"219"}
+					title={"المتبقي"}
+					value={"5"}
 					footer={"الشهر السابق"}
 					footervalue={"%1-"}
 					footercolor={"text-red-400"}
@@ -117,25 +119,18 @@ export default function page() {
 					footercolor={"text-green-400"}
 				/>
 				<CiCard
-					icon={<ReceiptRefundIcon className="w-8 h-8 text-white" />}
+					icon={<FcExpired className="w-8 h-8 text-white" />}
 					color={"bg-trueblue"}
-					title={"الرتور"}
-					value={"10"}
+					title={"المستخذم"}
+					value={"7"}
 					footer={"الشهر السابق"}
 					footervalue={"%5+"}
 					footercolor={"text-green-400"}
 				/>
 			</div>
-
-			<div>
-				<ProductTable
-					TABLE_HEAD={TABLE_HEAD}
-					TABLE_ROWS={TABLE_ROWS}
-					TABS={TABS}
-					Header={"products"}
-					subheader={"see products"}
-				/>
-			</div>
+            <div className=" flex flex-row items-center justify-center">
+                <Promo/>
+            </div>
 		</div>
 	);
 }

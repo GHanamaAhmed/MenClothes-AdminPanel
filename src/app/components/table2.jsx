@@ -100,10 +100,15 @@ export default function CiTable2({ TABS, TABLE_HEAD, TABLE_ROWS }) {
 									: "p-4 border-b border-blue-gray-50";
 
 								return (
-									<tr key={name}  >
-										<td className={classes} >
+									<tr key={name}>
+										<td className={classes}>
 											<div className="flex items-center gap-3">
-												<Avatar src={img} alt={name} size="sm" className="z-10"  />
+												<Avatar
+													src={img}
+													alt={name}
+													size="sm"
+													className="z-10"
+												/>
 												<div className="hidden flex-col  md:flex">
 													<Typography
 														variant="small"
@@ -147,9 +152,7 @@ export default function CiTable2({ TABS, TABLE_HEAD, TABLE_ROWS }) {
 												</Button>
 												<Dialog open={open} handler={handleOpen}>
 													<DialogHeader>الطلبية</DialogHeader>
-													<DialogBody divider>
-														{order}
-													</DialogBody>
+													<DialogBody divider>{order}</DialogBody>
 													<DialogFooter>
 														<Button
 															variant="text"
@@ -161,8 +164,17 @@ export default function CiTable2({ TABS, TABLE_HEAD, TABLE_ROWS }) {
 														</Button>
 														<Button
 															variant="gradient"
+															color="red"
+															onClick={handleOpen}
+															className="mr-1"
+														>
+															<span>رفض الطلبية</span>
+														</Button>
+														<Button
+															variant="gradient"
 															color="green"
 															onClick={handleOpen}
+															className="mr-1"
 														>
 															<span>قبول الطلبية</span>
 														</Button>

@@ -7,17 +7,32 @@ export default function Edit() {
 	const images = {
 		white: [
 			"https://www.shutterstock.com/shutterstock/photos/1474887965/display_1500/stock-photo-white-t-shirts-mockup-front-and-back-used-as-design-template-1474887965.jpg",
+			"https://www.shutterstock.com/shutterstock/photos/1474887965/display_1500/stock-photo-white-t-shirts-mockup-front-and-back-used-as-design-template-1474887965.jpg",
+			"https://www.shutterstock.com/shutterstock/photos/1474887965/display_1500/stock-photo-white-t-shirts-mockup-front-and-back-used-as-design-template-1474887965.jpg",
+			"https://www.shutterstock.com/shutterstock/photos/1474887965/display_1500/stock-photo-white-t-shirts-mockup-front-and-back-used-as-design-template-1474887965.jpg",
 		],
 		black: [
+			"https://as1.ftcdn.net/v2/jpg/02/70/26/92/1000_F_270269250_8d6GYDR1VDFlu0tjzC20uw8bVMCwJeFI.jpg",
+			"https://as1.ftcdn.net/v2/jpg/02/70/26/92/1000_F_270269250_8d6GYDR1VDFlu0tjzC20uw8bVMCwJeFI.jpg",
+			"https://as1.ftcdn.net/v2/jpg/02/70/26/92/1000_F_270269250_8d6GYDR1VDFlu0tjzC20uw8bVMCwJeFI.jpg",
 			"https://as1.ftcdn.net/v2/jpg/02/70/26/92/1000_F_270269250_8d6GYDR1VDFlu0tjzC20uw8bVMCwJeFI.jpg",
 		],
 		blue: [
 			"https://as2.ftcdn.net/v2/jpg/04/95/61/43/1000_F_495614379_I1OZEKXgYnw6dj3IGq6pezJxlNnuTUzo.jpg",
+			"https://as2.ftcdn.net/v2/jpg/04/95/61/43/1000_F_495614379_I1OZEKXgYnw6dj3IGq6pezJxlNnuTUzo.jpg",
+			"https://as2.ftcdn.net/v2/jpg/04/95/61/43/1000_F_495614379_I1OZEKXgYnw6dj3IGq6pezJxlNnuTUzo.jpg",
+			"https://as2.ftcdn.net/v2/jpg/04/95/61/43/1000_F_495614379_I1OZEKXgYnw6dj3IGq6pezJxlNnuTUzo.jpg",
 		],
 		red: [
 			"https://as1.ftcdn.net/v2/jpg/04/95/61/44/1000_F_495614430_fBwc1WsnTMpBG6sxRjy4UXzqopWyp2hQ.jpg",
+			"https://as1.ftcdn.net/v2/jpg/04/95/61/44/1000_F_495614430_fBwc1WsnTMpBG6sxRjy4UXzqopWyp2hQ.jpg",
+			"https://as1.ftcdn.net/v2/jpg/04/95/61/44/1000_F_495614430_fBwc1WsnTMpBG6sxRjy4UXzqopWyp2hQ.jpg",
+			"https://as1.ftcdn.net/v2/jpg/04/95/61/44/1000_F_495614430_fBwc1WsnTMpBG6sxRjy4UXzqopWyp2hQ.jpg",
 		],
 		yellow: [
+			"https://as2.ftcdn.net/v2/jpg/05/78/91/33/1000_F_578913311_ObRfcIlsgFbcb79sFdsj5QqdeOM8FSdI.jpg",
+			"https://as2.ftcdn.net/v2/jpg/05/78/91/33/1000_F_578913311_ObRfcIlsgFbcb79sFdsj5QqdeOM8FSdI.jpg",
+			"https://as2.ftcdn.net/v2/jpg/05/78/91/33/1000_F_578913311_ObRfcIlsgFbcb79sFdsj5QqdeOM8FSdI.jpg",
 			"https://as2.ftcdn.net/v2/jpg/05/78/91/33/1000_F_578913311_ObRfcIlsgFbcb79sFdsj5QqdeOM8FSdI.jpg",
 		],
 	};
@@ -60,18 +75,50 @@ const [quantityValue, setQuantityValue] = useState(quantity[selectedColor]);
 
   return (
 		<div className="flex flex-col items-center justify-center h-full w-full">
-			<Card className="flex flex-col items-center justify-center h-full w-full overflow-hidden">
-				<CardBody className="flex flex-row items-center justify-center  w-full overflow-hidden">
+			<Card className="flex flex-col items-center justify-center h-full w-full">
+				<CardBody className="flex flex-row items-center justify-center  w-full ">
 					<div>
-						<div className="flex flex-col items-center justify-evenly gap-2">
-							<div className="w-11/12 h-full flex flex-col items-center justify-evenly  ">
-								<Gallary />
+						<div className="flex flex-col items-center justify-evenly gap-4">
+							<div className="flex flex-row items-center justify-center gap-2">
+								<div className="flex flex-row gap-4 justify-evenly items-center font-Hacen-Tunisia">
+									<Input
+										label="الاسم"
+										size="lg"
+										name="name"
+										defaultValue={"adidas t-shirt"}
+										className="font-Hacen-Tunisia"
+									/>
+									<Input
+										label="النوع"
+										size="lg"
+										name="type"
+										defaultValue={"قميص"}
+										className="font-Hacen-Tunisia"
+									/>
+									<Input
+										label="السعر"
+										size="lg"
+										name="price"
+										value={"2500 da"}
+										className="font-Hacen-Tunisia"
+									/>
+									<Input
+										label="الوصف"
+										size="lg"
+										name="description"
+										value={"اشتري بأحسن الاسعار"}
+										className="text-justify font-Hacen-Tunisia"
+									/>
+								</div>
+							</div>
+							<div className="w-full h-full flex flex-row items-center justify-center ">
+								<Gallary images={images[selectedColor]} />
 							</div>
 							<div className="flex flex-row items-center justify-center gap-2">
 								<Select
 									variant="outlined"
 									size="lg"
-									label="Color"
+									label="اللون"
 									value={selectedColor}
 									onChange={handleColorChange}
 								>
@@ -84,7 +131,7 @@ const [quantityValue, setQuantityValue] = useState(quantity[selectedColor]);
 								<Select
 									variant="outlined"
 									size="lg"
-									label="Size"
+									label="الحجم"
 									value={sizes[selectedColor][0]}
 									onChange={handleSizeChange}
 								>
@@ -97,7 +144,7 @@ const [quantityValue, setQuantityValue] = useState(quantity[selectedColor]);
 								</Select>
 								<Input
 									type="text"
-									label="Quantity"
+									label="الكمية"
 									inputMode="numeric"
 									value={quantityValue}
 									onChange={handleQuantityChange}
