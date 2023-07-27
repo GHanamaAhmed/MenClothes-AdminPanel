@@ -6,84 +6,68 @@ import {
 	HeartIcon,
 } from "@heroicons/react/24/outline";
 import CiCard from "../components/cards";
-import { ReceiptRefundIcon } from "@heroicons/react/24/solid";
-import CiTable from "../components/table";
-import ProductTable from "../components/ProductTable";
-import Gallary from "../components/gallary";
 import Promo from "../components/promo";
 import { BiSolidCoupon } from "react-icons/bi";
 import { FcExpired } from "react-icons/fc";
+import CiPromoTable from "../components/tablepromo";
 const TABS = [
 	{
 		label: "All",
 		value: "all",
 	},
 	{
-		label: "حذاء",
-		value: "1 حذاء",
+		label: "استعمل",
+		value: " استعمل",
 	},
 	{
-		label: "حذاء",
-		value: "2 حذاء",
-	},
-	{
-		label: "حذاء",
-		value: "3 حذاء",
+		label: "لم يستعمل",
+		value: "لم يستعمل",
 	},
 ];
 
-const TABLE_HEAD = ["المنتج", "الكمية", "ريل", "تاريخ الاضافة"];
+const TABLE_HEAD = [
+	"الكود",
+	"الاستعمال",
+	"تاريخ الاضافة",
+	"تاريخ الاستعمال",
+	" ",
+];
 
 const TABLE_ROWS = [
 	{
-		img: "https://images.pexels.com/photos/2783873/pexels-photo-2783873.jpeg?auto=compress&cs=tinysrgb&w=600",
-		name: "adidas1",
-		price: "77$",
-		stock: "77",
-		type: "حذاء",
-		reel: "#",
-		reelid: "ttt",
-		date: "23/04/18",
+		Promocode: "vine33",
+		percentage: "21%",
+		Used: true,
+		createDate: "7/7/2023",
+		useDate:"6/5/2023",
 	},
 	{
-		img: "https://images.pexels.com/photos/2783873/pexels-photo-2783873.jpeg?auto=compress&cs=tinysrgb&w=600",
-		name: "adidas2",
-		price: "77$",
-		stock: "65",
-		type: "حذاء",
-		reel: "#",
-		reelid: "ttt",
-		date: "23/04/18",
+		Promocode: "summer77",
+		percentage: "22%",
+		Used: true,
+		createDate: "6/5/2023",
+		useDate:"6/5/2023",
 	},
 	{
-		img: "https://images.pexels.com/photos/2783873/pexels-photo-2783873.jpeg?auto=compress&cs=tinysrgb&w=600",
-		name: "adidas3",
-		price: "77$",
-		stock: "59",
-		type: "حذاء",
-		reel: "#",
-		reelid: "ttt",
-		date: "19/09/17",
+		Promocode: "School01",
+		percentage: "23%",
+		Used: true,
+		createDate: "5/9/2023",
+		useDate:"6/5/2023",
 	},
 	{
-		img: "https://images.pexels.com/photos/2783873/pexels-photo-2783873.jpeg?auto=compress&cs=tinysrgb&w=600",
-		name: "adidas4",
-		price: "77$",
-		stock: "55",
-		type: "حذاء",
-		reel: "#",
-		reelid: "ttt",
-		date: "24/12/08",
+		Promocode: "wow12",
+		percentage: "24%",
+		Used: true,
+		createDate: "5/5/2023",
+		useDate:"6/5/2023",
 	},
 	{
-		img: "https://images.pexels.com/photos/2783873/pexels-photo-2783873.jpeg?auto=compress&cs=tinysrgb&w=600",
-		name: "adidas5",
-		price: "77$",
-		stock: "52",
-		type: "حذاء",
-		reel: "#",
-		reelid: "ttt",
-		date: "04/10/21",
+		Promocode: "real20",
+		percentage: "25%",
+		Used: true,
+		createDate: "5/2/2023",
+		useDate:"6/5/2023",
 	},
 ];
 export default function page() {
@@ -128,9 +112,18 @@ export default function page() {
 					footercolor={"text-green-400"}
 				/>
 			</div>
-            <div className=" flex flex-row items-center justify-center">
-                <Promo/>
-            </div>
+			<div className=" flex flex-row items-center justify-center">
+				<Promo />
+			</div>
+			<div>
+				<CiPromoTable
+					TABLE_HEAD={TABLE_HEAD}
+					TABLE_ROWS={TABLE_ROWS}
+					TABS={TABS}
+					Header={"جدول الاكواد"}
+					subheader={"جدول لعرض الاكواد التخفيض"}
+				/>
+			</div>
 		</div>
 	);
 }
