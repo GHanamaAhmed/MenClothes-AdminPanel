@@ -25,8 +25,14 @@ export default function CiTable({
   TABLE_ROWS,
   Header,
   subheader,
+  tab,
+  count,
+  max,
+  onChangeTab,
+  onChangeInpute,
+  onChangePage,
 }) {
-  const [tab, setTab] = useState("all");
+  const [page, setPage] = useState(1);
   return (
     <Card className="h-full  md:w-fit lg:w-full shadow-lg text-right">
       <CardHeader floated={false} shadow={false} className="rounded-none">
@@ -58,7 +64,11 @@ export default function CiTable({
           <Tabs value="all" className="w-full md:w-max">
             <TabsHeader>
               {TABS.map(({ label, value }) => (
-                <Tab key={value} value={value} onClick={() => setTab(value)}>
+                <Tab
+                  key={value}
+                  value={value}
+                  onClick={() => onChangeTab(value)}
+                >
                   &nbsp;&nbsp;{label}&nbsp;&nbsp;
                 </Tab>
               ))}
@@ -66,11 +76,15 @@ export default function CiTable({
           </Tabs>
           <div className="w-full md:w-60 flex flex-row justify-evenly items-center">
             <MagnifyingGlassIcon className="h-5 w-5  " />
-            <Input className="gap-1" label="بحث" />
+            <Input
+              className="gap-1"
+              label="بحث"
+              onChange={(e) => onChangeInpute(e.currentTarget.value)}
+            />
           </div>
         </div>
       </CardHeader>
-      <CardBody className="overflow-scroll px-0">
+      <CardBody className="px-0">
         <table className="mt-4 w-full min-w-max table-auto text-right font-Hacen-Tunisia">
           <thead>
             <tr className="font-Hacen-Tunisia">
@@ -97,69 +111,68 @@ export default function CiTable({
                 const classes = isLast
                   ? "p-4"
                   : "p-4 border-b border-blue-gray-50";
-                if (tab == "all" || tab == provider.toLowerCase())
-                  return (
-                    <tr key={name}>
-                      <td className={classes}>
-                        <div className="flex items-center gap-3">
-                          <Avatar src={img} alt={name} size="sm" />
-                          <div className="hidden flex-col  md:flex">
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal"
-                            >
-                              {name}
-                            </Typography>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal opacity-70"
-                            >
-                              {email}
-                            </Typography>
-                          </div>
-                        </div>
-                      </td>
-                      <td className={classes}>
-                        <div className="flex flex-col">
+                return (
+                  <tr key={name}>
+                    <td className={classes}>
+                      <div className="flex items-center gap-3">
+                        <Avatar src={img} alt={name} size="sm" />
+                        <div className="hidden flex-col  md:flex">
                           <Typography
                             variant="small"
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {items}
+                            {name}
                           </Typography>
                           <Typography
                             variant="small"
                             color="blue-gray"
                             className="font-normal opacity-70"
                           >
-                            {paid}
+                            {email}
                           </Typography>
                         </div>
-                      </td>
-                      <td className={classes}>
-                        <div className="w-max">
-                          <Chip
-                            variant="ghost"
-                            size="sm"
-                            value={provider}
-                            color={provider}
-                          />
-                        </div>
-                      </td>
-                      <td className={classes}>
+                      </div>
+                    </td>
+                    <td className={classes}>
+                      <div className="flex flex-col">
                         <Typography
                           variant="small"
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {date}
+                          {items}
                         </Typography>
-                      </td>
-                    </tr>
-                  );
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal opacity-70"
+                        >
+                          {paid}
+                        </Typography>
+                      </div>
+                    </td>
+                    <td className={classes}>
+                      <div className="w-max">
+                        <Chip
+                          variant="ghost"
+                          size="sm"
+                          value={provider}
+                          color={provider}
+                        />
+                      </div>
+                    </td>
+                    <td className={classes}>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {date}
+                      </Typography>
+                    </td>
+                  </tr>
+                );
               }
             )}
           </tbody>
@@ -167,13 +180,31 @@ export default function CiTable({
       </CardBody>
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
         <Typography variant="small" color="blue-gray" className="font-normal">
-          Page 1 of 10
+          Page {page} of {Math.ceil(count / max) || 1}
         </Typography>
         <div className="flex gap-2">
-          <Button variant="outlined" color="blue-gray" size="sm">
+          <Button
+            variant="outlined"
+            color="blue-gray"
+            size="sm"
+            onClick={() => {
+              setPage((prev) => prev - 1);
+              onChangePage(page - 1);
+            }}
+            disabled={page == 1 ? true : false}
+          >
             Previous
           </Button>
-          <Button variant="outlined" color="blue-gray" size="sm">
+          <Button
+            variant="outlined"
+            color="blue-gray"
+            size="sm"
+            onClick={() => {
+              setPage((prev) => prev + 1);
+              onChangePage(page + 1);
+            }}
+            disabled={Math.ceil(count / max) == page ? true : false}
+          >
             Next
           </Button>
         </div>

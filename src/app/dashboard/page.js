@@ -41,15 +41,24 @@ const formatDate = (date) => {
     day: "numeric",
   });
 };
+var max = 10;
 export default function Home() {
   const [users, setUser] = useState([]);
   const [nUsers, setNUser] = useState();
   const [sales, setSales] = useState();
   const [profits, setProfits] = useState();
   const [views, setViews] = useState();
+  const [tab, setTab] = useState("all");
+  const [input, setInput] = useState("");
+  const [min, setMin] = useState(0);
   useEffect(() => {
-    Axios.get("/users")
+    Axios.get(
+      `/users?min=${min}&max=${min + 10}&${
+        tab != "all" && tab ? `type=${tab}` : ""
+      }&${input ? `name=${input}` : ""}`
+    )
       .then((res) => {
+        setUser([]);
         res.data?.map((e) => {
           setUser((prev) => [
             ...prev,
@@ -73,7 +82,7 @@ export default function Home() {
       setProfits(res.data?.profits);
       setSales(res.data?.sales);
     });
-  }, []);
+  }, [input, tab, min]);
   return (
     <div className="shadow-lg p-1 m-1 rounded-xl h-fit md:h-full w-fit md:w-full  grid row-span-3 md:m-5 md:p-5  bg-white">
       <SpeedyDial />
@@ -123,6 +132,12 @@ export default function Home() {
           TABLE_ROWS={users}
           Header={"المستخدمون الاوفياء"}
           subheader={"عرض معلومات حول هؤلاء المستخدمين"}
+          tab={tab}
+          count={nUsers}
+          max={max}
+          onChangeTab={(value) => setTab(value)}
+          onChangeInpute={(value) => setInput(value)}
+          onChangePage={(value) => setMin((value - 1) * max)}
         />
       </div>
     </div>
