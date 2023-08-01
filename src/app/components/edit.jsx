@@ -10,8 +10,10 @@ export default function Edit() {
 			"https://www.shutterstock.com/shutterstock/photos/1474887965/display_1500/stock-photo-white-t-shirts-mockup-front-and-back-used-as-design-template-1474887965.jpg",
 			"https://www.shutterstock.com/shutterstock/photos/1474887965/display_1500/stock-photo-white-t-shirts-mockup-front-and-back-used-as-design-template-1474887965.jpg",
 			"https://www.shutterstock.com/shutterstock/photos/1474887965/display_1500/stock-photo-white-t-shirts-mockup-front-and-back-used-as-design-template-1474887965.jpg",
+			"https://www.shutterstock.com/shutterstock/photos/1474887965/display_1500/stock-photo-white-t-shirts-mockup-front-and-back-used-as-design-template-1474887965.jpg",
 		],
 		black: [
+			"https://as1.ftcdn.net/v2/jpg/02/70/26/92/1000_F_270269250_8d6GYDR1VDFlu0tjzC20uw8bVMCwJeFI.jpg",
 			"https://as1.ftcdn.net/v2/jpg/02/70/26/92/1000_F_270269250_8d6GYDR1VDFlu0tjzC20uw8bVMCwJeFI.jpg",
 			"https://as1.ftcdn.net/v2/jpg/02/70/26/92/1000_F_270269250_8d6GYDR1VDFlu0tjzC20uw8bVMCwJeFI.jpg",
 			"https://as1.ftcdn.net/v2/jpg/02/70/26/92/1000_F_270269250_8d6GYDR1VDFlu0tjzC20uw8bVMCwJeFI.jpg",
@@ -22,14 +24,17 @@ export default function Edit() {
 			"https://as2.ftcdn.net/v2/jpg/04/95/61/43/1000_F_495614379_I1OZEKXgYnw6dj3IGq6pezJxlNnuTUzo.jpg",
 			"https://as2.ftcdn.net/v2/jpg/04/95/61/43/1000_F_495614379_I1OZEKXgYnw6dj3IGq6pezJxlNnuTUzo.jpg",
 			"https://as2.ftcdn.net/v2/jpg/04/95/61/43/1000_F_495614379_I1OZEKXgYnw6dj3IGq6pezJxlNnuTUzo.jpg",
+			"https://as2.ftcdn.net/v2/jpg/04/95/61/43/1000_F_495614379_I1OZEKXgYnw6dj3IGq6pezJxlNnuTUzo.jpg",
 		],
 		red: [
 			"https://as1.ftcdn.net/v2/jpg/04/95/61/44/1000_F_495614430_fBwc1WsnTMpBG6sxRjy4UXzqopWyp2hQ.jpg",
 			"https://as1.ftcdn.net/v2/jpg/04/95/61/44/1000_F_495614430_fBwc1WsnTMpBG6sxRjy4UXzqopWyp2hQ.jpg",
 			"https://as1.ftcdn.net/v2/jpg/04/95/61/44/1000_F_495614430_fBwc1WsnTMpBG6sxRjy4UXzqopWyp2hQ.jpg",
 			"https://as1.ftcdn.net/v2/jpg/04/95/61/44/1000_F_495614430_fBwc1WsnTMpBG6sxRjy4UXzqopWyp2hQ.jpg",
+			"https://as1.ftcdn.net/v2/jpg/04/95/61/44/1000_F_495614430_fBwc1WsnTMpBG6sxRjy4UXzqopWyp2hQ.jpg",
 		],
 		yellow: [
+			"https://as2.ftcdn.net/v2/jpg/05/78/91/33/1000_F_578913311_ObRfcIlsgFbcb79sFdsj5QqdeOM8FSdI.jpg",
 			"https://as2.ftcdn.net/v2/jpg/05/78/91/33/1000_F_578913311_ObRfcIlsgFbcb79sFdsj5QqdeOM8FSdI.jpg",
 			"https://as2.ftcdn.net/v2/jpg/05/78/91/33/1000_F_578913311_ObRfcIlsgFbcb79sFdsj5QqdeOM8FSdI.jpg",
 			"https://as2.ftcdn.net/v2/jpg/05/78/91/33/1000_F_578913311_ObRfcIlsgFbcb79sFdsj5QqdeOM8FSdI.jpg",
