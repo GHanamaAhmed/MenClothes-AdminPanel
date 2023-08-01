@@ -17,6 +17,8 @@ import SpeedyDial from "../components/speedDial";
 import CiTable from "../components/table";
 import { useEffect, useState } from "react";
 import { Axios } from "../../../lib/axios";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchStatistique, fetchUsers } from "../redux/controlPanelReducer";
 const TABS = [
   {
     label: "الكل",
@@ -34,54 +36,27 @@ const TABS = [
 
 const TABLE_HEAD = ["المستخدمين", "الكمية", "حساب", "سجل"];
 
-const formatDate = (date) => {
-  return new Date(date).toLocaleDateString("en-us", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-};
 var max = 10;
 export default function Home() {
-  const [users, setUser] = useState([]);
-  const [nUsers, setNUser] = useState();
-  const [sales, setSales] = useState();
-  const [profits, setProfits] = useState();
-  const [views, setViews] = useState();
   const [tab, setTab] = useState("all");
   const [input, setInput] = useState("");
   const [min, setMin] = useState(0);
+  const dispatch = useDispatch();
+  const {
+    users: { users },
+    statistique: { nUsers, sales, profits, views },
+  } = useSelector((store) => store.controlPanel);
   useEffect(() => {
-    Axios.get(
-      `/users?min=${min}&max=${min + 10}&${
-        tab != "all" && tab ? `type=${tab}` : ""
-      }&${input ? `name=${input}` : ""}`
-    )
-      .then((res) => {
-        setUser([]);
-        res.data?.map((e) => {
-          setUser((prev) => [
-            ...prev,
-            {
-              img: e?.Photo,
-              name: e?.firstName + "-" + e?.lastName,
-              email: e?.email,
-              provider: e?.provider,
-              items: e?.products,
-              paid: e?.price,
-              subsicribed: false,
-              date: formatDate(e?.createAt),
-            },
-          ]);
-        });
-      })
+    users?.length ||
+      dispatch(fetchStatistique())
+        .unwrap()
+        .catch((err) => console.error(err));
+  }, []);
+  useEffect(() => {
+    dispatch(fetchUsers({ tab, input, min }))
+      .unwrap()
       .catch((err) => console.error(err));
-    Axios.get("/dashboard").then((res) => {
-      setNUser(res.data?.users);
-      setViews(res.data?.views);
-      setProfits(res.data?.profits);
-      setSales(res.data?.sales);
-    });
+    console.log(users);
   }, [input, tab, min]);
   return (
     <div className="shadow-lg p-1 m-1 rounded-xl h-fit md:h-full w-fit md:w-full  grid row-span-3 md:m-5 md:p-5  bg-white">

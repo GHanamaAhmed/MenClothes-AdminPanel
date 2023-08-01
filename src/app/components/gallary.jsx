@@ -8,8 +8,8 @@ import "swiper/css/effect-fade";
 
 export default function Gallary  ({images}) {
 	return (
-		<div className="flex flex-row items-center justify-between gap-2 rounded-lg w-full">
-			{images.map((image, index) => (
+		<div className="flex items-center justify-start gap-2 flex-nowrap overflow-x-auto overflow-y-hidden w-full">
+			{images?.map((image, index) => (
 				<div key={index}>
 					<label
 						htmlFor="file-input"
@@ -18,7 +18,7 @@ export default function Gallary  ({images}) {
 						<img
 							src={image}
 							alt="gallary"
-							className="w-[300px] h-[300px] object-cover rounded-lg shadow-lg hover:w-[325px] hover:h-[325px] hover:shadow-xl transition-all shadow-gray-600"
+							className="w-[200px] h-[200px] min-w-[200px] object-cover rounded-lg shadow-lg hover:w-[225px] hover:h-[225px] hover:shadow-xl transition-all shadow-gray-600"
 						/>
 						<input type="file" name="file-input" id="file-input" className="hidden" />
 					</label>
