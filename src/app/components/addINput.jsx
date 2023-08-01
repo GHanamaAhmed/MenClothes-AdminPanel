@@ -3,7 +3,7 @@ import React from 'react'
 import * as x from './import'
 export default function AddINput({num}) {
   return (
-		<div className="flex flex-row gap-2 justify-center items-center">
+		<div className="flex flex-col items-center md:flex-row md:justify-between md gap-4 w-full">
 			<p>- {num} -</p>
 			<x.Input label="لون" type="text"></x.Input>
 			<label

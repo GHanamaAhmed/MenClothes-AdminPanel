@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import * as x from "./import";
+import { Textarea } from "@material-tailwind/react";
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 import AddINput from "./addINput";
 export default function AddProduct() {
@@ -25,13 +26,13 @@ export default function AddProduct() {
 		}
 	};
 	return (
-		<x.Card className="mx-auto  max-w-none w-fit my-2 overflow-y-scroll max-h-[30rem] shadow-none">
-			<x.CardBody className="flex flex-col gap-4 justify-evenly items-center ">
-				<div className="flex flex-row gap-4 justify-evenly items-center">
-					<x.Input label="الاسم" size="lg" name="name" />
-					<x.Input label="النوع" size="lg" name="type" />
-					<x.Input label="السعر" size="lg" name="price" />
-					<x.Input label="الوصف" size="lg" name="description" />
+		<x.Card className="mx-auto  max-w-none w-full my-2 overflow-y-scroll max-h-[30rem] shadow-none">
+			<x.CardBody className="flex flex-col w-full  gap-4 justify-evenly items-center ">
+				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+					<x.Input label="الاسم" size="md" name="name" />
+					<x.Input label="النوع" size="md" name="type" />
+					<x.Input label="السعر" size="md" name="price" />
+					<div className="md:col-span-3"><Textarea label="الوصف" size="md" name="description" /></div>
 				</div>
 				<x.Button
 					onClick={toggleOpen}

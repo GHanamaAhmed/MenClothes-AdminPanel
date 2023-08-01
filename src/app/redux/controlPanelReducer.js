@@ -1,0 +1,97 @@
+const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
+const { Axios } = require("../../../lib/axios");
+const formatDate = (date) => {
+  return new Date(date).toLocaleDateString("en-us", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+};
+const fetchUsers = createAsyncThunk(
+  "users/fetch",
+  async ({ min, tab, input }, { fulfillWithValue, rejectWithValue }) => {
+    try {
+      const data = await Axios.get(
+        `/users?min=${min}&max=${min + 10}&${
+          tab != "all" && tab ? `type=${tab}` : ""
+        }&${input ? `name=${input}` : ""}`
+      );
+      return fulfillWithValue(data.data);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+const fetchStatistique = createAsyncThunk(
+  "statistique/fetch",
+  async (empty, { fulfillWithValue, rejectWithValue }) => {
+    try {
+      const data = await Axios.get("/dashboard");
+      return fulfillWithValue(data.data);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+const controlPanelSlice = createSlice({
+  name: "controlPanel",
+  initialState: {
+    users: {
+      users: [],
+      isLoading: false,
+      err: undefined,
+    },
+    statistique: {
+      nUsers: 0,
+      views: 0,
+      profits: 0,
+      sales: 0,
+      isLoading: false,
+      err: undefined,
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUsers.fulfilled, ({ users }, { payload }) => {
+        users.isLoading = false;
+        users.users = payload?.map((e) => {
+          return {
+            img: e?.Photo,
+            name: e?.firstName + "-" + e?.lastName,
+            email: e?.email,
+            provider: e?.provider,
+            items: e?.products,
+            paid: e?.price,
+            subsicribed: false,
+            date: formatDate(e?.createAt),
+          };
+        });
+      })
+      .addCase(fetchUsers.pending, ({ users }) => {
+        users.isLoading = true;
+      })
+      .addCase(fetchUsers.rejected, ({ users }, { error }) => {
+        users.isLoading = false;
+        users.err = error;
+      })
+      .addCase(fetchStatistique.fulfilled, ({ statistique }, { payload }) => {
+        statistique.isLoading = false;
+        statistique.nUsers = payload?.users;
+        statistique.views = payload?.views;
+        statistique.sales = payload?.sales;
+        statistique.profits = payload?.profits;
+      })
+      .addCase(fetchStatistique.pending, ({ statistique: { isLoading } }) => {
+        isLoading = true;
+      })
+      .addCase(
+        fetchStatistique.rejected,
+        ({ statistique: { isLoading, err } }, { error }) => {
+          isLoading = false;
+          err = error;
+        }
+      );
+  },
+});
+export { fetchStatistique, fetchUsers };
+export default controlPanelSlice.reducer;
