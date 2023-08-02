@@ -6,11 +6,12 @@ import {
 } from "@heroicons/react/24/outline";
 import reel from "./img/reels.png";
 import Image from "next/image";
-import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, IconButton } from "./../import";
 import { useState } from "react";
 import Reels from "../reels";
 import Reels2 from "../reels2";
+import Link from "next/link";
 export default function Short({ likes, comments, views, title, subtitle }) {
 		const [open, setOpen] = useState(false);
 
@@ -44,7 +45,10 @@ export default function Short({ likes, comments, views, title, subtitle }) {
 					</p>
 					<p className="text-sm text-scandaryColor flex flex-row-reverse items-center justify-end ">
 						{comments}{" "}
-						<ChatBubbleBottomCenterIcon width={25} height={25} className="" />
+						<Link href='#'>
+							{" "}
+							<ChatBubbleBottomCenterIcon width={25} height={25} className="" />
+						</Link>
 					</p>
 					<p className="text-sm text-trueblue flex flex-row-reverse items-center justify-end">
 						{views} <EyeIcon className="" width={25} height={25} />
@@ -52,10 +56,10 @@ export default function Short({ likes, comments, views, title, subtitle }) {
 				</div>
 			</div>
 
-			<div className="absolute top-[5%] right-[10%]  lg:right-1 z-10 flex flex-col gap-2 text-right">
-				<IconButton className="bg-transparent shadow-none hover:shadow-red-500">
+			<div className="absolute top-[5%] right-[10%]  lg:right-1 z-10 flex flex-col gap-0 text-right">
+				<IconButton className="bg-transparent shadow-none hover:shadow-red-500 ">
 					<p className="text-sm text-red-500 flex flex-row-reverse items-center justify-end ">
-						<TrashIcon width={25} height={25} className="text-sm" />
+						<TrashIcon width={20} height={20} className="text-sm" />
 					</p>
 				</IconButton>
 
@@ -64,7 +68,7 @@ export default function Short({ likes, comments, views, title, subtitle }) {
 					onClick={handleOpen}
 				>
 					<p className="text-sm text-lightSolid flex flex-row-reverse items-center justify-end ">
-						<PencilIcon width={25} height={25} className="" />
+						<PencilIcon width={20} height={20} className="" />
 					</p>
 				</IconButton>
 				<Dialog open={open} handler={handleOpen}>

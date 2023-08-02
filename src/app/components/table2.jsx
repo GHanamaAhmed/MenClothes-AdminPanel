@@ -17,18 +17,22 @@ import {
 	DialogHeader,
 	DialogBody,
 	DialogFooter,
+	Select,
+	Option,
+	Menu,
+	MenuHandler,
+	MenuList,
+	MenuItem,
 } from "./import";
 import { useState } from "react";
-
-
 
 export default function CiTable2({ TABS, TABLE_HEAD, TABLE_ROWS }) {
 	const [open, setOpen] = useState(false);
 
 	const handleOpen = () => setOpen(!open);
-	
+
 	return (
-		<Card className="h-full  md:w-fit lg:w-full shadow-lg text-right " >
+		<Card className="h-full  md:w-fit lg:w-full shadow-lg text-right ">
 			<CardHeader floated={false} shadow={false} className="rounded-none">
 				<div className="mb-8 flex items-center justify-between gap-8">
 					<div>
@@ -65,9 +69,7 @@ export default function CiTable2({ TABS, TABLE_HEAD, TABLE_ROWS }) {
 						</TabsHeader>
 					</Tabs>
 					<div className="w-full md:w-60 ">
-						<Input
-							label="بحث"
-						/>
+						<Input label="بحث" />
 					</div>
 				</div>
 			</CardHeader>
@@ -147,37 +149,77 @@ export default function CiTable2({ TABS, TABLE_HEAD, TABLE_ROWS }) {
 										</td>
 										<td className={classes}>
 											<div className="w-max">
-												<Button onClick={handleOpen} variant="gradient">
+												<Button
+													onClick={handleOpen}
+													variant="gradient"
+													className="font-Hacen-Tunisia"
+												>
 													الطلبية
 												</Button>
-												<Dialog open={open} handler={handleOpen}>
-													<DialogHeader>الطلبية</DialogHeader>
+												<Dialog
+													open={open}
+													handler={handleOpen}
+													dismiss={{ enabled: false }}
+													className="font-Hacen-Tunisia"
+												>
+													<DialogHeader className="font-Hacen-Tunisia">
+														الطلبية
+													</DialogHeader>
 													<DialogBody divider>{order}</DialogBody>
-													<DialogFooter>
+													<DialogFooter className="flx flex-row gap-2">
 														<Button
 															variant="text"
 															color="red"
-															onClick={handleOpen}
 															className="mr-1"
+															onClick={handleOpen}
 														>
 															<span>اغلاق</span>
 														</Button>
-														<Button
-															variant="gradient"
-															color="red"
-															onClick={handleOpen}
-															className="mr-1"
-														>
-															<span>رفض الطلبية</span>
-														</Button>
-														<Button
-															variant="gradient"
-															color="green"
-															onClick={handleOpen}
-															className="mr-1"
-														>
-															<span>قبول الطلبية</span>
-														</Button>
+														<div className="flex ">
+															<Select tabIndex="1">
+																<div className="group bg-red-600 rounded-lg mb-1">
+																	<Option
+																		index={1}
+																		className="bg-red-600 text-center   group-hover:bg-lightSolid transition-all"
+																	>
+																		<span className="text-white group-hover:text-black">
+																			رفض الطلبية
+																		</span>
+																	</Option>
+																</div>
+																<div className="group bg-green-600 rounded-lg mb-1">
+																	<Option
+																		index={2}
+																		className="bg-green-600  text-center  group-hover:bg-lightSolid transition-all"
+																	>
+																		<span className="text-white group-hover:text-black">
+																			قبول الطلبية
+																		</span>
+																	</Option>
+																</div>
+																<div className="group hover:opacity-100 transition-all opacity-60 rounded-lg mb-1">
+																	<Option
+																		index={3}
+																		
+																		className="bg-blue-600  text-center  group-hover:bg-lightSolid transition-all"
+																	>
+																		<span className="text-white group-hover:text-black">
+																			اتمام الطلبية
+																		</span>
+																	</Option>
+																</div>
+																<div className="group opacity-60 hover:opacity-100 transition-all rounded-lg mb-1">
+																	<Option
+																		index={4}
+																		className="bg-red-600  text-center  group-hover:bg-lightSolid transition-all"
+																	>
+																		<span className="text-white group-hover:text-black">
+																			الغاء الطلبية
+																		</span>
+																	</Option>
+																</div>
+															</Select>
+														</div>
 													</DialogFooter>
 												</Dialog>
 											</div>
@@ -199,7 +241,11 @@ export default function CiTable2({ TABS, TABLE_HEAD, TABLE_ROWS }) {
 				</table>
 			</CardBody>
 			<CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-				<Typography variant="small" color="blue-gray" className="font-Hacen-Tunisia">
+				<Typography
+					variant="small"
+					color="blue-gray"
+					className="font-Hacen-Tunisia"
+				>
 					Page 1 of 10
 				</Typography>
 				<div className="flex gap-2">

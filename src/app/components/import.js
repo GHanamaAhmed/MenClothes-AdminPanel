@@ -38,6 +38,7 @@ import {
 	MenuList,
 	MenuItem,
 	Select,
+	Switch,
 	Option,
 	tooltip,
 } from "@material-tailwind/react";
@@ -45,6 +46,7 @@ export {
 	tooltip,
 	Drawer,
 	List,
+	Switch,
 	ListItem,
 	ListItemPrefix,
 	ListItemSuffix,
