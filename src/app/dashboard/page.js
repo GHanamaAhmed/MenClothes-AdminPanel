@@ -44,7 +44,15 @@ export default function Home() {
   const dispatch = useDispatch();
   const {
     users: { users },
-    statistique: { nUsers, sales, profits, views },
+    statistique: {
+      nUsers,
+      sales,
+      profits,
+      views,
+      lastUsers,
+      lastProfits,
+      lastSales,
+    },
   } = useSelector((store) => store.controlPanel);
   useEffect(() => {
     users?.length ||
@@ -68,7 +76,7 @@ export default function Home() {
           title={"المستخدمين"}
           value={nUsers}
           footer={"الشهر الماضي"}
-          footervalue={"%20+"}
+          footervalue={lastUsers}
           footercolor={"text-green-400"}
         />
         <CiCard
@@ -77,7 +85,7 @@ export default function Home() {
           title={"تم بيعه"}
           value={sales}
           footer={"الشهر الماضي"}
-          footervalue={"%1-"}
+          footervalue={lastSales}
           footercolor={"text-red-400"}
         />
         <CiCard
@@ -86,7 +94,7 @@ export default function Home() {
           title={"الارباح"}
           value={`${profits}DZ`}
           footer={"الشهر الماضي"}
-          footervalue={"%5+"}
+          footervalue={lastProfits}
           footercolor={"text-green-400"}
         />
         <CiCard

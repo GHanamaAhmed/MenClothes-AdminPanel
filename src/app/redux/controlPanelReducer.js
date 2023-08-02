@@ -43,9 +43,12 @@ const controlPanelSlice = createSlice({
     },
     statistique: {
       nUsers: 0,
+      lastUsers: 0,
       views: 0,
       profits: 0,
+      lastProfits: 0,
       sales: 0,
+      lastSales: 0,
       isLoading: false,
       err: undefined,
     },
@@ -80,6 +83,9 @@ const controlPanelSlice = createSlice({
         statistique.views = payload?.views;
         statistique.sales = payload?.sales;
         statistique.profits = payload?.profits;
+        statistique.lastUsers = payload?.lastUsers;
+        statistique.lastSales = payload?.lastSales;
+        statistique.lastProfits = payload?.lastProfits;
       })
       .addCase(fetchStatistique.pending, ({ statistique: { isLoading } }) => {
         isLoading = true;
