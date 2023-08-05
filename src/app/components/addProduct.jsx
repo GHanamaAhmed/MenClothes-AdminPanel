@@ -5,8 +5,11 @@ import { Textarea } from "@material-tailwind/react";
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 import AddINput from "./addINput";
 import { Axios } from "../../../lib/axios";
-import { toast } from "react-toastify";
+import { toasty } from "./toast";
+import { useDispatch } from "react-redux";
+import { uploadProduct } from "../redux/productsReducer";
 export default function AddProduct({ onShowProduct, isOpen, onClose }) {
+  const dispath = useDispatch();
   const [open2, setOpen2] = useState(false);
   const [name, setName] = useState();
   const [type, setType] = useState();
@@ -16,18 +19,27 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
   const [Details, SetDetails] = useState([{}]);
   const [thumbanil, setThumbanil] = useState();
   const [open, setOpen] = useState(false);
-  const toastId = useRef(null);
   useEffect(() => {
     setOpen2(isOpen);
   }, [isOpen]);
   const toggleOpen = () => {
     setOpen(!open);
   };
-  const remDetails = () => {
+  const toggleOpen2 = () => {
+    setOpen2(!open2);
+    onClose(!open2);
+  };
+  const remDetails = (value) => {
     sety((prev) => prev - 1);
+    SetDetails((prev) => {
+      const halfBeforeTheUnwantedElement = prev.slice(0, value);
+      const halfAfterTheUnwantedElement = prev.slice(value + 1);
+      return halfBeforeTheUnwantedElement.concat(halfAfterTheUnwantedElement);
+    });
   };
   const changeInpute = (e) => {
     const nPhotos = e?.photos?.length;
+    console.log(e);
     SetDetails((prev) => {
       prev[e.num] = {
         color: e?.color,
@@ -36,26 +48,41 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
         photos: e?.photos,
         nPhotos,
       };
+      console.log(prev);
       return [...prev];
     });
   };
   const addProduct = () => {
     let photos = [];
-    const details = Details.map((e, i) => {
-      photos = [...photos, ...e.photos];
-      delete e.photos;
-      return e;
-    });
+    let details = [];
     const formData = new FormData();
+    console.log(Details);
+    console.log(
+      Details.every(
+        (e) => e?.color && e?.sizes?.length > 0 && e?.nPhotos && e?.quntity
+      )
+    );
+    if (
+      Details.every(
+        (e) => e?.color && e?.sizes?.length > 0 && e?.nPhotos && e?.quntity
+      )
+    ) {
+      details = Details.map((e, i) => {
+        photos = [...photos, ...e.photos];
+        const ec = { ...e };
+        delete ec.photos;
+        return ec;
+      });
+      formData.append("details", JSON.stringify(details));
+      details?.map((e, i) => {
+        formData.append("photos", photos[i]);
+      });
+    }
     formData.append("price", price);
     formData.append("name", name);
     formData.append("type", type);
     formData.append("description", description);
     formData.append("thumbanil", thumbanil);
-    details.map((e, i) => {
-      formData.append("photos", photos[i]);
-    });
-    formData.append("details", JSON.stringify(details));
     Axios.request({
       method: "post",
       url: "/products",
@@ -64,23 +91,34 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
       onUploadProgress: (p) => {
         const progress = p.loaded / p.total;
         console.log(progress);
-        if (toastId.current === null) {
-          toastId.current = toast("Upload in Progress", { progress,autoClose:2000 });
-        } else {
-          toast.update(toastId.current, { progress,autoClose:2000 });
-        }
+        toasty(`upload ${(progress * 100).toFixed(0)} of 100`, {
+          toastId: "uploadProduct",
+          progress,
+        });
       },
     })
       .then((res) => {
-        console.log(res);
-        onClose();
+        toasty("upload has complated", {
+          type: "success",
+          toastId: "uploadProduct",
+          autoClose: 5000,
+        });
+        dispath(uploadProduct(res.data));
+        onClose(!open2);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        toasty(`${err?.response?.data || "upload has failed"}`, {
+          type: "error",
+          toastId: "uploadProduct",
+          autoClose: 5000,
+        });
+        console.error(err);
+      });
   };
   return (
     <x.Dialog
       open={open2}
-      handler={() => setOpen2((prev) => !prev)}
+      handler={toggleOpen2}
       className="w-full h-fit"
       size="xl"
     >
@@ -157,19 +195,14 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
                 <div className="flex flex-col gap-4 justify-evenly items-center">
                   {[...Array(y)].map((e, i) => (
                     <div key={i}>
-                      <AddINput num={i} onChanges={changeInpute} />
+                      <AddINput
+                        num={i}
+                        onChanges={changeInpute}
+                        onDelete={remDetails}
+                      />
                     </div>
                   ))}
                   <div className="flex flex-row gap-4 justify-evenly items-center">
-                    <x.Button
-                      onClick={remDetails}
-                      className={`z-50   items-center justify-center gap-2 ${
-                        y <= 1 ? "hidden" : ""
-                      } `}
-                      color="red"
-                    >
-                      <MinusIcon className="h-5 w-5"></MinusIcon>
-                    </x.Button>
                     <x.Button
                       onClick={() => {
                         sety((prev) => prev + 1);
@@ -191,7 +224,7 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
         <x.Button
           variant="text"
           color="red"
-          onClick={() => onClose()}
+          onClick={() => onClose(!open2)}
           className="mr-1"
         >
           <span>اغلاق</span>
@@ -201,7 +234,7 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
           variant="gradient"
           color="blue"
           onClick={() => {
-            onClose();
+            onClose(!open2);
             onShowProduct();
           }}
           className="mr-1"

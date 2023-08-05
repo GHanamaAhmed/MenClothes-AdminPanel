@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SpeedyDial from "../components/speedDial";
 import {
   CubeIcon,
@@ -13,7 +13,10 @@ import ProductTable from "../components/ProductTable";
 import Gallary from "../components/gallary";
 import Promo from "../components/promo";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProductsStatistiques } from "../redux/productsReducer";
+import {
+  fetchProducts,
+  fetchProductsStatistiques,
+} from "../redux/productsReducer";
 import { toast } from "react-toastify";
 const TABS = [
   {
@@ -88,8 +91,14 @@ const TABLE_ROWS = [
     date: "04/10/21",
   },
 ];
+const max=10
 export default function page() {
+  const products2 = useSelector((store) => store.products).products.products;
+  const [min, setMin] = useState(0);
+  const [name, setName] = useState("");
+  const [type, setType] = useState("");
   const {
+    products: { types },
     statistique: {
       products,
       lastProducts,
@@ -107,7 +116,12 @@ export default function page() {
       .unwrap()
       .catch((err) => console.error(err));
   }, []);
-
+  useEffect(() => {
+    dispatch(fetchProducts({ min, name, type }))
+      .unwrap()
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  }, [min, name, type]);
   return (
     <div className="shadow-lg rounded-xl h-fit md:h-full w-full grid row-span-3 mx-5  bg-white">
       <SpeedyDial />
@@ -153,10 +167,16 @@ export default function page() {
       <div>
         <ProductTable
           TABLE_HEAD={TABLE_HEAD}
-          TABLE_ROWS={TABLE_ROWS}
-          TABS={TABS}
+          TABLE_ROWS={products2}
+          TABS={types}
           Header={"products"}
+          count={products}
+          max={max}
+          page={Math.ceil(min / max + 1)}
           subheader={"see products"}
+          onChangePage={(value) => setMin(value)}
+          onChangeName={(value) => setName(value)}
+          onChangeTab={(value) => setType(value)}
         />
       </div>
     </div>

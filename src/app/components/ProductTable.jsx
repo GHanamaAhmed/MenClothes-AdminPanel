@@ -5,11 +5,7 @@ import {
   ReceiptPercentIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import {
-  PencilIcon,
-  PencilSquareIcon,
-  UserPlusIcon,
-} from "@heroicons/react/24/solid";
+import DialogDefault from "./dialog";
 import {
   Card,
   CardHeader,
@@ -35,6 +31,10 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import AddProduct from "./addProduct";
 import Edit from "./edit";
+import { deleteProducts, fetchProducts } from "../redux/productsReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { formatDate } from "../../../lib/date";
+import { toasty } from "./toast";
 
 export default function ProductTable({
   TABS,
@@ -42,24 +42,46 @@ export default function ProductTable({
   TABLE_ROWS,
   Header,
   subheader,
+  max,
+  page,
+  count,
+  onChangeName,
+  onChangeTab,
+  onChangePage,
 }) {
-  const [value, setValue] = useState(false);
-  const handlevalue = () => {
-    setValue(!value);
-  };
   const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(!open);
-    return;
-  };
+  const [open0, setOpen0] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
-
+  const [product, setProduct] = useState("");
+  const dispatch = useDispatch();
+  const handleOpen = () => {
+    setOpen(!open);
+  };
   const handleOpen3 = () => setOpen3(!open3);
+  const deleteProduct = () => {
+    dispatch(deleteProducts({ id: product?._id }))
+      .unwrap()
+      .then((res) => {
+        toasty("product has deleted", {
+          type: "success",
+          toastId: "deleteProduct",
+          autoClose: 5000,
+        });
+        setOpen0((prev) => !prev);
+      })
+      .catch((err) => {
+        console.error(err);
+        toasty("product has failed", {
+          type: "error",
+          toastId: "deleteProduct",
+          autoClose: 5000,
+        });
+      });
+  };
   return (
     <>
-      <Card className="h-full  md:w-fit lg:w-full shadow-lg text-right">
+      <Card className="h-full md:w-fit lg:w-full shadow-lg text-right">
         <CardHeader floated={false} shadow={false} className="rounded-none">
           <div className="mb-8 flex items-center justify-between gap-8">
             <div>
@@ -88,20 +110,31 @@ export default function ProductTable({
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <Tabs value="all" className="w-full md:w-max">
               <TabsHeader>
-                {TABS.map(({ label, value }) => (
-                  <Tab key={value} value={value}>
-                    &nbsp;&nbsp;{label}&nbsp;&nbsp;
+                <Tab onClick={() => onChangeTab("")} value={""}>
+                  الكل
+                </Tab>
+                {TABS?.map((value) => (
+                  <Tab
+                    key={value}
+                    onClick={() => onChangeTab(value)}
+                    value={value}
+                  >
+                    &nbsp;&nbsp;{value}&nbsp;&nbsp;
                   </Tab>
                 ))}
               </TabsHeader>
             </Tabs>
             <div className="w-full md:w-60 flex flex-row justify-evenly items-center">
               <MagnifyingGlassIcon className="h-5 w-5  " />
-              <Input className="gap-1" label="بحث" />
+              <Input
+                className="gap-1"
+                onChange={(e) => onChangeName(e.currentTarget.value)}
+                label="بحث"
+              />
             </div>
           </div>
         </CardHeader>
-        <CardBody className="overflow-scroll px-0">
+        <CardBody className="overflow-auto px-0">
           <table className="mt-4 w-full min-w-max table-auto text-right font-Hacen-Tunisia">
             <thead>
               <tr className="font-Hacen-Tunisia">
@@ -122,94 +155,107 @@ export default function ProductTable({
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(
-                (
-                  { img, name, price, stock, type, reel, reelid, date },
-                  index
-                ) => {
-                  const isLast = index === TABLE_ROWS.length - 1;
-                  const classes = isLast
-                    ? "p-4"
-                    : "p-4 border-b border-blue-gray-50";
+              {TABLE_ROWS.map((e, index) => {
+                const isLast = index === TABLE_ROWS.length - 1;
+                const classes = isLast
+                  ? "p-4"
+                  : "p-4 border-b border-blue-gray-50";
 
-                  return (
-                    <tr key={name}>
-                      <td className={classes} onClick={handleOpen}>
-                        <div className="flex items-center gap-3">
-                          <Avatar
-                            src={img}
-                            alt={name + "&nbsp;" + price}
-                            size="xl"
-                            variant="rounded"
-                          />
-                          <div className="hidden flex-col  md:flex">
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-Hacen-Tunisia hidden  md:flex"
-                            >
-                              {name}
-                            </Typography>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-Hacen-Tunisia  opacity-70"
-                            >
-                              {price}
-                            </Typography>
-                          </div>
-                        </div>
-                      </td>
-                      <td className={classes}>
-                        <div className="flex flex-col">
+                return (
+                  <tr key={index}>
+                    <td
+                      className={classes}
+                      onClick={() => {
+                        handleOpen();
+                        setProduct(e);
+                      }}
+                    >
+                      <div className="flex items-center gap-3">
+                        <Avatar
+                          src={e?.thumbanil}
+                          crossOrigin="anonymous"
+                          alt={e?.name + "&nbsp;" + e?.price}
+                          size="xl"
+                          variant="rounded"
+                        />
+                        <div className="hidden flex-col  md:flex">
                           <Typography
                             variant="small"
                             color="blue-gray"
-                            className="font-Hacen-Tunisia "
+                            className="font-Hacen-Tunisia hidden  md:flex"
                           >
-                            {stock}
+                            {e?.name}
                           </Typography>
                           <Typography
                             variant="small"
                             color="blue-gray"
                             className="font-Hacen-Tunisia  opacity-70"
                           >
-                            {type}
+                            {e?.price}
                           </Typography>
                         </div>
-                      </td>
-                      <td className={classes}>
-                        <div className="w-max">
-                          <Link href={reel}> {reelid}</Link>
-                        </div>
-                      </td>
-                      <td className={classes}>
+                      </div>
+                    </td>
+                    <td className={classes}>
+                      <div className="flex flex-col">
                         <Typography
                           variant="small"
                           color="blue-gray"
                           className="font-Hacen-Tunisia "
                         >
-                          {date}
+                          {e?.quntity}
                         </Typography>
-                      </td>
-                      <td className={classes}>
-                        <IconButton
-                          color="cyan"
-                          className="bg-transparent"
-                          onClick={handleOpen3}
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-Hacen-Tunisia  opacity-70"
                         >
-                          <ReceiptPercentIcon className="h-5 w-5 text-azure" />
-                        </IconButton>
-                      </td>
-                      <td className={classes}>
-                        <IconButton color="red" className="bg-transparent">
-                          <TrashIcon className="h-5 w-5 text-red-400" />
-                        </IconButton>
-                      </td>
-                    </tr>
-                  );
-                }
-              )}
+                          {e?.type}
+                        </Typography>
+                      </div>
+                    </td>
+                    <td className={classes}>
+                      <div className="w-max">
+                        {e?.reelId ? (
+                          <Link href={`/${e?.reelId}`}>ريل</Link>
+                        ) : (
+                          <p>لايوجد</p>
+                        )}
+                      </div>
+                    </td>
+                    <td className={classes}>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-Hacen-Tunisia "
+                      >
+                        {formatDate(e?.createAt)}
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      <IconButton
+                        color="cyan"
+                        className="bg-transparent"
+                        onClick={handleOpen3}
+                      >
+                        <ReceiptPercentIcon className="h-5 w-5 text-azure" />
+                      </IconButton>
+                    </td>
+                    <td className={classes}>
+                      <IconButton
+                        onClick={() => {
+                          setProduct(e);
+                          setOpen0((prev) => !prev);
+                        }}
+                        color="red"
+                        className="bg-transparent"
+                      >
+                        <TrashIcon className="h-5 w-5 text-red-400" />
+                      </IconButton>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </CardBody>
@@ -219,18 +265,30 @@ export default function ProductTable({
             color="blue-gray"
             className="font-Hacen-Tunisia "
           >
-            1/10
+            {page}/{Math.ceil(count / max)}
           </Typography>
           <div className="flex gap-1">
-            <Button variant="outlined" color="blue-gray" size="sm">
+            <Button
+              variant="outlined"
+              disabled={Number(page) / Math.ceil(count / max) == 1}
+              onChange={() => onChangePage((page - 2) * max)}
+              color="blue-gray"
+              size="sm"
+            >
               {"<"}
             </Button>
-            <Button variant="outlined" color="blue-gray" size="sm">
+            <Button
+              variant="outlined"
+              disabled={page != 1}
+              onChange={() => onChangePage(page * max + 1)}
+              color="blue-gray"
+              size="sm"
+            >
               {">"}
             </Button>
           </div>
           <Button
-            onClick={()=>setOpen2(true)}
+            onClick={() => setOpen2(true)}
             variant="gradient"
             color="cyan"
             size="sm"
@@ -239,33 +297,12 @@ export default function ProductTable({
           </Button>
         </CardFooter>
       </Card>
-      <AddProduct isOpen={open2} onShowProduct={() => setOpen3(true)} onClose={()=>setOpen2(false)} />
-      <Dialog open={open} handler={handleOpen} size="xl">
-        <DialogHeader className="font-Hacen-Tunisia flex flex-row items-center justify-between gap-2">
-          <p>المنتج</p>
-          <Switch
-            label={`${value ? "اظهار المنتج" : "اخفاء المنتج"}`}
-            labelProps={{ className: "text-gray-400 mx-2 text-right" }}
-            onChange={handlevalue}
-          />
-        </DialogHeader>
-        <DialogBody divider className="overflow-y-auto h-[30rem]">
-          <Edit />
-        </DialogBody>
-        <DialogFooter className="flex items-center justify-end gap-4">
-          <Button
-            variant="text"
-            color="red"
-            onClick={handleOpen}
-            className="mr-1"
-          >
-            <span>اغلاق</span>
-          </Button>
-          <Button variant="gradient" color="cyan" onClick={handleOpen}>
-            <span>تعديل</span>
-          </Button>
-        </DialogFooter>
-      </Dialog>
+      <AddProduct
+        isOpen={open2}
+        onShowProduct={() => setOpen3(true)}
+        onClose={(value) => setOpen2(value)}
+      />
+      <Edit product={product} isOpen={open} onClose={(value) => setOpen(value)} />
       <Dialog open={open3} handler={handleOpen3} size="md">
         <DialogHeader className="font-Hacen-Tunisia">المنتج</DialogHeader>
         <DialogBody divider className="flex flex-col gap-2">
@@ -286,6 +323,13 @@ export default function ProductTable({
           </Button>
         </DialogFooter>
       </Dialog>
+      <DialogDefault
+        titile={"Delete product"}
+        content={"Have you gonna product remove!"}
+        isOpen={open0}
+        onConfirm={deleteProduct}
+        onClose={() => setOpen0((prev) => !prev)}
+      />
     </>
   );
 }

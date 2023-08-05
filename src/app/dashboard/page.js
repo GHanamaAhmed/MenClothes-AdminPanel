@@ -67,7 +67,7 @@ export default function Home() {
     console.log(users);
   }, [input, tab, min]);
   return (
-    <div className="shadow-lg p-1 m-1 rounded-xl h-fit md:h-full w-fit md:w-full  grid row-span-3 md:m-5 md:p-5  bg-white">
+    <div className="shadow-lg p-1 m-1 rounded-xl w-full  grid row-span-3 md:m-5 md:p-5  bg-white">
       <SpeedyDial />
       <div className="h-1/3 m-5 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-8">
         <CiCard

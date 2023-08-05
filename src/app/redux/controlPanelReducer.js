@@ -1,12 +1,6 @@
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 const { Axios } = require("../../../lib/axios");
-const formatDate = (date) => {
-  return new Date(date).toLocaleDateString("en-us", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-};
+const { formatDate } = require("../../../lib/date");
 const fetchUsers = createAsyncThunk(
   "users/fetch",
   async ({ min, tab, input }, { fulfillWithValue, rejectWithValue }) => {
