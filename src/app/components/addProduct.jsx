@@ -91,14 +91,14 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
       onUploadProgress: (p) => {
         const progress = p.loaded / p.total;
         console.log(progress);
-        toasty(`upload ${(progress * 100).toFixed(0)} of 100`, {
+        toasty(`تم رفع ${(progress * 100).toFixed(0)} من 100`, {
           toastId: "uploadProduct",
           progress,
         });
       },
     })
       .then((res) => {
-        toasty("upload has complated", {
+        toasty("تم رفع المنتج بنجاح", {
           type: "success",
           toastId: "uploadProduct",
           autoClose: 5000,
@@ -107,7 +107,7 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
         onClose(!open2);
       })
       .catch((err) => {
-        toasty(`${err?.response?.data || "upload has failed"}`, {
+        toasty(`${err?.response?.data || "فشب رفع المنتج"}`, {
           type: "error",
           toastId: "uploadProduct",
           autoClose: 5000,

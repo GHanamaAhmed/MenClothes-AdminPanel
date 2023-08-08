@@ -91,7 +91,7 @@ const TABLE_ROWS = [
     date: "04/10/21",
   },
 ];
-const max=10
+const max = 10;
 export default function page() {
   const products2 = useSelector((store) => store.products).products.products;
   const [min, setMin] = useState(0);

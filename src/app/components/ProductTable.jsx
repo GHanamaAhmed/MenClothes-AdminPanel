@@ -63,7 +63,7 @@ export default function ProductTable({
     dispatch(deleteProducts({ id: product?._id }))
       .unwrap()
       .then((res) => {
-        toasty("product has deleted", {
+        toasty("تم حذف المنتج", {
           type: "success",
           toastId: "deleteProduct",
           autoClose: 5000,
@@ -72,7 +72,7 @@ export default function ProductTable({
       })
       .catch((err) => {
         console.error(err);
-        toasty("product has failed", {
+        toasty("فشل حذف المنتج", {
           type: "error",
           toastId: "deleteProduct",
           autoClose: 5000,
@@ -270,8 +270,8 @@ export default function ProductTable({
           <div className="flex gap-1">
             <Button
               variant="outlined"
-              disabled={Number(page) / Math.ceil(count / max) == 1}
-              onChange={() => onChangePage((page - 2) * max)}
+              disabled={Number(page) / Math.ceil(count / max) >= 1}
+              onClick={() => onChangePage(page * max)}
               color="blue-gray"
               size="sm"
             >
@@ -279,8 +279,8 @@ export default function ProductTable({
             </Button>
             <Button
               variant="outlined"
-              disabled={page != 1}
-              onChange={() => onChangePage(page * max + 1)}
+              disabled={page == 1}
+              onClick={() => onChangePage(Number(page) * max - max * 2)}
               color="blue-gray"
               size="sm"
             >
@@ -302,7 +302,11 @@ export default function ProductTable({
         onShowProduct={() => setOpen3(true)}
         onClose={(value) => setOpen2(value)}
       />
-      <Edit product={product} isOpen={open} onClose={(value) => setOpen(value)} />
+      <Edit
+        product={product}
+        isOpen={open}
+        onClose={(value) => setOpen(value)}
+      />
       <Dialog open={open3} handler={handleOpen3} size="md">
         <DialogHeader className="font-Hacen-Tunisia">المنتج</DialogHeader>
         <DialogBody divider className="flex flex-col gap-2">

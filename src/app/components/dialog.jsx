@@ -18,7 +18,7 @@ export default function DialogDefault({
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(!open);
-    onClose();
+    onClose(!open);
   };
   useEffect(() => {
     setOpen(isOpen);

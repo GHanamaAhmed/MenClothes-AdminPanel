@@ -5,7 +5,7 @@ import {
 } from "@heroicons/react/24/outline";
 import reel from "./swipers/img/reels.png";
 import Image from "next/image";
-export default function Shorty({ likes, comments, views, title, subtitle }) {
+export default function Shorty({ likes, comments, views, title }) {
 	if (likes == null) {
 		likes = "0";
 	}
@@ -17,15 +17,11 @@ export default function Shorty({ likes, comments, views, title, subtitle }) {
 	}if (title == null) {	
 		title = "عنوان";
 	}
-	if (subtitle == null) {	
-		subtitle = "عنوان";
-	}
 	return (
 		<div className="w-10/12">
 			<div className="relative bottom-0  flex items-center justify-center ">
 				<div className="absolute bottom-4 right-1 md:bottom-6 md:right-6 z-10 flex flex-col text-right">
 					<p className="text-lg text-white">{title}</p>
-					<p className="text-sm text-white">{subtitle}</p>
 				</div>
 				<Image
 					priority
