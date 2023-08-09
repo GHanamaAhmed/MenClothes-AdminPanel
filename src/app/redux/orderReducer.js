@@ -163,8 +163,6 @@ const ordersSlice = createSlice({
           orders.orders = [
             ...orders.orders.filter((e) => e?._id != payload?._id),
           ];
-          statistique.orders = statistique.orders - 1;
-          statistique.lastOrders = statistique.lastOrders - 1;
         }
       )
       .addCase(removeOrder.rejected, ({ orders }, { error }) => {

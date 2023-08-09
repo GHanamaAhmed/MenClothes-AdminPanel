@@ -37,7 +37,7 @@ const removeReel = createAsyncThunk(
   "removeReel",
   async (data, { fulfillWithValue, rejectWithValue }) => {
     try {
-      const res = await Axios.delete("/reels", {data});
+      const res = await Axios.delete("/reels", { data });
       return fulfillWithValue(res.data);
     } catch (error) {
       return rejectWithValue(error);
@@ -81,11 +81,15 @@ const reelsSlice = createSlice({
       .addCase(
         fetchReelsStatistique.fulfilled,
         ({ statistique }, { payload }) => {
-          statistique = {
-            ...statistique,
-            ...payload,
-            isLoading: false,
-          };
+          statistique.reels = payload?.reels;
+          statistique.lastReels = payload?.lastReels;
+          statistique.views = payload?.views;
+          statistique.lastViews = payload?.lastViews;
+          statistique.likes = payload?.likes;
+          statistique.lastLikes = payload?.lastLikes;
+          statistique.comment = payload?.comment;
+          statistique.lastComment = payload?.lastComment;
+          statistique.isLoading = false;
         }
       )
       .addCase(fetchReelsStatistique.pending, ({ statistique }) => {
@@ -131,6 +135,12 @@ const reelsSlice = createSlice({
       });
   },
 });
-const {uploadReel}=reelsSlice.actions
-export { fetchReelsStatistique, fetchReels, updateReel,removeReel,uploadReel };
+const { uploadReel } = reelsSlice.actions;
+export {
+  fetchReelsStatistique,
+  fetchReels,
+  updateReel,
+  removeReel,
+  uploadReel,
+};
 export default reelsSlice.reducer;

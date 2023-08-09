@@ -66,7 +66,6 @@ const productsSlice = createSlice({
         ...products.types.filter((e) => e != payload.type),
         payload.type,
       ];
-      statistique.products = statistique.products + 1;
     },
   },
   extraReducers: (builder) => {
@@ -113,7 +112,6 @@ const productsSlice = createSlice({
           products.products = [
             ...products.products.filter((e) => e._id != payload._id),
           ];
-          statistique.products = statistique.products - 1;
         }
       )
       .addCase(deleteProducts.rejected, ({ products }, { error }) => {

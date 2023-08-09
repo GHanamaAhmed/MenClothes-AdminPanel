@@ -1,23 +1,24 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import SpeedyDial from "../components/speedDial";
+import SpeedyDial from "../../components/speedDial";
 import {
   CubeIcon,
   CurrencyDollarIcon,
   HeartIcon,
 } from "@heroicons/react/24/outline";
-import CiCard from "../components/cards";
+import CiCard from "../../components/cards";
 import { ReceiptRefundIcon } from "@heroicons/react/24/solid";
-import CiTable from "../components/table";
-import ProductTable from "../components/ProductTable";
-import Gallary from "../components/gallary";
-import Promo from "../components/promo";
+import CiTable from "../../components/table";
+import ProductTable from "../../components/ProductTable";
+import Gallary from "../../components/gallary";
+import Promo from "../../components/promo";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchProducts,
   fetchProductsStatistiques,
-} from "../redux/productsReducer";
+} from "../../redux/productsReducer";
 import { toast } from "react-toastify";
+import { fetchStatistique } from "../../redux/controlPanelReducer";
 const TABS = [
   {
     label: "All",
@@ -99,6 +100,8 @@ export default function page() {
   const [type, setType] = useState("");
   const {
     products: { types },
+  } = useSelector((state) => state.products);
+  const {
     statistique: {
       products,
       lastProducts,
@@ -109,13 +112,8 @@ export default function page() {
       returns,
       lastReturns,
     },
-  } = useSelector((state) => state.products);
+  } = useSelector((state) => state.statistique);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchProductsStatistiques())
-      .unwrap()
-      .catch((err) => console.error(err));
-  }, []);
   useEffect(() => {
     dispatch(fetchProducts({ min, name, type }))
       .unwrap()
@@ -123,8 +121,7 @@ export default function page() {
       .catch((err) => console.log(err));
   }, [min, name, type]);
   return (
-    <div className="shadow-lg rounded-xl h-fit md:h-full w-full grid row-span-3 mx-5  bg-white">
-      <SpeedyDial />
+    <>
       <div className="h-1/3 m-5 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-8">
         <CiCard
           icon={<CubeIcon className="w-8 h-8 text-white" />}
@@ -179,6 +176,6 @@ export default function page() {
           onChangeTab={(value) => setType(value)}
         />
       </div>
-    </div>
+    </>
   );
 }

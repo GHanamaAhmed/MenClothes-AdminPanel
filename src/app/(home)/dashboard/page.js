@@ -1,5 +1,5 @@
 "use client";
-import CiCard from "../components/cards";
+import CiCard from "../../components/cards";
 import {
   PresentationChartBarIcon,
   ShoppingBagIcon,
@@ -13,12 +13,13 @@ import {
   CurrencyDollarIcon,
   EyeIcon,
 } from "@heroicons/react/24/solid";
-import SpeedyDial from "../components/speedDial";
-import CiTable from "../components/table";
+import SpeedyDial from "../../components/speedDial";
+import CiTable from "../../components/table";
 import { useEffect, useState } from "react";
-import { Axios } from "../../../lib/axios";
+import { Axios } from "../../../../lib/axios";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchStatistique, fetchUsers } from "../redux/controlPanelReducer";
+import { fetchUsers } from "../../redux/controlPanelReducer";
+import { fetchStatistique } from "../../redux/statistiqueReducer";
 const TABS = [
   {
     label: "الكل",
@@ -42,10 +43,10 @@ export default function Home() {
   const [input, setInput] = useState("");
   const [min, setMin] = useState(0);
   const dispatch = useDispatch();
+  const users2 = useSelector((store) => store.controlPanel).users.users;
   const {
-    users: { users },
     statistique: {
-      nUsers,
+      users,
       sales,
       profits,
       views,
@@ -53,13 +54,7 @@ export default function Home() {
       lastProfits,
       lastSales,
     },
-  } = useSelector((store) => store.controlPanel);
-  useEffect(() => {
-    users?.length ||
-      dispatch(fetchStatistique())
-        .unwrap()
-        .catch((err) => console.error(err));
-  }, []);
+  } = useSelector((store) => store.statistique);
   useEffect(() => {
     dispatch(fetchUsers({ tab, input, min }))
       .unwrap()
@@ -67,14 +62,13 @@ export default function Home() {
     console.log(users);
   }, [input, tab, min]);
   return (
-    <div className="shadow-lg p-1 m-1 rounded-xl w-full  grid row-span-3 md:m-5 md:p-5  bg-white">
-      <SpeedyDial />
+    <>
       <div className="h-1/3 m-5 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-8">
         <CiCard
           icon={<UserIcon className="w-8 h-8 text-white" />}
           color={"bg-scandaryColor"}
           title={"المستخدمين"}
-          value={nUsers}
+          value={users}
           footer={"الشهر الماضي"}
           footervalue={lastUsers}
           footercolor={"text-green-400"}
@@ -112,17 +106,17 @@ export default function Home() {
         <CiTable
           TABS={TABS}
           TABLE_HEAD={TABLE_HEAD}
-          TABLE_ROWS={users}
+          TABLE_ROWS={users2}
           Header={"المستخدمون الاوفياء"}
           subheader={"عرض معلومات حول هؤلاء المستخدمين"}
           tab={tab}
-          count={nUsers}
+          count={users}
           max={max}
           onChangeTab={(value) => setTab(value)}
           onChangeInpute={(value) => setInput(value)}
           onChangePage={(value) => setMin((value - 1) * max)}
         />
       </div>
-    </div>
+    </>
   );
 }

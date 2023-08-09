@@ -3,7 +3,7 @@ import "./globals.css";
 import StoreProvider from "./redux/provider";
 
 export const metadata = {
-  title: "fri7a admin board",
+  title: "fri7a Dashboard",
   description: "admin dashboard for fri7a clothes",
 };
 
