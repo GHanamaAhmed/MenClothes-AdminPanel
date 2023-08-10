@@ -107,7 +107,7 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
         onClose(!open2);
       })
       .catch((err) => {
-        toasty(`${err?.response?.data || "فشب رفع المنتج"}`, {
+        toasty(`${err?.response?.data || "فشل رفع المنتج"}`, {
           type: "error",
           toastId: "uploadProduct",
           autoClose: 5000,

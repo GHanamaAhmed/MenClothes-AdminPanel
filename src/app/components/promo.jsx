@@ -4,6 +4,7 @@ import { Button, IconButton, Input, Option, Select } from "./import";
 import { GiPerspectiveDiceSixFacesOne } from "react-icons/gi";
 import { useDispatch } from "react-redux";
 import { addCoupon } from "../redux/couponsReducer";
+import { toasty } from "./toast";
 export default function Promo() {
   const [promoCode, setPromoCode] = useState("");
   const [discount, setDiscount] = useState();
@@ -52,7 +53,9 @@ export default function Promo() {
       price: discount,
       porcent: discount,
       max: max2,
-      expireAt: expireDay,
+      expireAt: expireDay
+        ? new Date(Date.now() + expireDay * 1000 * 60 * 60 * 24)
+        : undefined,
     };
     if (type == "porcent") {
       delete req.price;
@@ -62,7 +65,16 @@ export default function Promo() {
     if (!expireDay) {
       delete req.expireAt;
     }
-    dispatch(addCoupon(req));
+    dispatch(addCoupon(req))
+      .unwrap()
+      .catch((err) => {
+        toasty(err?.response?.data || "فشل اضافة التخفيض", {
+          type: "error",
+          toastId: "addCoupon",
+          autoClose: 5000,
+        });
+        console.error(err);
+      });
   };
   return (
     <div className="w-fit flex flex-col justify-center md:justify-start items-center gap-4">

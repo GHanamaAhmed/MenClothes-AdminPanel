@@ -12,32 +12,33 @@ import { FcExpired } from "react-icons/fc";
 import CiPromoTable from "../../components/tablepromo";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCoupon } from "../../redux/couponsReducer";
+import { toasty } from "../../components/toast";
 const TABS = [
   {
     label: "All",
-    value: undefined,
+    value: "",
   },
   {
     label: "استعمل",
-    value: true,
+    value: 1,
   },
   {
     label: "لم يستعمل",
-    value: false,
+    value: 0,
   },
 ];
 const TABS2 = [
   {
     label: "All",
-    value: undefined,
+    value: "",
   },
   {
     label: "صالح",
-    value: false,
+    value: 0,
   },
   {
     label: "انتهاء الصلحية",
-    value: true,
+    value: 1,
   },
 ];
 const TABLE_HEAD = [
@@ -87,12 +88,12 @@ const TABLE_ROWS = [
     useDate: "6/5/2023",
   },
 ];
-const max = 10;
+const max = 6;
 export default function page() {
   const [min, setMin] = useState(0);
   const [name, setName] = useState("");
-  const [used, setUsed] = useState();
-  const [expire, setExpire] = useState();
+  const [used, setUsed] = useState("");
+  const [expire, setExpire] = useState("");
   const {
     statistique: {
       coupon,
@@ -108,14 +109,18 @@ export default function page() {
   const coupons = useSelector((store) => store.coupons).coupon.coupon;
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchCoupon({ min, used, expire, name })).unwrap().catch(err=>{
-		toasty(err?.response?.data || "فشل اضافة التخفيض", {
-			type: "error",
-			toastId: "addCoupon",
-			autoClose: 5000,
-		  });
-		  console.error(err);
-	});
+    dispatch(fetchCoupon({ min, used, expire, name }))
+      .unwrap()
+      .catch((err) => {
+        toasty(err?.response?.data || "فشل اضافة التخفيض", {
+          type: "error",
+          toastId: "addCoupon",
+          autoClose: 5000,
+        });
+        console.error(err);
+      });
+
+      console.log(min, name, used, expire);
   }, [min, name, used, expire]);
   return (
     <>
@@ -142,9 +147,9 @@ export default function page() {
           icon={<CurrencyDollarIcon className="w-8 h-8 text-white" />}
           color={"bg-pink-500"}
           title={" "}
-          value={`${couponSales} Dz`}
+          value={`${couponSales?.toFixed(2)} Dz`}
           footer={"الشهر السابق"}
-          footervalue={`${lastCouponSales} Dz`}
+          footervalue={`${lastCouponSales?.toFixed(2)} Dz`}
           footercolor={"text-green-400"}
         />
         <CiCard
@@ -168,7 +173,7 @@ export default function page() {
           TABS2={TABS2}
           Header={"جدول الاكواد"}
           subheader={"جدول لعرض الاكواد التخفيض"}
-          count={coupons}
+          count={coupon}
           max={max}
           page={Math.ceil(min / max + 1)}
           onChangePage={(value) => setMin(value)}

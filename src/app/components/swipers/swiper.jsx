@@ -23,19 +23,19 @@ export default function Swipers({ reels }) {
   return !isLoading ? (
     <Swiper
       modules={[A11y, Navigation, Pagination]}
-      spaceBetween={40}
-      slidesPerView={1.5}
+      spaceBetween={10}
+      slidesPerView={3}
       scrollbar={{ draggable: true }}
       freeMode={true}
       navigation={{
         nextEl: ".nextEl",
         prevEl: ".prevEl",
       }}
-      watchOverflow={false}
+      watchOverflow={true}
       breakpoints={{
         640: {
-          slidesPerView: 2,
-          spaceBetween: 15,
+          slidesPerView: 3,
+          spaceBetween: 10,
         },
         960: {
           slidesPerView: 3,

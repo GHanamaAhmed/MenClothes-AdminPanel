@@ -40,14 +40,14 @@ export default function page() {
       .catch((err) => console.error(err));
   }, []);
   return (
-    <div>
-      <div className="h-1/3 m-5 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-8">
+    <div className="w-full">
+      <div className="m-5 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-8">
         <CiCard
           icon={<CameraIcon className="w-8 h-8 text-white" />}
           color={"bg-primaryColor"}
           title={"videos"}
           value={reels}
-          footer={"	last month"}
+          footer={"last month"}
           footervalue={lastReels}
           footercolor={"text-green-400"}
         />
@@ -56,7 +56,7 @@ export default function page() {
           color={"bg-azure"}
           title={"likes"}
           value={likes}
-          footer={"	last month"}
+          footer={"last month"}
           footervalue={lastLikes}
           footercolor={"text-red-400"}
         />
@@ -88,7 +88,7 @@ export default function page() {
             <ArrowLeftIcon />
           </button>
         </div>
-        <div className="w-full">
+        <div className="overflow-hidden w-full">
           <Swipers reels={reels2} />
         </div>
       </section>

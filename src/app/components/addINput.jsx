@@ -69,7 +69,7 @@ export default function AddINput({ num, onChanges, onDelete, photo, onShow }) {
         label="كمية"
         type="text"
       ></x.Input>
-      {photo && <x.Button onClick={() => onShow(num)}>اظهار</x.Button>}
+      {photo && <x.Button onClick={() => onShow(color)}>اظهار</x.Button>}
     </div>
   );
 }

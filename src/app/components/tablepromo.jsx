@@ -19,6 +19,7 @@ import { getRelativeTime } from "../../../lib/date";
 import DialogDefault from "./dialog";
 import { useDispatch } from "react-redux";
 import { removeCoupon } from "../redux/couponsReducer";
+import { toasty } from "./toast";
 
 export default function CiPromoTable({
   TABS,
@@ -51,6 +52,9 @@ export default function CiPromoTable({
         console.error(err);
       });
   };
+  useEffect(() => {
+    console.log(page);
+  });
   return (
     <>
       <Card className="h-full  md:w-fit lg:w-full shadow-xl text-right">
@@ -68,45 +72,40 @@ export default function CiPromoTable({
                 {subheader}
               </Typography>
             </div>
-            <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-              <Button
-                variant="outlined"
-                color="blue-gray"
-                size="sm"
-                className="font-Hacen-Tunisia"
-              >
-                عرض الكل
-              </Button>
-            </div>
+           
           </div>
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <div className="w-full flex flex-col gap-2">
-              <Tabs value={undefined} className="w-full">
-                <TabsHeader>
-                  {TABS.map(({ label, value }) => (
-                    <Tab
-                      onClick={() => onChangeTab(value)}
-                      key={value}
-                      value={value}
-                    >
-                      &nbsp;&nbsp;{label}&nbsp;&nbsp;
-                    </Tab>
-                  ))}
-                </TabsHeader>
-              </Tabs>
-              <Tabs value={undefined} className="w-full">
-                <TabsHeader>
-                  {TABS2.map(({ label, value }) => (
-                    <Tab
-                      onClick={() => onChangeTab2(value)}
-                      key={value}
-                      value={value}
-                    >
-                      &nbsp;&nbsp;{label}&nbsp;&nbsp;
-                    </Tab>
-                  ))}
-                </TabsHeader>
-              </Tabs>
+              <div>
+                <Tabs value={undefined} className="w-full">
+                  <TabsHeader>
+                    {TABS.map(({ label, value }) => (
+                      <Tab
+                        onClick={() => onChangeTab(value)}
+                        key={value}
+                        value={value}
+                      >
+                        &nbsp;&nbsp;{label}&nbsp;&nbsp;
+                      </Tab>
+                    ))}
+                  </TabsHeader>
+                </Tabs>
+              </div>
+              <div>
+                <Tabs value={undefined} className="w-full">
+                  <TabsHeader>
+                    {TABS2.map(({ label, value }) => (
+                      <Tab
+                        onClick={() => onChangeTab2(value)}
+                        key={value}
+                        value={value}
+                      >
+                        &nbsp;&nbsp;{label}&nbsp;&nbsp;
+                      </Tab>
+                    ))}
+                  </TabsHeader>
+                </Tabs>
+              </div>
             </div>
             <div className="w-full md:w-60 flex flex-row justify-evenly items-center">
               <MagnifyingGlassIcon className="h-5 w-5  " />
@@ -118,7 +117,7 @@ export default function CiPromoTable({
             </div>
           </div>
         </CardHeader>
-        <CardBody className="overflow-scroll px-0">
+        <CardBody className="overflow-auto min-h-[497px] px-0">
           <table className="mt-4 w-full min-w-max table-auto text-right font-Hacen-Tunisia">
             <thead>
               <tr className="font-Hacen-Tunisia">
@@ -230,7 +229,7 @@ export default function CiPromoTable({
                     </td>
                     <button>
                       <td
-                        className={classes}
+                        className={`${classes} flex justify-center items-center`}
                         onClick={() => {
                           setCoupon(coupon);
                           setOpen0((prev) => !prev);

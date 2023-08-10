@@ -170,7 +170,11 @@ export default function Edit({ onShowProduct, isOpen, onClose, product }) {
           />
           {editProduct?.photos?.map((e, i) => (
             <div key={i}>
-              <AddINput photo={e} num={i} />
+              <AddINput
+                photo={e}
+                num={i}
+                onShow={(value) => setSelectedColor(value)}
+              />
             </div>
           ))}
           <div className="flex flex-row gap-4 justify-evenly items-center">

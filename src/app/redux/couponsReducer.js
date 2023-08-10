@@ -9,10 +9,10 @@ const fetchCoupon = createAsyncThunk(
   ) => {
     try {
       const res = await Axios.get(
-        `/coupon?min=${min || 0}&max=${min || 0 + 10}${
+        `/coupon?min=${min || 0}&max=${min || 0 + 6}${
           name?.length > 0 ? `&name=${name}` : ""
-        }${expire !== undefined ? `&expire=${expire}` : ""}${
-          used !== undefined ? `&used=${used}` : ""
+        }${expire !== "" ? `&expire=${expire}` : ""}${
+          used !== "" ? `&used=${used}` : ""
         }${reverse !== undefined ? `&reverse=${!reverse}` : ""}`
       );
       return fulfillWithValue(res.data);
@@ -34,9 +34,9 @@ const addCoupon = createAsyncThunk(
 );
 const removeCoupon = createAsyncThunk(
   "removeCoupon",
-  async ({id}, { fulfillWithValue, rejectWithValue }) => {
+  async ({ id }, { fulfillWithValue, rejectWithValue }) => {
     try {
-      const res = await Axios.delete("/coupon", { data:{id} });
+      const res = await Axios.delete("/coupon", { data: { id } });
       return fulfillWithValue(res.data);
     } catch (error) {
       return rejectWithValue(error);
@@ -105,7 +105,7 @@ const couponSlice = createSlice({
       })
       .addCase(addCoupon.fulfilled, ({ coupon }, { payload }) => {
         coupon.isLoading = false;
-        coupon.coupon = [...coupon.coupon, payload];
+        coupon.coupon = [payload, ...coupon.coupon];
         toasty("تم اضافة التخفيض", {
           type: "success",
           toastId: "addCoupon",
