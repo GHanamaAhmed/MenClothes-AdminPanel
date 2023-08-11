@@ -13,6 +13,8 @@ import {
   Tabs,
   TabsHeader,
   Tab,
+  Select,
+  Option,
 } from "./import";
 import { useEffect, useState } from "react";
 import { getRelativeTime } from "../../../lib/date";
@@ -72,12 +74,11 @@ export default function CiPromoTable({
                 {subheader}
               </Typography>
             </div>
-           
           </div>
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <div className="w-full flex flex-col gap-2">
               <div>
-                <Tabs value={undefined} className="w-full">
+                <Tabs value={""} className="w-full">
                   <TabsHeader>
                     {TABS.map(({ label, value }) => (
                       <Tab
@@ -91,20 +92,18 @@ export default function CiPromoTable({
                   </TabsHeader>
                 </Tabs>
               </div>
-              <div>
-                <Tabs value={undefined} className="w-full">
-                  <TabsHeader>
-                    {TABS2.map(({ label, value }) => (
-                      <Tab
-                        onClick={() => onChangeTab2(value)}
-                        key={value}
-                        value={value}
-                      >
-                        &nbsp;&nbsp;{label}&nbsp;&nbsp;
-                      </Tab>
-                    ))}
-                  </TabsHeader>
-                </Tabs>
+              <div className="w-fit">
+                <Select value={""}>
+                  {TABS2.map(({ label, value }) => (
+                    <Option
+                      onClick={() => onChangeTab2(value)}
+                      key={value}
+                      value={value}
+                    >
+                      &nbsp;&nbsp;{label}&nbsp;&nbsp;
+                    </Option>
+                  ))}
+                </Select>
               </div>
             </div>
             <div className="w-full md:w-60 flex flex-row justify-evenly items-center">

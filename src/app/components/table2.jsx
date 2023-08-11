@@ -128,7 +128,6 @@ export default function CiTable2({
                 عرض معلومات حول هؤلاء المستخدمين
               </Typography>
             </div>
-            
           </div>
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <Tabs value="all" className="w-full md:w-max">
@@ -211,7 +210,7 @@ export default function CiTable2({
                             color="blue-gray"
                             className="font-Hacen-Tunisia opacity-70"
                           >
-                            {order?.email}
+                            {order?.phone}
                           </Typography>
                         </div>
                       </div>
@@ -312,72 +311,89 @@ export default function CiTable2({
         handler={handleOpen}
         dismiss={{ enabled: false }}
         className="font-Hacen-Tunisia"
+        size="xl"
       >
-        <DialogHeader className="font-Hacen-Tunisia">الطلبية</DialogHeader>
-        <DialogBody divider className="overflow-y-auto h-[30rem]">
+        <DialogHeader className="font-Hacen-Tunisia">
+          <div className="grid grid-cols-2 w-full">
+            <div>
+              <p>الطلبية</p>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <p className="text-base text-gray-700">
+                  الاسم : {currentOrder?.name}
+                </p>
+              </div>
+              <div>
+                <p className="text-base text-gray-700">
+                  رقم الهاتف : {currentOrder?.phone}
+                </p>
+              </div>
+              <div>
+                <p className="text-base text-gray-700">
+                  الولاية و البلدية : {currentOrder?.city}
+                </p>
+              </div>
+              <div>
+                <p className="text-base text-gray-700">
+                  العنوان : {currentOrder?.adress}
+                </p>
+              </div>
+            </div>
+          </div>
+        </DialogHeader>
+        <DialogBody divider className="overflow-y-auto h-[28rem]">
           <div className="grid grid-cols-1 md:grid-cols-3">
             {currentOrder?.productsIds?.map((e, i) => (
               <CardOr order={e} />
             ))}
           </div>
         </DialogBody>
-        <DialogFooter className="flx flex-row gap-2">
-          <Button
-            variant="text"
-            color="red"
-            className="mr-1"
-            onClick={handleOpen}
-          >
-            <span>اغلاق</span>
-          </Button>
-          <div className="flex ">
-            <Select
-              onChange={putStatus}
-              value={currentOrder?.states}
-              tabIndex="1"
+        <DialogFooter className="flex flex-row justify-between">
+          <div>
+            <div className="flex gap-2 items-center">
+              <p className="text-xl text-black">السعر :</p>
+              <p className="text-xl text-green-700">
+                {" "}
+                {currentOrder?.price} دج
+              </p>
+            </div>
+            <div className="flex gap-2 items-center">
+              <p className="text-sm text-black">تم تخفيض :</p>
+              <p className="text-sm text-green-700">
+                {" "}
+                {currentOrder?.disCount?.price || 0} دج
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-row gap-2">
+            <Button
+              variant="text"
+              color="red"
+              className="mr-1"
+              onClick={handleOpen}
             >
-              {TABS.filter((e) => e.value != "all").map((el, i) => {
-                return (
-                  <Option
-                    value={el?.value}
-                    key={i}
-                    className=" text-center transition-all"
-                  >
-                    <span className="">{el?.label}</span>
-                  </Option>
-                );
-              })}
-              {/* <div className="group bg-green-600 rounded-lg mb-1">
-                <Option
-                  index={2}
-                  className="bg-green-600  text-center  group-hover:bg-lightSolid transition-all"
-                >
-                  <span className="text-white group-hover:text-black">
-                    قبول الطلبية
-                  </span>
-                </Option>
-              </div>
-              <div className="group hover:opacity-100 transition-all opacity-60 rounded-lg mb-1">
-                <Option
-                  index={3}
-                  className="bg-blue-600  text-center  group-hover:bg-lightSolid transition-all"
-                >
-                  <span className="text-white group-hover:text-black">
-                    اتمام الطلبية
-                  </span>
-                </Option>
-              </div>
-              <div className="group opacity-60 hover:opacity-100 transition-all rounded-lg mb-1">
-                <Option
-                  index={4}
-                  className="bg-red-600  text-center  group-hover:bg-lightSolid transition-all"
-                >
-                  <span className="text-white group-hover:text-black">
-                    الغاء الطلبية
-                  </span>
-                </Option>
-              </div> */}
-            </Select>
+              <span>اغلاق</span>
+            </Button>
+            <div className="flex ">
+              <Select
+                onChange={putStatus}
+                value={currentOrder?.states}
+                tabIndex="1"
+              >
+                {TABS.filter((e) => e.value != "all").map((el, i) => {
+                  return (
+                    <Option
+                      value={el?.value}
+                      key={i}
+                      className=" text-center transition-all"
+                    >
+                      <span className="">{el?.label}</span>
+                    </Option>
+                  );
+                })}
+              </Select>
+            </div>
           </div>
         </DialogFooter>
       </Dialog>

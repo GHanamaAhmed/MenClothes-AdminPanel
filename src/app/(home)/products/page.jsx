@@ -160,7 +160,6 @@ export default function page() {
           footercolor={"text-green-400"}
         />
       </div>
-
       <div>
         <ProductTable
           TABLE_HEAD={TABLE_HEAD}

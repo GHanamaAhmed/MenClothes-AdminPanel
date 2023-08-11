@@ -30,7 +30,7 @@ import {
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import AddProduct from "./addProduct";
-import Edit from "./edit";
+import Edit2 from "./edite2";
 import { deleteProducts, fetchProducts } from "../redux/productsReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../../../lib/date";
@@ -96,7 +96,6 @@ export default function ProductTable({
                 {subheader}
               </Typography>
             </div>
-           
           </div>
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <Tabs value="all" className="w-full md:w-max">
@@ -293,11 +292,7 @@ export default function ProductTable({
         onShowProduct={() => setOpen3(true)}
         onClose={(value) => setOpen2(value)}
       />
-      <Edit
-        product={product}
-        isOpen={open}
-        onClose={(value) => setOpen(value)}
-      />
+      <Edit2 isOpen={open} onClose={(value) => setOpen(value)} />
       <Dialog open={open3} handler={handleOpen3} size="md">
         <DialogHeader className="font-Hacen-Tunisia">المنتج</DialogHeader>
         <DialogBody divider className="flex flex-col gap-2">

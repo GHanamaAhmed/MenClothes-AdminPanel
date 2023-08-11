@@ -24,6 +24,7 @@ import {
 import Gallary from "./gallary";
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/solid";
 import AddINput from "./addINput";
+import { convertUrlToImageFile } from "../../../lib/images";
 const products = [
   {
     photos: [
@@ -43,12 +44,9 @@ const products = [
 ];
 export default function Edit({ onShowProduct, isOpen, onClose, product }) {
   const [selectedColor, setSelectedColor] = useState("");
-  const [quantityValue, setQuantityValue] = useState("");
   const [selectedsize, setSelectedsize] = useState("");
-  const [selectedImage, setSelectedImage] = useState("");
   const [editProduct, setEditProduct] = useState({});
   const [details, setDetails] = useState([]);
-  const [newDetails, setNewDetails] = useState([]);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(false);
   useEffect(() => {
@@ -57,36 +55,38 @@ export default function Edit({ onShowProduct, isOpen, onClose, product }) {
   useEffect(() => {
     setEditProduct(product);
     setDetails((prev) => {
-      return editProduct?.photos?.map((e, i) => {
+      return product?.photos?.map((e, i) => {
         const nPhotos = e?.photos?.length;
         return {
+          quntity: e?.quntity,
           color: e?.color,
-          sizez: e?.sizes,
+          sizes: e?.sizes,
           nPhotos,
           photos: e.photos,
+          photos2: Promise.all(
+            e.photos?.map((e, i) => convertUrlToImageFile(e).then((img) => img))
+          ),
           id: e?._id,
         };
-      });
+      });``
     });
+    setSelectedColor(product?.photos?.[0]?._id);
   }, [product]);
   useEffect(() => {
     editProduct?.photos?.length &&
-      setSelectedColor(editProduct?.photos[0]?.color);
+      setSelectedColor(editProduct?.photos[0]?._id);
   }, [editProduct]);
   useEffect(() => {
-    editProduct?.photos?.length &&
-      setQuantityValue(
-        editProduct?.photos[
-          editProduct?.photos?.findIndex((el) => el?.color == selectedColor)
-        ]?.quntity
-      );
-    editProduct?.photos?.length &&
+    details?.length &&
       setSelectedsize(
-        editProduct?.photos[
-          editProduct?.photos?.findIndex((el) => el?.color == selectedColor)
+        details[
+          editProduct?.photos?.findIndex((el) => el?.id == selectedColor)
         ]?.sizes?.toString()
       );
   }, [selectedColor]);
+  useEffect(() => {
+    console.log(details);
+  }, [details]);
   const handlevalue = () => {
     setValue(!value);
   };
@@ -94,19 +94,6 @@ export default function Edit({ onShowProduct, isOpen, onClose, product }) {
     setOpen(!open);
     onClose(!open);
   };
-  const handleColorChange = (e) => {
-    setSelectedColor(e);
-  };
-  const handleSizeChange = (e) => {
-    setSelectedsize(e.currentTarget.value);
-  };
-  const handleImageChange = (e) => {
-    setSelectedImage(e.target.value);
-  };
-  const handleQuantityChange = (e) => {
-    setQuantityValue(e.target.value);
-  };
-  const changeInput = (e) => {};
   return (
     <Dialog open={open} handler={handleOpen} size="xl">
       <DialogHeader className="font-Hacen-Tunisia flex flex-row items-center justify-between gap-2">
@@ -157,29 +144,25 @@ export default function Edit({ onShowProduct, isOpen, onClose, product }) {
           <Gallary
             images={
               details?.length
-                ? [
-                    ...details[
-                      details?.findIndex((e) => e?.color == selectedColor)
-                    ]?.photos,
-                    ...newDetails[
-                      newDetails?.findIndex((e) => e?.color == selectedColor)
-                    ]?.photos,
-                  ]
+                ? details?.[details?.findIndex((el) => el?.id == selectedColor)]
+                    ?.photos
                 : []
             }
           />
-          {editProduct?.photos?.map((e, i) => (
+          {details?.map((e, i) => (
             <div key={i}>
               <AddINput
                 photo={e}
                 num={i}
-                onShow={(value) => setSelectedColor(value)}
+                onShow={(value) => {
+                  setSelectedColor(value);
+                }}
               />
             </div>
           ))}
           <div className="flex flex-row gap-4 justify-evenly items-center">
             <Button
-              onClick={() => setNewDetails((prev) => [...prev, {}])}
+              onClick={() => setDetails((prev) => [...prev, {}])}
               variant="gradient"
               className="flex flex-row items-center justify-center gap-2"
             >

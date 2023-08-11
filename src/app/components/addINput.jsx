@@ -10,6 +10,7 @@ export default function AddINput({ num, onChanges, onDelete, photo, onShow }) {
   useEffect(() => {
     onChanges &&
       onChanges({
+        id:photo?.id,
         color,
         photos,
         sizes,
@@ -27,7 +28,7 @@ export default function AddINput({ num, onChanges, onDelete, photo, onShow }) {
     <div className="flex flex-col items-center md:flex-row md:justify-between md gap-4 w-full">
       <x.IconButton
         disabled={num == 0}
-        onClick={() => onDelete(num)}
+        onClick={() => onDelete(photo?.id,num)}
         color="red"
         className="p-5 bg-transparent"
       >
@@ -69,7 +70,7 @@ export default function AddINput({ num, onChanges, onDelete, photo, onShow }) {
         label="كمية"
         type="text"
       ></x.Input>
-      {photo && <x.Button onClick={() => onShow(color)}>اظهار</x.Button>}
+      {photo && <x.Button onClick={() => onShow(photo?.id)}>اظهار</x.Button>}
     </div>
   );
 }

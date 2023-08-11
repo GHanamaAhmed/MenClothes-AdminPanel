@@ -88,11 +88,11 @@ export default function page() {
             <ArrowLeftIcon />
           </button>
         </div>
-        <div className="overflow-hidden w-full">
+        <div className="w-11/12">
           <Swipers reels={reels2} />
         </div>
       </section>
-      <div className="flex  justify-center items-center h-fit w-full">
+      <div className="flex justify-center items-center h-fit w-full">
         <Reels />
       </div>
     </div>

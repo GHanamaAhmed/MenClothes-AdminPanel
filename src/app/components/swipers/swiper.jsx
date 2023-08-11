@@ -17,25 +17,25 @@ export default function Swipers({ reels }) {
   const [isLoading, setIsLoading] = useState(false);
   const [customReels, setCustomReels] = useState([]);
   useEffect(() => {
-	console.log(reels);
+    console.log(reels);
     setCustomReels(reels);
   }, [reels]);
   return !isLoading ? (
     <Swiper
       modules={[A11y, Navigation, Pagination]}
-      spaceBetween={10}
-      slidesPerView={3}
+      spaceBetween={40}
+      slidesPerView={1.5}
       scrollbar={{ draggable: true }}
       freeMode={true}
       navigation={{
         nextEl: ".nextEl",
         prevEl: ".prevEl",
       }}
-      watchOverflow={true}
+      watchOverflow={false}
       breakpoints={{
         640: {
-          slidesPerView: 3,
-          spaceBetween: 10,
+          slidesPerView: 2,
+          spaceBetween: 15,
         },
         960: {
           slidesPerView: 3,
@@ -50,7 +50,7 @@ export default function Swipers({ reels }) {
       {reels.map((e, i) => (
         <SwiperSlide key={i}>
           {" "}
-          <Short reel={e} edit={true}/>
+          <Short reel={e} edit={true} />
         </SwiperSlide>
       ))}
     </Swiper>

@@ -71,13 +71,12 @@ export default function Short({ reel, edit }) {
           setPlay(false);
         }}
       >
-        <div className="relative overflow-hidden m-0 flex h-72 max-h-none w-52 max-w-none items-center justify-start rounded-lg md:h-80 md:w-60">
+        <div className="relative m-0  max-w-none rounded-lg h-72 max-h-none w-52 md:h-80 md:w-60 flex items-center justify-start text-right">
           {!play && reel?.thumbanil && (
             <Image
               priority
               crossOrigin="anonymous"
               fill
-              className="object-cover"
               src={reel?.thumbanil}
               alt="reel"
             />
