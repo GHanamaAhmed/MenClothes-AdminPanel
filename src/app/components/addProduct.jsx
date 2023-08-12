@@ -8,6 +8,7 @@ import { Axios } from "../../../lib/axios";
 import { toasty } from "./toast";
 import { useDispatch } from "react-redux";
 import { uploadProduct } from "../redux/productsReducer";
+import Gallary from "./gallary";
 export default function AddProduct({ onShowProduct, isOpen, onClose }) {
   const dispath = useDispatch();
   const [open2, setOpen2] = useState(false);
@@ -18,10 +19,21 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
   const [y, sety] = useState(1);
   const [Details, SetDetails] = useState([{}]);
   const [thumbanil, setThumbanil] = useState();
+  const [thumbanilUrl, setThumbanilUrl] = useState();
   const [open, setOpen] = useState(false);
+  const [currentPhotos, setCourentPhotos] = useState(null);
   useEffect(() => {
     setOpen2(isOpen);
   }, [isOpen]);
+  useEffect(() => {
+    if (thumbanil) {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(thumbanil);
+      fileReader.addEventListener("loadend", () => {
+        setThumbanilUrl(fileReader.result);
+      });
+    }
+  }, [thumbanil]);
   const toggleOpen = () => {
     setOpen(!open);
   };
@@ -38,30 +50,36 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
     });
   };
   const changeInpute = (e) => {
-    const nPhotos = e?.photos?.length;
-    console.log(e);
+    const nPhotos = e?.photos?.length || 0;
     SetDetails((prev) => {
       prev[e.num] = {
-        color: e?.color,
-        sizes: e?.sizes,
-        quntity: e?.quntity,
-        photos: e?.photos,
-        nPhotos,
+        ...prev[e.num],
+        ...e,
+        photos:
+          prev[e?.num]?.photos?.length && e?.photos
+            ? [...prev[e?.num]?.photos, ...e?.photos]
+            : e?.photos || prev[e?.num]?.photos,
+        nPhotos: (prev[e.num]?.nPhotos || 0) + nPhotos,
+        photosUrl:
+          prev[e?.num].photosUrl?.length && e?.photosUrl
+            ? [...prev[e?.num].photosUrl, ...e?.photosUrl]
+            : e?.photosUrl || prev[e?.num].photosUrl,
       };
-      console.log(prev);
       return [...prev];
     });
   };
   const addProduct = () => {
     let photos = [];
     let details = [];
+    if (!name || !price || !thumbanil) {
+      toasty("ادخل المعلومات اللازمة!", {
+        type: "warning",
+        toastId: "updateProduct",
+        autoClose: 5000,
+      });
+      return;
+    }
     const formData = new FormData();
-    console.log(Details);
-    console.log(
-      Details.every(
-        (e) => e?.color && e?.sizes?.length > 0 && e?.nPhotos && e?.quntity
-      )
-    );
     if (
       Details.every(
         (e) => e?.color && e?.sizes?.length > 0 && e?.nPhotos && e?.quntity
@@ -71,18 +89,27 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
         photos = [...photos, ...e.photos];
         const ec = { ...e };
         delete ec.photos;
+        delete ec.photosUrl;
+        delete ec.num;
         return ec;
       });
       formData.append("details", JSON.stringify(details));
-      details?.map((e, i) => {
+      photos?.map((e, i) => {
         formData.append("photos", photos[i]);
       });
+    } else {
+      toasty("ادخل المعلومات اللازمة!", {
+        type: "warning",
+        toastId: "uploadProduct",
+        autoClose: 5000,
+      });
+      return;
     }
-    formData.append("price", price);
-    formData.append("name", name);
-    formData.append("type", type);
-    formData.append("description", description);
-    formData.append("thumbanil", thumbanil);
+    price && formData.append("price", price);
+    name && formData.append("name", name);
+    type && formData.append("type", type);
+    description && formData.append("description", description);
+    thumbanil && formData.append("thumbanil", thumbanil);
     Axios.request({
       method: "post",
       url: "/products",
@@ -114,6 +141,24 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
         });
         console.error(err);
       });
+  };
+  const removePhoto = (i, ind) => {
+    SetDetails((prev) => {
+      let newPrev = [...prev];
+      newPrev[i].photosUrl = prev[i]?.photosUrl?.filter((e, i2) => i2 != ind);
+      newPrev[i].photos = prev[i]?.photos?.filter((e, i2) => i2 != ind);
+      newPrev[i].nPhotos = newPrev[i].nPhotos - 1;
+      return newPrev;
+    });
+  };
+  const addPhoto = (i, photo, photourl) => {
+    SetDetails((prev) => {
+      let newPrev = [...prev];
+      newPrev[i].photosUrl = [...newPrev[i].photosUrl, photourl];
+      newPrev[i].photos = [...newPrev[i].photos, photo];
+      newPrev[i].nPhotos = newPrev[i].nPhotos + 1;
+      return newPrev;
+    });
   };
   return (
     <x.Dialog
@@ -178,6 +223,26 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
                 id="thumbanil"
               />
             </div>
+            {thumbanilUrl && (
+              <img
+                crossOrigin="anonymous"
+                src={thumbanilUrl}
+                alt="gallary"
+                className="w-[200px] h-[200px] min-w-[200px] object-cover rounded-lg shadow-lg hover:w-[225px] hover:h-[225px] hover:shadow-xl transition-all shadow-gray-600"
+              />
+            )}
+            {currentPhotos !== null && (
+              <Gallary
+                indexPhotos={currentPhotos}
+                images={
+                  Details.length && currentPhotos !== null
+                    ? Details[currentPhotos]?.photosUrl || []
+                    : []
+                }
+                onAdd={addPhoto}
+                onRemove={removePhoto}
+              />
+            )}
             <x.Button
               onClick={toggleOpen}
               className="font-Hacen-Tunisia"
@@ -199,6 +264,7 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
                         num={i}
                         onChanges={changeInpute}
                         onDelete={remDetails}
+                        onShow={(value) => setCourentPhotos(value)}
                       />
                     </div>
                   ))}

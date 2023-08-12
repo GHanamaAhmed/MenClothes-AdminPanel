@@ -3,12 +3,17 @@ const { Axios } = require("../../../lib/axios");
 const { formatDate } = require("../../../lib/date");
 const fetchUsers = createAsyncThunk(
   "users/fetch",
-  async ({ min, tab, input }, { fulfillWithValue, rejectWithValue }) => {
+  async (
+    { min, tab, input, reverse },
+    { fulfillWithValue, rejectWithValue }
+  ) => {
     try {
       const data = await Axios.get(
         `/users?min=${min}&max=${min + 10}&${
           tab != "all" && tab ? `type=${tab}` : ""
-        }&${input ? `name=${input}` : ""}`
+        }&${input ? `name=${input}` : ""}&${
+          reverse ? `reverse=${reverse}` : ""
+        }`
       );
       return fulfillWithValue(data.data);
     } catch (error) {

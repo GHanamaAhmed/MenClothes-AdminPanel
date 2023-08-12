@@ -22,6 +22,8 @@ import DialogDefault from "./dialog";
 import { useDispatch } from "react-redux";
 import { removeCoupon } from "../redux/couponsReducer";
 import { toasty } from "./toast";
+import { FiRefreshCcw } from "react-icons/fi";
+import { LuArrowUpDown } from "react-icons/lu";
 
 export default function CiPromoTable({
   TABS,
@@ -37,6 +39,8 @@ export default function CiPromoTable({
   onChangeName,
   onChangeTab,
   onChangeTab2,
+  onReverse,
+  onRefrech,
 }) {
   const [open0, setOpen0] = useState(false);
   const [coupon, setCoupon] = useState(false);
@@ -244,13 +248,21 @@ export default function CiPromoTable({
           </table>
         </CardBody>
         <CardFooter className="flex items-center justify-center gap-4 md:justify-between border-t border-blue-gray-50 p-4">
-          <Typography
-            variant="small"
-            color="blue-gray"
-            className="font-Hacen-Tunisia "
-          >
-            {page}/{Math.ceil(count / max)}
-          </Typography>
+          <div className="flex gap-5 items-center">
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="font-Hacen-Tunisia "
+            >
+              {page}/{Math.ceil(count / max)}
+            </Typography>
+            <button onClick={() => onReverse()}>
+              <LuArrowUpDown />
+            </button>
+            <button onClick={() => onRefrech()}>
+              <FiRefreshCcw />
+            </button>
+          </div>
           <div className="flex gap-1">
             <Button
               variant="outlined"

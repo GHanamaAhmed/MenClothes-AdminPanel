@@ -13,7 +13,7 @@ const fetchCoupon = createAsyncThunk(
           name?.length > 0 ? `&name=${name}` : ""
         }${expire !== "" ? `&expire=${expire}` : ""}${
           used !== "" ? `&used=${used}` : ""
-        }${reverse !== undefined ? `&reverse=${!reverse}` : ""}`
+        }${reverse ? `&reverse=${reverse}` : ""}`
       );
       return fulfillWithValue(res.data);
     } catch (error) {

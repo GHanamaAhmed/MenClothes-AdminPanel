@@ -13,12 +13,17 @@ const fetchProductsStatistiques = createAsyncThunk(
 );
 const fetchProducts = createAsyncThunk(
   "fetchProducts/products",
-  async ({ name, min, type }, { fulfillWithValue, rejectWithValue }) => {
+  async (
+    { name, min, type, reverse },
+    { fulfillWithValue, rejectWithValue }
+  ) => {
     try {
       const res = await Axios.get(
-        `/products?min=${min || 0}&max=${min || 0 + 15}${
+        `/products?min=${min || 0}&max=${min || 0 + 6}${
           name?.length > 0 ? `&name=${name}` : ""
-        }${type?.length > 0 ? `&type=${type}` : ""}`
+        }${type?.length > 0 ? `&type=${type}` : ""}&${
+          reverse ? `reverse=${reverse}` : ""
+        }`
       );
       return fulfillWithValue(res.data);
     } catch (error) {
@@ -60,12 +65,26 @@ const productsSlice = createSlice({
     },
   },
   reducers: {
-    uploadProduct: ({ products, statistique }, { payload }) => {
-      products.products = [...products.products, payload];
+    uploadProduct: ({ products }, { payload }) => {
+      products.products = [payload, ...products.products];
       products.types = [
-        ...products.types.filter((e) => e != payload.type),
+        ...products.types.map((e) => e != payload.type),
         payload.type,
       ];
+    },
+    updateProduct: ({ products }, { payload }) => {
+      let type;
+      products.products = [
+        ...products.products.map((e) => {
+          if (e?._id == payload?._id) {
+            type = e?.type;
+            return payload;
+          }
+          return e;
+        }),
+      ];
+      products.types = [...products.types.filter((e) => e?._id == type)];
+      payload?.type && (products.types = [...products.types, payload?.types]);
     },
   },
   extraReducers: (builder) => {
@@ -119,11 +138,12 @@ const productsSlice = createSlice({
       });
   },
 });
-const { uploadProduct } = productsSlice.actions;
+const { uploadProduct, updateProduct } = productsSlice.actions;
 export {
   fetchProductsStatistiques,
   fetchProducts,
   deleteProducts,
   uploadProduct,
+  updateProduct,
 };
 export default productsSlice.reducer;

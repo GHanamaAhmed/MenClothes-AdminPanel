@@ -13,12 +13,17 @@ const fetchOrdersStatistique = createAsyncThunk(
 );
 const fetchOrders = createAsyncThunk(
   "fetchOrders",
-  async ({ name, min, type }, { fulfillWithValue, rejectWithValue }) => {
+  async (
+    { name, min, type, reverse },
+    { fulfillWithValue, rejectWithValue }
+  ) => {
     try {
       const res = await Axios.get(
-        `/orders?min=${min || 0}&max=${min || 0 + 15}${
+        `/orders?min=${min || 0}&max=${min || 0 + 6}${
           name?.length > 0 ? `&name=${name}` : ""
-        }${type?.length > 0 ? `&type=${type}` : ""}`
+        }${type?.length > 0 ? `&type=${type}` : ""}&${
+          reverse ? `reverse=${reverse}` : ""
+        }`
       );
       return fulfillWithValue(res.data);
     } catch (error) {

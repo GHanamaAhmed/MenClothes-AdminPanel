@@ -35,7 +35,8 @@ import { deleteProducts, fetchProducts } from "../redux/productsReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../../../lib/date";
 import { toasty } from "./toast";
-
+import { FiRefreshCcw } from "react-icons/fi";
+import { LuArrowUpDown } from "react-icons/lu";
 export default function ProductTable({
   TABS,
   TABLE_HEAD,
@@ -48,6 +49,8 @@ export default function ProductTable({
   onChangeName,
   onChangeTab,
   onChangePage,
+  onReverse,
+  onRefrech,
 }) {
   const [open, setOpen] = useState(false);
   const [open0, setOpen0] = useState(false);
@@ -124,7 +127,7 @@ export default function ProductTable({
             </div>
           </div>
         </CardHeader>
-        <CardBody className="overflow-auto px-0">
+        <CardBody className="overflow-auto px-0 min-h-[753px]">
           <table className="mt-4 w-full min-w-max table-auto text-right font-Hacen-Tunisia">
             <thead>
               <tr className="font-Hacen-Tunisia">
@@ -162,9 +165,10 @@ export default function ProductTable({
                     >
                       <div className="flex items-center gap-3">
                         <Avatar
+                          key={e?.thumbanil + index}
                           src={e?.thumbanil}
                           crossOrigin="anonymous"
-                          alt={e?.name + "&nbsp;" + e?.price}
+                          alt={e?.name}
                           size="xl"
                           variant="rounded"
                         />
@@ -250,18 +254,27 @@ export default function ProductTable({
           </table>
         </CardBody>
         <CardFooter className="flex items-center justify-center gap-4 md:justify-between border-t border-blue-gray-50 p-4">
-          <Typography
-            variant="small"
-            color="blue-gray"
-            className="font-Hacen-Tunisia "
-          >
-            {page}/{Math.ceil(count / max)}
-          </Typography>
+          <div className="flex gap-5 items-center">
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="font-Hacen-Tunisia "
+            >
+              {page}/{Math.ceil(count / max)}
+            </Typography>
+            <button onClick={() => onReverse()}>
+              <LuArrowUpDown />
+            </button>
+            <button onClick={() => onRefrech()}>
+              {" "}
+              <FiRefreshCcw />
+            </button>
+          </div>
           <div className="flex gap-1">
             <Button
               variant="outlined"
-              disabled={Number(page) / Math.ceil(count / max) >= 1}
-              onClick={() => onChangePage(page * max)}
+              disabled={page == 1}
+              onClick={() => onChangePage(Number(page) * max - max * 2)}
               color="blue-gray"
               size="sm"
             >
@@ -269,8 +282,8 @@ export default function ProductTable({
             </Button>
             <Button
               variant="outlined"
-              disabled={page == 1}
-              onClick={() => onChangePage(Number(page) * max - max * 2)}
+              disabled={Number(page) / Math.ceil(count / max) >= 1}
+              onClick={() => onChangePage(page * max)}
               color="blue-gray"
               size="sm"
             >
@@ -292,7 +305,11 @@ export default function ProductTable({
         onShowProduct={() => setOpen3(true)}
         onClose={(value) => setOpen2(value)}
       />
-      <Edit2 isOpen={open} onClose={(value) => setOpen(value)} />
+      <Edit2
+        isOpen={open}
+        onClose={(value) => setOpen(value)}
+        product={product}
+      />
       <Dialog open={open3} handler={handleOpen3} size="md">
         <DialogHeader className="font-Hacen-Tunisia">المنتج</DialogHeader>
         <DialogBody divider className="flex flex-col gap-2">

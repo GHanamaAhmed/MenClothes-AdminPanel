@@ -94,6 +94,8 @@ export default function page() {
   const [name, setName] = useState("");
   const [used, setUsed] = useState("");
   const [expire, setExpire] = useState("");
+  const [forceRendre, setForceRendre] = useState(0);
+  const [reverse, setReverse] = useState(0);
   const {
     statistique: {
       coupon,
@@ -109,7 +111,7 @@ export default function page() {
   const coupons = useSelector((store) => store.coupons).coupon.coupon;
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchCoupon({ min, used, expire, name }))
+    dispatch(fetchCoupon({ min, used, expire, name,reverse }))
       .unwrap()
       .catch((err) => {
         toasty(err?.response?.data || "فشل اضافة التخفيض", {
@@ -119,9 +121,13 @@ export default function page() {
         });
         console.error(err);
       });
+  }, [min, name, used, expire, forceRendre,reverse]);
 
-      console.log(min, name, used, expire);
-  }, [min, name, used, expire]);
+  useEffect(() => {
+    setInterval(() => {
+      setForceRendre((prev) => prev + 1);
+    }, 1000 * 60);
+  }, []);
   return (
     <>
       <div className="h-1/3 m-5 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-8">
@@ -180,6 +186,8 @@ export default function page() {
           onChangeName={(value) => setName(value)}
           onChangeTab={(value) => setUsed(value)}
           onChangeTab2={(value) => setExpire(value)}
+          onRefrech={() => setForceRendre((prev) => prev + 1)}
+          onReverse={() => setReverse((prev) => (prev ? 0 : 1))}
         />
       </div>
     </>

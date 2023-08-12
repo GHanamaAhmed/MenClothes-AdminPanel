@@ -42,6 +42,13 @@ export default function Home() {
   const [tab, setTab] = useState("all");
   const [input, setInput] = useState("");
   const [min, setMin] = useState(0);
+  const [forceRendre, setForceRendre] = useState(0);
+  const [reverse, setReverse] = useState(0);
+  useEffect(() => {
+    setInterval(() => {
+      setForceRendre((prev) => prev + 1);
+    }, 1000 * 60);
+  }, []);
   const dispatch = useDispatch();
   const users2 = useSelector((store) => store.controlPanel).users.users;
   const {
@@ -56,11 +63,11 @@ export default function Home() {
     },
   } = useSelector((store) => store.statistique);
   useEffect(() => {
-    dispatch(fetchUsers({ tab, input, min }))
+    dispatch(fetchUsers({ tab, input, min, reverse }))
       .unwrap()
       .catch((err) => console.error(err));
     console.log(users);
-  }, [input, tab, min]);
+  }, [input, tab, min, forceRendre, reverse]);
   return (
     <>
       <div className="h-1/3 m-5 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-8">
@@ -115,6 +122,8 @@ export default function Home() {
           onChangeTab={(value) => setTab(value)}
           onChangeInpute={(value) => setInput(value)}
           onChangePage={(value) => setMin((value - 1) * max)}
+          onRefrch={() => setForceRendre((prev) => prev + 1)}
+          onReverse={() => setReverse((prev) => (prev ? 0 : 1))}
         />
       </div>
     </>

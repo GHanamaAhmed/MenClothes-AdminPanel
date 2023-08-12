@@ -92,12 +92,14 @@ const TABLE_ROWS = [
     date: "04/10/21",
   },
 ];
-const max = 10;
+const max = 6;
 export default function page() {
   const products2 = useSelector((store) => store.products).products.products;
   const [min, setMin] = useState(0);
   const [name, setName] = useState("");
   const [type, setType] = useState("");
+  const [forceRendre, setForceRendre] = useState(0);
+  const [reverse, setReverse] = useState(0);
   const {
     products: { types },
   } = useSelector((state) => state.products);
@@ -115,11 +117,16 @@ export default function page() {
   } = useSelector((state) => state.statistique);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchProducts({ min, name, type }))
+    dispatch(fetchProducts({ min, name, type,reverse }))
       .unwrap()
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
-  }, [min, name, type]);
+  }, [min, name, type, forceRendre, reverse]);
+  useEffect(() => {
+    setInterval(() => {
+      setForceRendre((prev) => prev + 1);
+    }, 1000 * 60);
+  }, []);
   return (
     <>
       <div className="h-1/3 m-5 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-8">
@@ -173,6 +180,8 @@ export default function page() {
           onChangePage={(value) => setMin(value)}
           onChangeName={(value) => setName(value)}
           onChangeTab={(value) => setType(value)}
+          onRefrech={() => setForceRendre((prev) => prev + 1)}
+          onReverse={() => setReverse((prev) => (prev ? 0 : 1))}
         />
       </div>
     </>

@@ -43,21 +43,9 @@ const TABS = [
   },
 ];
 
-const TABLE_HEAD = ["المستخدمين", "روتور", "الكمية", "الطلبية", "سجل"];
+const TABLE_HEAD = ["المستخدمين", "روتور", "الكمية", "الطلبية", "سجل",""];
 
-const TABLE_ROWS = [
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-    name: "John Michael",
-    email: "0540430098",
-    items: "77",
-    paid: "5822$",
-    order: "xyz",
-    date: "23/04/18",
-    returns: "5",
-  },
-];
-const max = 10;
+const max = 6;
 export default function page() {
   const order2 = useSelector((store) => store.orders).orders.orders;
   const {
@@ -75,13 +63,19 @@ export default function page() {
   const [min, setMin] = useState(0);
   const [name, setName] = useState("");
   const [type, setType] = useState("");
+  const [forceRendre, setForceRendre] = useState(0);
+  const [reverse, setReverse] = useState(0);
+  useEffect(() => {
+    setInterval(() => {
+      setForceRendre((prev) => prev + 1);
+    }, 1000 * 60);
+  }, []);
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(min, name, type);
-    dispatch(fetchOrders({ min, name, type }))
+    dispatch(fetchOrders({ min, name, type,reverse }))
       .unwrap()
       .catch((err) => console.error(err));
-  }, [min, name, type]);
+  }, [min, name, type, forceRendre,reverse]);
   return (
     <>
       <div className="h-1/3 m-5 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-8">
@@ -133,6 +127,8 @@ export default function page() {
           onChangePage={(value) => setMin(value)}
           onChangeName={(value) => setName(value)}
           onChangeTab={(value) => setType(value)}
+          onRefrech={() => setForceRendre((prev) => prev + 1)}
+          onReverse={() => setReverse((prev) => (prev ? 0 : 1))}
         />
       </div>
     </>

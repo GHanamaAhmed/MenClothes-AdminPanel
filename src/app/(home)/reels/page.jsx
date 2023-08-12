@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import SpeedyDial from "../../components/speedDial";
 import CiCard from "../../components/cards";
 import {
@@ -21,6 +21,7 @@ import { fetchStatistique } from "../../redux/controlPanelReducer";
 
 export default function page() {
   const dispatch = useDispatch();
+  const [forceRendre, setForceRendre] = useState(0);
   const {
     statistique: {
       reels,
@@ -38,6 +39,11 @@ export default function page() {
     dispatch(fetchReels())
       .unwrap()
       .catch((err) => console.error(err));
+  }, [forceRendre]);
+  useEffect(() => {
+    setInterval(() => {
+      setForceRendre((prev) => prev + 1);
+    }, 1000 * 60);
   }, []);
   return (
     <div className="w-full">

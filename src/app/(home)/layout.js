@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../components/navbar";
 import SpeedyDial from "../components/speedDial";
@@ -10,14 +10,14 @@ export default function RootLayout({ children }) {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-  useEffect(() => {
+  useLayoutEffect(() => {
     Axios.head("/auth/admin")
       .then((res) => setIsLoading(false))
       .catch((err) => {
         console.error(err);
-        router.replace("/")
+        router.replace("/");
       });
-  },[]);
+  }, []);
   const {
     users: { users },
   } = useSelector((store) => store.controlPanel);

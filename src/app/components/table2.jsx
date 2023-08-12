@@ -34,7 +34,8 @@ import { removeOrder, updateStatus } from "../redux/orderReducer";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import DialogDefault from "./dialog";
 import { toasty } from "./toast";
-
+import { FiRefreshCcw } from "react-icons/fi";
+import { LuArrowUpDown } from "react-icons/lu";
 const sitStates = (state) => {
   switch (state) {
     case "accepted":
@@ -77,6 +78,8 @@ export default function CiTable2({
   onChangePage,
   onChangeName,
   onChangeTab,
+  onRefrech,
+  onReverse,
 }) {
   const [open, setOpen] = useState(false);
   const [open0, setOpen0] = useState(false);
@@ -157,7 +160,7 @@ export default function CiTable2({
             </div>
           </div>
         </CardHeader>
-        <CardBody className="overflow-auto px-0 text-right">
+        <CardBody className="overflow-auto px-0 text-right min-h-[561px]">
           <table className="mt-4 w-full min-w-max table-auto  text-right">
             <thead>
               <tr>
@@ -277,13 +280,22 @@ export default function CiTable2({
           </table>
         </CardBody>
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-          <Typography
-            variant="small"
-            color="blue-gray"
-            className="font-Hacen-Tunisia"
-          >
-            {page}/{Math.ceil(count / max)}
-          </Typography>
+          <div className="flex gap-5 items-center">
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="font-Hacen-Tunisia"
+            >
+              {page}/{Math.ceil(count / max)}
+            </Typography>
+            <button onClick={() => onReverse()}>
+              <LuArrowUpDown />
+            </button>
+            <button onClick={() => onRefrech()}>
+              {" "}
+              <FiRefreshCcw />
+            </button>
+          </div>
           <div className="flex gap-2">
             <Button
               disabled={page == 1}

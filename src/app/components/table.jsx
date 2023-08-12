@@ -18,7 +18,8 @@ import {
   Tooltip,
 } from "./import";
 import { useEffect, useState } from "react";
-
+import { FiRefreshCcw } from "react-icons/fi";
+import { LuArrowUpDown } from "react-icons/lu";
 export default function CiTable({
   TABS,
   TABLE_HEAD,
@@ -31,6 +32,8 @@ export default function CiTable({
   onChangeTab,
   onChangeInpute,
   onChangePage,
+  onRefrch,
+  onReverse,
 }) {
   const [page, setPage] = useState(1);
   return (
@@ -49,7 +52,6 @@ export default function CiTable({
               {subheader}
             </Typography>
           </div>
-          
         </div>
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <Tabs value="all" className="w-full md:w-max">
@@ -170,9 +172,18 @@ export default function CiTable({
         </table>
       </CardBody>
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-        <Typography variant="small" color="blue-gray" className="font-normal">
-          Page {page} of {Math.ceil(count / max) || 1}
-        </Typography>
+        <div className="flex gap-5 items-center">
+          <Typography variant="small" color="blue-gray" className="font-normal">
+            Page {page} of {Math.ceil(count / max) || 1}
+          </Typography>
+          <button onClick={()=>onReverse()}>
+            <LuArrowUpDown />
+          </button>
+          <button onClick={() => onRefrch()} >
+            {" "}
+            <FiRefreshCcw />
+          </button>
+        </div>
         <div className="flex gap-2">
           <Button
             variant="outlined"
