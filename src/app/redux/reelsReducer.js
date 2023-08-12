@@ -13,9 +13,28 @@ const fetchReelsStatistique = createAsyncThunk(
 );
 const fetchReels = createAsyncThunk(
   "fetchReels",
-  async (empty, { fulfillWithValue, rejectWithValue }) => {
+  async ({ min, reverse }, { fulfillWithValue, rejectWithValue }) => {
     try {
-      const res = await Axios.get("/reels");
+      const res = await Axios.get(
+        `/reels?min=${min || 0}&max=${min || 0 + 3}&${
+          reverse ? `reverse=${reverse}` : ""
+        }`
+      );
+      return fulfillWithValue(res.data);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+const fetchReelsMore = createAsyncThunk(
+  "fetchReelsMore",
+  async ({ min, reverse }, { fulfillWithValue, rejectWithValue }) => {
+    try {
+      const res = await Axios.get(
+        `/reels?min=${min || 0}&max=${min || 0 + 3}&${
+          reverse ? `reverse=${reverse}` : ""
+        }`
+      );
       return fulfillWithValue(res.data);
     } catch (error) {
       return rejectWithValue(error);
@@ -110,6 +129,14 @@ const reelsSlice = createSlice({
         reels.err = error.message;
         reels.isLoading = false;
       })
+      .addCase(fetchReelsMore.fulfilled, ({ reels }, { payload }) => {
+        reels.isLoading = false;
+        reels.reels = [...reels.reels, ...payload];
+      })
+      .addCase(fetchReelsMore.rejected, ({ reels }, { error }) => {
+        reels.err = error.message;
+        reels.isLoading = false;
+      })
       .addCase(updateReel.fulfilled, ({ reels }, { payload }) => {
         reels.isLoading = false;
         reels.reels = [
@@ -142,5 +169,6 @@ export {
   updateReel,
   removeReel,
   uploadReel,
+  fetchReelsMore
 };
 export default reelsSlice.reducer;

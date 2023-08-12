@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import SpeedyDial from "../../components/speedDial";
 import CiCard from "../../components/cards";
 import {
@@ -16,7 +16,11 @@ import { CameraIcon } from "@heroicons/react/24/outline";
 import Swipers from "../../components/swipers/swiper";
 import Reels from "../../components/reels";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchReels, fetchReelsStatistique } from "../../redux/reelsReducer";
+import {
+  fetchReels,
+  fetchReelsMore,
+  fetchReelsStatistique,
+} from "../../redux/reelsReducer";
 import { fetchStatistique } from "../../redux/controlPanelReducer";
 
 export default function page() {
@@ -35,8 +39,13 @@ export default function page() {
     },
   } = useSelector((store) => store.statistique);
   const reels2 = useSelector((store) => store.reels).reels.reels;
+  const fetchReel = () => {
+    dispatch(fetchReelsMore({ min: reels2?.length }))
+      .unwrap()
+      .catch((err) => console.error(err));
+  };
   useEffect(() => {
-    dispatch(fetchReels())
+    dispatch(fetchReels({ min: reels2?.length }))
       .unwrap()
       .catch((err) => console.error(err));
   }, [forceRendre]);
@@ -94,8 +103,8 @@ export default function page() {
             <ArrowLeftIcon />
           </button>
         </div>
-        <div className="w-11/12">
-          <Swipers reels={reels2} />
+        <div className="w-11/12 absolute">
+          <Swipers reels={reels2} onEnd={() => fetchReel()} />
         </div>
       </section>
       <div className="flex justify-center items-center h-fit w-full">

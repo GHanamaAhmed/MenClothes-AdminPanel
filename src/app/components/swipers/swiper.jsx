@@ -12,10 +12,11 @@ import { useEffect, useState } from "react";
 import Short from "./short";
 import { selep } from "./sleep";
 import SwiperLoading from "./swiperLoading";
+import { useSelector } from "react-redux";
 
-export default function Swipers({ reels }) {
-  const [isLoading, setIsLoading] = useState(false);
+export default function Swipers({ reels, onEnd }) {
   const [customReels, setCustomReels] = useState([]);
+  const {isLoading} = useSelector((store) => store.reels).reels;
   useEffect(() => {
     console.log(reels);
     setCustomReels(reels);
@@ -30,6 +31,18 @@ export default function Swipers({ reels }) {
       navigation={{
         nextEl: ".nextEl",
         prevEl: ".prevEl",
+      }}
+      onSlideChange={(swiper) => {
+        console.log(swiper.isEnd);
+        swiper.isEnd && onEnd();
+      }}
+      onSwiper={(swiper) => {
+        console.log(swiper.isEnd);
+        swiper.isEnd && onEnd();
+      }}
+      onScroll={(swiper) => {
+        console.log(swiper.isEnd);
+        swiper.isEnd && onEnd();
       }}
       watchOverflow={false}
       breakpoints={{
