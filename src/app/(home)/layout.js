@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Navbar from "../components/navbar";
 import SpeedyDial from "../components/speedDial";
 import { fetchStatistique } from "../redux/statistiqueReducer";
 import { Axios } from "../../../lib/axios";
 import { useRouter } from "next/navigation";
+import Navbar2 from "../components/navbar";
 export default function RootLayout({ children }) {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
@@ -40,12 +40,9 @@ export default function RootLayout({ children }) {
   }, [reels, products, orders, users, coupon]);
   return (
     !isLoading && (
-      <div className="flex flex-row h-fit w-full md:w-full justify-start gap-2 z-0 bg-blue-gray-50 scroll-my-0">
-        <Navbar />
-        <div className="shadow-lg rounded-xl h-fit md:h-full w-full grid row-span-3 mx-5  bg-white">
-          <SpeedyDial />
-          {children}
-        </div>
+      <div className="flex flex-col">
+        <Navbar2 />
+        <div className="w-full">{children}</div>
       </div>
     )
   );

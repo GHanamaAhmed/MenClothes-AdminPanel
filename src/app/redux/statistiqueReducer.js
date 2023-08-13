@@ -47,6 +47,7 @@ const statistiqueSlice = createSlice({
       lastComments: 0,
       viewsReels: 0,
       lastViewsReels: 0,
+      lastView:0,
       isLoading: false,
       err: undefined,
     },

@@ -48,7 +48,7 @@ export default function page() {
     dispatch(fetchReels({ min: reels2?.length }))
       .unwrap()
       .catch((err) => console.error(err));
-  }, [forceRendre]);
+  }, []);
   useEffect(() => {
     setInterval(() => {
       setForceRendre((prev) => prev + 1);
@@ -103,7 +103,7 @@ export default function page() {
             <ArrowLeftIcon />
           </button>
         </div>
-        <div className="w-11/12 absolute">
+        <div className="w-full">
           <Swipers reels={reels2} onEnd={() => fetchReel()} />
         </div>
       </section>

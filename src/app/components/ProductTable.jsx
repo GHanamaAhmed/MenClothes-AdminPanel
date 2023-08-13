@@ -56,6 +56,7 @@ export default function ProductTable({
   const [open0, setOpen0] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
+  const [promotion, setPromotion] = useState("");
   const [product, setProduct] = useState("");
   const dispatch = useDispatch();
   const handleOpen = () => {
@@ -82,6 +83,9 @@ export default function ProductTable({
         });
       });
   };
+  useEffect(() => {
+    setPromotion(product?.promotion || "");
+  }, [product]);
   return (
     <>
       <Card className="h-full md:w-fit lg:w-full shadow-lg text-right">
@@ -230,7 +234,10 @@ export default function ProductTable({
                       <IconButton
                         color="cyan"
                         className="bg-transparent"
-                        onClick={handleOpen3}
+                        onClick={(e) => {
+                          setProduct(e);
+                          handleOpen3(e);
+                        }}
                       >
                         <ReceiptPercentIcon className="h-5 w-5 text-azure" />
                       </IconButton>
@@ -314,7 +321,14 @@ export default function ProductTable({
         <DialogHeader className="font-Hacen-Tunisia">المنتج</DialogHeader>
         <DialogBody divider className="flex flex-col gap-2">
           <label htmlFor="promotion"> السعر الاصلي:</label>
-          <Input name="promotion" label="سعر التخفيض" />
+          <Input
+            value={promotion}
+            onChange={(e) => {
+              setPromotion(e.currentTarget.value);
+            }}
+            name="promotion"
+            label="سعر التخفيض"
+          />
         </DialogBody>
         <DialogFooter className="flex items-center justify-end gap-4">
           <Button
@@ -325,7 +339,13 @@ export default function ProductTable({
           >
             <span>اغلاق</span>
           </Button>
-          <Button variant="gradient" color="cyan" onClick={handleOpen3}>
+          <Button
+            variant="gradient"
+            color="cyan"
+            onClick={(e) => {
+              handleOpen3(e);
+            }}
+          >
             <span>حفظ</span>
           </Button>
         </DialogFooter>

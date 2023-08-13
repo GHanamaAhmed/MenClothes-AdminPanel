@@ -42,6 +42,17 @@ const deleteProducts = createAsyncThunk(
     }
   }
 );
+const updateProduct2 = createAsyncThunk(
+  "update2/products",
+  async ({ id }, { fulfillWithValue, rejectWithValue }) => {
+    try {
+      const res = await Axios.put(`/products`, { data: { id } });
+      return fulfillWithValue(res.data);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
 const productsSlice = createSlice({
   name: "products",
   initialState: {

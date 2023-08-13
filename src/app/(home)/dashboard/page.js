@@ -60,6 +60,7 @@ export default function Home() {
       lastUsers,
       lastProfits,
       lastSales,
+      lastView,
     },
   } = useSelector((store) => store.statistique);
   useEffect(() => {
@@ -104,7 +105,7 @@ export default function Home() {
           title={"المشاهدات"}
           value={views}
           footer={"الشهر الماضي"}
-          footervalue={"%10+"}
+          footervalue={lastView}
           footercolor={"text-green-400"}
         />
       </div>
