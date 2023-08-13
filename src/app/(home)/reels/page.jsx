@@ -25,15 +25,14 @@ import { fetchStatistique } from "../../redux/controlPanelReducer";
 
 export default function page() {
   const dispatch = useDispatch();
-  const [forceRendre, setForceRendre] = useState(0);
   const {
     statistique: {
       reels,
       lastReels,
-      views,
-      lastViews,
-      likes,
-      lastLikes,
+      viewsReels,
+      lastViewsReels,
+      likesReel,
+      lastLikesReel,
       comment,
       lastComment,
     },
@@ -44,6 +43,11 @@ export default function page() {
       .unwrap()
       .catch((err) => console.error(err));
   };
+  const refrechReel = () => {
+    dispatch(fetchReels({ min: 0, max: reels2?.length }))
+      .unwrap()
+      .catch((err) => console.error(err));
+  };
   useEffect(() => {
     dispatch(fetchReels({ min: reels2?.length }))
       .unwrap()
@@ -51,8 +55,8 @@ export default function page() {
   }, []);
   useEffect(() => {
     setInterval(() => {
-      setForceRendre((prev) => prev + 1);
-    }, 1000 * 60);
+      refrechReel();
+    }, 1000 * 20);
   }, []);
   return (
     <div className="w-full">
@@ -69,10 +73,10 @@ export default function page() {
         <CiCard
           icon={<HeartIcon className="w-8 h-8 text-white" />}
           color={"bg-azure"}
-          title={"likes"}
-          value={likes}
+          title={"likesReel"}
+          value={likesReel}
           footer={"last month"}
-          footervalue={lastLikes}
+          footervalue={lastLikesReel}
           footercolor={"text-red-400"}
         />
         <CiCard
@@ -88,9 +92,9 @@ export default function page() {
           icon={<EyeIcon className="w-8 h-8 text-white" />}
           color={"bg-trueblue"}
           title={"views"}
-          value={views}
+          value={viewsReels}
           footer={"	last month"}
-          footervalue={lastViews}
+          footervalue={lastViewsReels}
           footercolor={"text-green-400"}
         />
       </div>

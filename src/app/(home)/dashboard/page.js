@@ -16,10 +16,8 @@ import {
 import SpeedyDial from "../../components/speedDial";
 import CiTable from "../../components/table";
 import { useEffect, useState } from "react";
-import { Axios } from "../../../../lib/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "../../redux/controlPanelReducer";
-import { fetchStatistique } from "../../redux/statistiqueReducer";
 const TABS = [
   {
     label: "الكل",
@@ -47,7 +45,7 @@ export default function Home() {
   useEffect(() => {
     setInterval(() => {
       setForceRendre((prev) => prev + 1);
-    }, 1000 * 60);
+    }, 1000 * 20);
   }, []);
   const dispatch = useDispatch();
   const users2 = useSelector((store) => store.controlPanel).users.users;
@@ -94,9 +92,9 @@ export default function Home() {
           icon={<CurrencyDollarIcon className="w-8 h-8 text-white" />}
           color={"bg-pink-500"}
           title={"الارباح"}
-          value={`${profits}DZ`}
+          value={`${profits} DZ`}
           footer={"الشهر الماضي"}
-          footervalue={lastProfits}
+          footervalue={`${lastProfits} DZ`}
           footercolor={"text-green-400"}
         />
         <CiCard

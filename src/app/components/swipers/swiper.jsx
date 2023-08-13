@@ -16,12 +16,11 @@ import { useSelector } from "react-redux";
 
 export default function Swipers({ reels, onEnd }) {
   const [customReels, setCustomReels] = useState([]);
-  const {isLoading} = useSelector((store) => store.reels).reels;
   useEffect(() => {
     console.log(reels);
     setCustomReels(reels);
   }, [reels]);
-  return !isLoading ? (
+  return (
     <Swiper
       modules={[A11y, Navigation, Pagination]}
       spaceBetween={40}
@@ -33,15 +32,12 @@ export default function Swipers({ reels, onEnd }) {
         prevEl: ".prevEl",
       }}
       onSlideChange={(swiper) => {
-        console.log(swiper.isEnd);
         swiper.isEnd && onEnd();
       }}
       onSwiper={(swiper) => {
-        console.log(swiper.isEnd);
         swiper.isEnd && onEnd();
       }}
       onScroll={(swiper) => {
-        console.log(swiper.isEnd);
         swiper.isEnd && onEnd();
       }}
       watchOverflow={false}
@@ -67,7 +63,5 @@ export default function Swipers({ reels, onEnd }) {
         </SwiperSlide>
       ))}
     </Swiper>
-  ) : (
-    <SwiperLoading />
   );
 }

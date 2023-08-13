@@ -117,8 +117,7 @@ export default function Short({ reel, edit }) {
               </Link>
             </p>
             <p className="text-sm text-trueblue flex flex-row-reverse items-center justify-end">
-              {reel.viewsUsersIds?.length}{" "}
-              <EyeIcon className="" width={25} height={25} />
+              {reel?.views} <EyeIcon className="" width={25} height={25} />
             </p>
           </div>
         </div>

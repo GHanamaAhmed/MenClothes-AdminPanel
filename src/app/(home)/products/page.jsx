@@ -125,7 +125,7 @@ export default function page() {
   useEffect(() => {
     setInterval(() => {
       setForceRendre((prev) => prev + 1);
-    }, 1000 * 60);
+    }, 1000 * 20);
   }, []);
   return (
     <>

@@ -30,10 +30,6 @@ const TABS = [
     value: "rejected",
   },
   {
-    label: "مُلْغي",
-    value: "cancelled",
-  },
-  {
     label: "تم",
     value: "completed",
   },
@@ -68,7 +64,7 @@ export default function page() {
   useEffect(() => {
     setInterval(() => {
       setForceRendre((prev) => prev + 1);
-    }, 1000 * 60);
+    }, 1000 * 20);
   }, []);
   const dispatch = useDispatch();
   useEffect(() => {

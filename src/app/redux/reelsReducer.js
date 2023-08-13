@@ -13,10 +13,10 @@ const fetchReelsStatistique = createAsyncThunk(
 );
 const fetchReels = createAsyncThunk(
   "fetchReels",
-  async ({ min, reverse }, { fulfillWithValue, rejectWithValue }) => {
+  async ({ min, max, reverse }, { fulfillWithValue, rejectWithValue }) => {
     try {
       const res = await Axios.get(
-        `/reels?min=${min || 0}&max=${min || 0 + 3}&${
+        `/reels/admin?min=${min || 0}&max=${max || (min || 0) + 3}&${
           reverse ? `reverse=${reverse}` : ""
         }`
       );
@@ -31,7 +31,7 @@ const fetchReelsMore = createAsyncThunk(
   async ({ min, reverse }, { fulfillWithValue, rejectWithValue }) => {
     try {
       const res = await Axios.get(
-        `/reels?min=${min || 0}&max=${min || 0 + 3}&${
+        `/reels/admin?min=${min || 0}&max=${min || 0 + 3}&${
           reverse ? `reverse=${reverse}` : ""
         }`
       );
@@ -169,6 +169,6 @@ export {
   updateReel,
   removeReel,
   uploadReel,
-  fetchReelsMore
+  fetchReelsMore,
 };
 export default reelsSlice.reducer;

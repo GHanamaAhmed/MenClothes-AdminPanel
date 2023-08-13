@@ -40,9 +40,9 @@ export default function RootLayout({ children }) {
   }, [reels, products, orders, users, coupon]);
   return (
     !isLoading && (
-      <div className="flex flex-col">
+      <div className="flex flex-col items-center">
         <Navbar2 />
-        <div className="w-full">{children}</div>
+        <div className="w-11/12 pt-28 pb-10">{children}</div>
       </div>
     )
   );

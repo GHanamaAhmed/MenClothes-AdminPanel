@@ -34,6 +34,16 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
       });
     }
   }, [thumbanil]);
+  const emptyField = () => {
+    setName("");
+    setType("");
+    setPrice("");
+    setDescription("");
+    SetDetails([{}]);
+    setThumbanil(null);
+    setThumbanilUrl(null);
+    setCourentPhotos(null);
+  };
   const toggleOpen = () => {
     setOpen(!open);
   };
@@ -131,7 +141,7 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
           autoClose: 5000,
         });
         dispath(uploadProduct(res.data));
-        onClose(!open2);
+        emptyField();
       })
       .catch((err) => {
         toasty(`${err?.response?.data || "فشل رفع المنتج"}`, {

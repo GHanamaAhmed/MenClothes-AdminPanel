@@ -169,10 +169,11 @@ export default function ProductTable({
                     >
                       <div className="flex items-center gap-3">
                         <Avatar
-                          key={e?.thumbanil + index}
+                          key={e?.thumbanil+index}
                           src={e?.thumbanil}
                           crossOrigin="anonymous"
                           alt={e?.name}
+                          loading="lazy"
                           size="xl"
                           variant="rounded"
                         />
