@@ -410,8 +410,8 @@ export default function CiTable2({
         </DialogFooter>
       </Dialog>
       <DialogDefault
-        titile={"Delete order"}
-        content={"Have you gonna order remove!"}
+        titile={"حذف طلبية"}
+        content={""}
         isOpen={open0}
         onConfirm={deleteOrder}
         onClose={() => setOpen0((prev) => !prev)}
