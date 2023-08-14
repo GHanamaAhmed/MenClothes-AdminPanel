@@ -125,7 +125,7 @@ export default function CiTable2({
                 color="blue-gray"
                 className="font-Hacen-Tunisia"
               >
-                المستخدمين 
+                المستخدمين
               </Typography>
               <Typography color="gray" className="mt-1 font-Hacen-Tunisia">
                 عرض معلومات حول هؤلاء المستخدمين
@@ -367,7 +367,7 @@ export default function CiTable2({
               <p className="text-xl text-black">السعر :</p>
               <p className="text-xl text-green-700">
                 {" "}
-                {currentOrder?.price} دج
+                {currentOrder?.price + (currentOrder?.shipping || 0)} دج
               </p>
             </div>
             <div className="flex gap-2 items-center">
