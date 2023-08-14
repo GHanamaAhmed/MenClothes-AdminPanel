@@ -54,8 +54,8 @@ export default function Short({ reel, edit }) {
   return (
     <>
       <DialogDefault
-        content={"are you sure ,if you want have updated this reel"}
-        titile={"update Reel"}
+        content={"لايمكنك استرجاع المعلومات عند حذفها!"}
+        titile={"تحديث الريل"}
         isOpen={isOpen}
         onConfirm={deleteReel}
         onClose={(value) => setIsOpen(value)}

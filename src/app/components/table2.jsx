@@ -125,7 +125,7 @@ export default function CiTable2({
                 color="blue-gray"
                 className="font-Hacen-Tunisia"
               >
-                المستخدمين الاوفياء
+                المستخدمين 
               </Typography>
               <Typography color="gray" className="mt-1 font-Hacen-Tunisia">
                 عرض معلومات حول هؤلاء المستخدمين
@@ -304,7 +304,7 @@ export default function CiTable2({
               color="blue-gray"
               size="sm"
             >
-              Previous
+              قبل
             </Button>
             <Button
               disabled={Number(page) / Math.ceil(count / max) >= 1}
@@ -313,7 +313,7 @@ export default function CiTable2({
               color="blue-gray"
               size="sm"
             >
-              Next
+              التالي
             </Button>
           </div>
         </CardFooter>
@@ -411,7 +411,7 @@ export default function CiTable2({
       </Dialog>
       <DialogDefault
         titile={"حذف طلبية"}
-        content={""}
+        content={"لايمكنك استرجاع المعلومات عند حذفها!"}
         isOpen={open0}
         onConfirm={deleteOrder}
         onClose={() => setOpen0((prev) => !prev)}

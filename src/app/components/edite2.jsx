@@ -201,7 +201,7 @@ export default function Edit2({ onShowProduct, isOpen, onClose, product }) {
     >
       <x.DialogHeader className="flex items-center justify-center gap-4 font-Hacen-Tunisia">
         {" "}
-        اضافة منتج{" "}
+        تعديل منتج{" "}
       </x.DialogHeader>
 
       <x.DialogBody
@@ -331,22 +331,11 @@ export default function Edit2({ onShowProduct, isOpen, onClose, product }) {
 
         <x.Button
           variant="gradient"
-          color="blue"
-          onClick={() => {
-            onClose(!open2);
-            onShowProduct();
-          }}
-          className="mr-1"
-        >
-          <span>عرض المنتج</span>
-        </x.Button>
-        <x.Button
-          variant="gradient"
           color="cyan"
           onClick={addProduct}
           className="mr-1"
         >
-          <span>اضف</span>
+          <span>تعديل</span>
         </x.Button>
       </x.DialogFooter>
     </x.Dialog>

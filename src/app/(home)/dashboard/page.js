@@ -75,7 +75,7 @@ export default function Home() {
           color={"bg-scandaryColor"}
           title={"المستخدمين"}
           value={users}
-          footer={"الشهر الماضي"}
+          footer={"اخر شهر"}
           footervalue={lastUsers}
           footercolor={"text-green-400"}
         />
@@ -84,7 +84,7 @@ export default function Home() {
           color={"bg-azure"}
           title={"تم بيعه"}
           value={sales}
-          footer={"الشهر الماضي"}
+          footer={"اخر شهر"}
           footervalue={lastSales}
           footercolor={"text-red-400"}
         />
@@ -93,7 +93,7 @@ export default function Home() {
           color={"bg-pink-500"}
           title={"الارباح"}
           value={`${profits} DZ`}
-          footer={"الشهر الماضي"}
+          footer={"اخر شهر"}
           footervalue={`${lastProfits} DZ`}
           footercolor={"text-green-400"}
         />
@@ -102,7 +102,7 @@ export default function Home() {
           color={"bg-red-400"}
           title={"المشاهدات"}
           value={views}
-          footer={"الشهر الماضي"}
+          footer={"اخر شهر"}
           footervalue={lastView}
           footercolor={"text-green-400"}
         />

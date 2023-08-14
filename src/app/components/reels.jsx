@@ -32,6 +32,7 @@ export default function Reels() {
     setTitle(e.target.value);
   };
   const handleFile = (e) => {
+    if (!e.currentTarget?.files[0]) return;
     setFile(e.currentTarget?.files[0]);
     const fileReader = new FileReader();
     fileReader.readAsDataURL(e.currentTarget?.files[0]);
@@ -45,17 +46,22 @@ export default function Reels() {
     productUrl.split("/").length > 1 &&
       formData.append(
         "productId",
-        productUrl.split("/")[productUrl.length - 1]
+        productUrl.split("/")[productUrl.split("/").length - 1]
       );
-    console.log(file);
     formData.append("video", file);
+    toasty(`انتظر قليلا...`, {
+      toastId: "uploadReel",
+      type: "pending",
+      autoClose: false,
+    });
     Axios.post("/reels", formData, {
       headers: { "Content-Type": "multipart/form-data" },
       onUploadProgress: (p) => {
         const progress = p.loaded / p.total;
         toasty(`تم رفع ${(progress * 100).toFixed(0)} من 100`, {
-          toastId: "uploadReel",
+          toastId: "uploadReel1",
           progress,
+          autoClose: 5000,
         });
       },
     })
@@ -69,7 +75,7 @@ export default function Reels() {
         restInputes();
       })
       .catch((err) => {
-        toasty(`${err?.response?.data || "فشل حذف الريل"}`, {
+        toasty(`${err?.response?.data || "فشل رفع الريل"}`, {
           toastId: "uploadReel",
           type: "error",
           autoClose: 5000,
@@ -113,7 +119,7 @@ export default function Reels() {
                 htmlFor="Myfile"
                 className="bg-scandaryColor rounded-lg p-2 text-white hover:shadow-scandaryColor cursor-pointer shadow-md transition-all ease-in-out delay-150"
               >
-                video
+                الفيديو
               </label>
               <input
                 type="file"
@@ -126,7 +132,7 @@ export default function Reels() {
               {fileUrl && <Short reel={{ name: title, video: fileUrl }} />}
               <div className="flex flex-col items-center justify-center gap-2">
                 <Button onClick={toggleOpen} className="rounded-xl bg-card1">
-                  link product
+                  رابط المنتج
                 </Button>
                 <div>
                   <Card

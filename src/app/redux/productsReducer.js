@@ -44,9 +44,9 @@ const deleteProducts = createAsyncThunk(
 );
 const updateProduct2 = createAsyncThunk(
   "update2/products",
-  async ({ id }, { fulfillWithValue, rejectWithValue }) => {
+  async ({ id, promotion }, { fulfillWithValue, rejectWithValue }) => {
     try {
-      const res = await Axios.put(`/products`, { data: { id } });
+      const res = await Axios.put(`/products/update`, { id, promotion });
       return fulfillWithValue(res.data);
     } catch (error) {
       return rejectWithValue(error);
@@ -95,7 +95,7 @@ const productsSlice = createSlice({
         }),
       ];
       products.types = [...products.types.filter((e) => e?._id == type)];
-      payload?.type && (products.types = [...products.types, payload?.types]);
+      payload?.type && (products.types = [...products.types, payload?.type]);
     },
   },
   extraReducers: (builder) => {
@@ -146,6 +146,22 @@ const productsSlice = createSlice({
       )
       .addCase(deleteProducts.rejected, ({ products }, { error }) => {
         products.err = error.message;
+      })
+      .addCase(
+        updateProduct2.fulfilled,
+        ({ products, statistique }, { payload }) => {
+          products.products = [
+            ...products.products.map((e) => {
+              if (e?._id == payload?._id) {
+                return payload;
+              }
+              return e;
+            }),
+          ];
+        }
+      )
+      .addCase(updateProduct2.rejected, ({ products }, { error }) => {
+        products.err = error.message;
       });
   },
 });
@@ -156,5 +172,6 @@ export {
   deleteProducts,
   uploadProduct,
   updateProduct,
+  updateProduct2,
 };
 export default productsSlice.reducer;

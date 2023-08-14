@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/free-mode";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Short from "./short";
 import { selep } from "./sleep";
 import SwiperLoading from "./swiperLoading";
@@ -16,9 +16,12 @@ import { useSelector } from "react-redux";
 
 export default function Swipers({ reels, onEnd }) {
   const [customReels, setCustomReels] = useState([]);
+  const [first, setFirst] = useState(true);
+  const swiperRef = useRef(null);
   useEffect(() => {
-    console.log(reels);
     setCustomReels(reels);
+    first && swiperRef.current?.isEnd && onEnd();
+    setFirst(false);
   }, [reels]);
   return (
     <Swiper
@@ -35,7 +38,7 @@ export default function Swipers({ reels, onEnd }) {
         swiper.isEnd && onEnd();
       }}
       onSwiper={(swiper) => {
-        swiper.isEnd && onEnd();
+        swiperRef.current = swiper;
       }}
       onScroll={(swiper) => {
         swiper.isEnd && onEnd();

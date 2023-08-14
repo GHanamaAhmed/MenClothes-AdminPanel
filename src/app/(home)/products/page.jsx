@@ -125,7 +125,7 @@ export default function page() {
   useEffect(() => {
     setInterval(() => {
       setForceRendre((prev) => prev + 1);
-    }, 1000 * 20);
+    }, 1000 * 120);
   }, []);
   return (
     <>
@@ -135,7 +135,7 @@ export default function page() {
           color={"bg-primaryColor"}
           title={"منتجات"}
           value={products}
-          footer={"الشهر السابق"}
+           footer={"اخر شهر"}
           footervalue={lastProducts}
           footercolor={"text-green-400"}
         />
@@ -144,7 +144,7 @@ export default function page() {
           color={"bg-azure"}
           title={"اعحاب"}
           value={likes}
-          footer={"الشهر السابق"}
+           footer={"اخر شهر"}
           footervalue={lastLikes}
           footercolor={"text-red-400"}
         />
@@ -153,7 +153,7 @@ export default function page() {
           color={"bg-pink-500"}
           title={"مبيعات "}
           value={sales}
-          footer={"الشهر السابق"}
+           footer={"اخر شهر"}
           footervalue={lastSales}
           footercolor={"text-green-400"}
         />
@@ -162,7 +162,7 @@ export default function page() {
           color={"bg-trueblue"}
           title={"الرتور"}
           value={returns}
-          footer={"الشهر السابق"}
+           footer={"اخر شهر"}
           footervalue={lastReturns}
           footercolor={"text-green-400"}
         />

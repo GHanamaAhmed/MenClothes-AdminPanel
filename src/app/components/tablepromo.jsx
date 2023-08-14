@@ -286,8 +286,8 @@ export default function CiPromoTable({
         </CardFooter>
       </Card>
       <DialogDefault
-        titile={"Delete coupon"}
-        content={"Have you gonna coupon remove!"}
+        titile={"حذف لتخفيض"}
+        content={"لايمكنك استرجاع المعلومات عند حذفها!"}
         isOpen={open0}
         onConfirm={deleteCoupon}
         onClose={() => setOpen0((prev) => !prev)}

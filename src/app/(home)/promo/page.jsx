@@ -111,7 +111,7 @@ export default function page() {
   const coupons = useSelector((store) => store.coupons).coupon.coupon;
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchCoupon({ min, used, expire, name,reverse }))
+    dispatch(fetchCoupon({ min, used, expire, name, reverse }))
       .unwrap()
       .catch((err) => {
         toasty(err?.response?.data || "فشل اضافة التخفيض", {
@@ -121,7 +121,7 @@ export default function page() {
         });
         console.error(err);
       });
-  }, [min, name, used, expire, forceRendre,reverse]);
+  }, [min, name, used, expire, forceRendre, reverse]);
 
   useEffect(() => {
     setInterval(() => {
@@ -136,7 +136,7 @@ export default function page() {
           color={"bg-primaryColor"}
           title={"promo codes"}
           value={coupon}
-          footer={"الشهر السابق"}
+          footer={"اخر شهر"}
           footervalue={lastCoupon}
           footercolor={"text-green-400"}
         />
@@ -145,16 +145,16 @@ export default function page() {
           color={"bg-azure"}
           title={"المتبقي"}
           value={restCoupon}
-          footer={"الشهر السابق"}
+          footer={"اخر شهر"}
           footervalue={lastRestCoupon}
           footercolor={"text-red-400"}
         />
         <CiCard
           icon={<CurrencyDollarIcon className="w-8 h-8 text-white" />}
           color={"bg-pink-500"}
-          title={" "}
+          title={"نفقات التخفيض"}
           value={`${couponSales?.toFixed(2)} Dz`}
-          footer={"الشهر السابق"}
+          footer={"اخر شهر"}
           footervalue={`${lastCouponSales?.toFixed(2)} Dz`}
           footercolor={"text-green-400"}
         />
@@ -163,7 +163,7 @@ export default function page() {
           color={"bg-trueblue"}
           title={"المستخذم"}
           value={usedCoupon}
-          footer={"الشهر السابق"}
+          footer={"اخر شهر"}
           footervalue={lastUsedCoupon}
           footercolor={"text-green-400"}
         />

@@ -114,7 +114,7 @@ export default function Promo() {
         </IconButton>
         <Button onClick={postCode} className="font-Hacen-Tunisia">
           {" "}
-          ارسل
+         انشاء
         </Button>
       </div>
     </div>

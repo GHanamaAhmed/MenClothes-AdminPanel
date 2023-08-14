@@ -22,7 +22,7 @@ export default function Signin() {
         <Card className="absolute top-2/4 left-2/4 w-full max-w-[24rem] -translate-y-2/4 -translate-x-2/4 bg-primaryColor">
           <CardHeader className="mb-4 grid h-28 place-items-center bg-scandaryColor">
             <Typography variant="h3" color="white">
-              Sign In
+              تسجيل الدخول
             </Typography>
           </CardHeader>
           <CardBody className="flex flex-col gap-4">

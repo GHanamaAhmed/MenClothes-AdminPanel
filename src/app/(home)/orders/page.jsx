@@ -80,7 +80,7 @@ export default function page() {
           color={"bg-primaryColor"}
           title={"الطلبات"}
           value={orders}
-          footer={"الشهر السابق"}
+           footer={"اخر شهر"}
           footervalue={lastOrders}
           footercolor={"text-green-400"}
         />
@@ -89,7 +89,7 @@ export default function page() {
           color={"bg-azure"}
           title={"اعحاب"}
           value={likes}
-          footer={"الشهر السابق"}
+           footer={"اخر شهر"}
           footervalue={lastLikes}
           footercolor={"text-green-400"}
         />
@@ -98,7 +98,7 @@ export default function page() {
           color={"bg-pink-500"}
           title={"مبيعات "}
           value={sales}
-          footer={"الشهر السابق"}
+           footer={"اخر شهر"}
           footervalue={lastSales}
           footercolor={"text-green-400"}
         />
@@ -107,7 +107,7 @@ export default function page() {
           color={"bg-trueblue"}
           title={"الرتور"}
           value={returns}
-          footer={"الشهر السابق"}
+           footer={"اخر شهر"}
           footervalue={lastReturns}
           footercolor={"text-green-400"}
         />

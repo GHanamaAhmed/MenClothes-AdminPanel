@@ -54,13 +54,13 @@ export default function InfoDialog({ children }) {
                   value={facebook}
                   onChange={(e) => setFacebook(e.currentTarget.value)}
                   size="lg"
-                  label="الفيسبوك"
+                  label="رابط الفيسبوك"
                 />
                 <Input
                   value={instagram}
                   onChange={(e) => setInstagram(e.currentTarget.value)}
                   size="lg"
-                  label="الانستغرام"
+                  label="رابط الانستغرام"
                 />
                 <Input
                   value={phone}

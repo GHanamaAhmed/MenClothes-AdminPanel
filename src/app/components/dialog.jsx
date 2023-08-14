@@ -34,7 +34,7 @@ export default function DialogDefault({
           onClick={handleOpen}
           className="mr-1"
         >
-          <span>Cancel</span>
+          <span>الغاء</span>
         </Button>
         <Button
           variant="gradient"
@@ -43,7 +43,7 @@ export default function DialogDefault({
             onConfirm();
           }}
         >
-          <span>Confirm</span>
+          <span>تاكيد</span>
         </Button>
       </DialogFooter>
     </Dialog>

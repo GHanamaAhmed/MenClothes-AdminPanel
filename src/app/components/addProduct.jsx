@@ -305,25 +305,13 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
         >
           <span>اغلاق</span>
         </x.Button>
-
-        <x.Button
-          variant="gradient"
-          color="blue"
-          onClick={() => {
-            onClose(!open2);
-            onShowProduct();
-          }}
-          className="mr-1"
-        >
-          <span>عرض المنتج</span>
-        </x.Button>
         <x.Button
           variant="gradient"
           color="cyan"
           onClick={addProduct}
           className="mr-1"
         >
-          <span>اضف</span>
+          <span>اضافة</span>
         </x.Button>
       </x.DialogFooter>
     </x.Dialog>

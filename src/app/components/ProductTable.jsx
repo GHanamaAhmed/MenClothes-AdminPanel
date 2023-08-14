@@ -31,7 +31,11 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import AddProduct from "./addProduct";
 import Edit2 from "./edite2";
-import { deleteProducts, fetchProducts } from "../redux/productsReducer";
+import {
+  deleteProducts,
+  fetchProducts,
+  updateProduct2,
+} from "../redux/productsReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../../../lib/date";
 import { toasty } from "./toast";
@@ -169,7 +173,7 @@ export default function ProductTable({
                     >
                       <div className="flex items-center gap-3">
                         <Avatar
-                          key={e?.thumbanil+index}
+                          key={e?.thumbanil + index}
                           src={e?.thumbanil}
                           crossOrigin="anonymous"
                           alt={e?.name}
@@ -235,9 +239,9 @@ export default function ProductTable({
                       <IconButton
                         color="cyan"
                         className="bg-transparent"
-                        onClick={(e) => {
+                        onClick={() => {
                           setProduct(e);
-                          handleOpen3(e);
+                          handleOpen3();
                         }}
                       >
                         <ReceiptPercentIcon className="h-5 w-5 text-azure" />
@@ -344,7 +348,18 @@ export default function ProductTable({
             variant="gradient"
             color="cyan"
             onClick={(e) => {
-              handleOpen3(e);
+              console.log(product);
+              dispatch(updateProduct2({ id: product?._id, promotion }))
+                .unwrap()
+                .then((res) => handleOpen3(e))
+                .catch((err) => {
+                  toasty("فشل تخفيض المنتج!", {
+                    type: "error",
+                    toastId: "discountProduct",
+                    autoClose: 5000,
+                  });
+                  console.error(err);
+                });
             }}
           >
             <span>حفظ</span>
@@ -352,8 +367,8 @@ export default function ProductTable({
         </DialogFooter>
       </Dialog>
       <DialogDefault
-        titile={"Delete product"}
-        content={"Have you gonna product remove!"}
+        titile={"حذف منتج"}
+        content={"لايمكنك استرجاع المعلومات عند حذفها!"}
         isOpen={open0}
         onConfirm={deleteProduct}
         onClose={() => setOpen0((prev) => !prev)}

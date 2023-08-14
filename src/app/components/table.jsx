@@ -174,12 +174,12 @@ export default function CiTable({
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
         <div className="flex gap-5 items-center">
           <Typography variant="small" color="blue-gray" className="font-normal">
-            Page {page} of {Math.ceil(count / max) || 1}
+            الصفحة {page} من {Math.ceil(count / max) || 1}
           </Typography>
-          <button onClick={()=>onReverse()}>
+          <button onClick={() => onReverse()}>
             <LuArrowUpDown />
           </button>
-          <button onClick={() => onRefrch()} >
+          <button onClick={() => onRefrch()}>
             {" "}
             <FiRefreshCcw />
           </button>
@@ -195,7 +195,7 @@ export default function CiTable({
             }}
             disabled={page == 1 ? true : false}
           >
-            Previous
+            قبل
           </Button>
           <Button
             variant="outlined"
@@ -207,7 +207,7 @@ export default function CiTable({
             }}
             disabled={Math.ceil(count / max) == page ? true : false}
           >
-            Next
+            التالي
           </Button>
         </div>
       </CardFooter>

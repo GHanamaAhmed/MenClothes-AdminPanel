@@ -68,7 +68,7 @@ export default function Reels2({ reel, isOpen, onChaneOpen }) {
           });
           console.error(err);
         });
-    !link &&
+    link.split("/").length <= 1 &&
       dispatch(
         updateReel({
           name,
@@ -111,10 +111,10 @@ export default function Reels2({ reel, isOpen, onChaneOpen }) {
                   value={name}
                   onChange={handleTitle}
                 />
-                <Short reel={reel}/>
+                <Short reel={reel} />
                 <div className="flex flex-col items-center justify-center gap-2">
                   <Button onClick={toggleOpen2} className="rounded-xl bg-card1">
-                    link product
+                    رابط المنتج
                   </Button>
                   <div>
                     <Card

@@ -56,7 +56,7 @@ export default function page() {
   useEffect(() => {
     setInterval(() => {
       refrechReel();
-    }, 1000 * 20);
+    }, 1000 * 120);
   }, []);
   return (
     <div className="w-full">
@@ -66,7 +66,7 @@ export default function page() {
           color={"bg-primaryColor"}
           title={"videos"}
           value={reels}
-          footer={"last month"}
+          footer={"اخر شهر"}
           footervalue={lastReels}
           footercolor={"text-green-400"}
         />
@@ -75,7 +75,7 @@ export default function page() {
           color={"bg-azure"}
           title={"likesReel"}
           value={likesReel}
-          footer={"last month"}
+          footer={"اخر شهر"}
           footervalue={lastLikesReel}
           footercolor={"text-red-400"}
         />
@@ -84,7 +84,7 @@ export default function page() {
           color={"bg-pink-500"}
           title={"comments"}
           value={comment}
-          footer={"	last month"}
+         footer={"اخر شهر"}
           footervalue={lastComment}
           footercolor={"text-green-400"}
         />
@@ -93,7 +93,7 @@ export default function page() {
           color={"bg-trueblue"}
           title={"views"}
           value={viewsReels}
-          footer={"	last month"}
+         footer={"اخر شهر"}
           footervalue={lastViewsReels}
           footercolor={"text-green-400"}
         />

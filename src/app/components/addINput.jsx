@@ -37,6 +37,7 @@ export default function AddINput({ num, onChanges, onDelete, photo, onShow }) {
 
   useEffect(() => {}, [photos]);
   const addPhoto = (e) => {
+    if (!e.currentTarget?.files.length) return;
     setphotosUrl([]);
     setphotos([]);
     for (const photo2 of e.currentTarget.files) {
