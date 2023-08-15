@@ -327,6 +327,8 @@ export default function ProductTable({
         <DialogBody divider className="flex flex-col gap-2">
           <label htmlFor="promotion"> السعر الاصلي:</label>
           <Input
+            type="number"
+            min={0}
             value={promotion}
             onChange={(e) => {
               setPromotion(e.currentTarget.value);
