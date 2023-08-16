@@ -30,7 +30,7 @@ export default function Signin() {
               <Button
                 onClick={(e) =>
                   window.open(
-                    "http://localhost:4000/auth/google?role=admin",
+                    "https://api.fri7a.com/auth/google?role=admin",
                     "_self"
                   )
                 }
@@ -50,7 +50,7 @@ export default function Signin() {
               <Button
                 onClick={(e) =>
                   window.open(
-                    "http://localhost:4000/auth/facebook?role=admin",
+                    "https://api.fri7a.com/auth/facebook?role=admin",
                     "_self"
                   )
                 }
