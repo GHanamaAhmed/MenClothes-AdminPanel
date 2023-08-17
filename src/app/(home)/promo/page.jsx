@@ -51,45 +51,9 @@ const TABLE_HEAD = [
   "",
 ];
 
-const TABLE_ROWS = [
-  {
-    Promocode: "vine33",
-    percentage: "21%",
-    Used: true,
-    createDate: "7/7/2023",
-    useDate: "6/5/2023",
-  },
-  {
-    Promocode: "summer77",
-    percentage: "22%",
-    Used: true,
-    createDate: "6/5/2023",
-    useDate: "6/5/2023",
-  },
-  {
-    Promocode: "School01",
-    percentage: "23%",
-    Used: true,
-    createDate: "5/9/2023",
-    useDate: "6/5/2023",
-  },
-  {
-    Promocode: "wow12",
-    percentage: "24%",
-    Used: true,
-    createDate: "5/5/2023",
-    useDate: "6/5/2023",
-  },
-  {
-    Promocode: "real20",
-    percentage: "25%",
-    Used: true,
-    createDate: "5/2/2023",
-    useDate: "6/5/2023",
-  },
-];
+
 const max = 6;
-export default function page() {
+export default function Page() {
   const [min, setMin] = useState(0);
   const [name, setName] = useState("");
   const [used, setUsed] = useState("");

@@ -23,7 +23,7 @@ import {
 } from "../../redux/reelsReducer";
 import { fetchStatistique } from "../../redux/controlPanelReducer";
 
-export default function page() {
+export default function Page() {
   const dispatch = useDispatch();
   const {
     statistique: {

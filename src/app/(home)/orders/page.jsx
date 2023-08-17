@@ -42,7 +42,7 @@ const TABS = [
 const TABLE_HEAD = ["المستخدمين", "روتور", "الكمية", "الطلبية", "سجل",""];
 
 const max = 6;
-export default function page() {
+export default function Page() {
   const order2 = useSelector((store) => store.orders).orders.orders;
   const {
     statistique: {

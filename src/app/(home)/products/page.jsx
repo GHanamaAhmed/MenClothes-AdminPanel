@@ -19,81 +19,11 @@ import {
 } from "../../redux/productsReducer";
 import { toast } from "react-toastify";
 import { fetchStatistique } from "../../redux/controlPanelReducer";
-const TABS = [
-  {
-    label: "All",
-    value: "all",
-  },
-  {
-    label: "حذاء",
-    value: "1 حذاء",
-  },
-  {
-    label: "حذاء",
-    value: "2 حذاء",
-  },
-  {
-    label: "حذاء",
-    value: "3 حذاء",
-  },
-];
-
 const TABLE_HEAD = ["المنتج", "الكمية", "ريل", "تاريخ الاضافة", "تخفيض", ""];
 
-const TABLE_ROWS = [
-  {
-    img: "https://images.pexels.com/photos/2783873/pexels-photo-2783873.jpeg?auto=compress&cs=tinysrgb&w=600",
-    name: "adidas1",
-    price: "77$",
-    stock: "77",
-    type: "حذاء",
-    reel: "#",
-    reelid: "ttt",
-    date: "23/04/18",
-  },
-  {
-    img: "https://images.pexels.com/photos/2783873/pexels-photo-2783873.jpeg?auto=compress&cs=tinysrgb&w=600",
-    name: "adidas2",
-    price: "77$",
-    stock: "65",
-    type: "حذاء",
-    reel: "#",
-    reelid: "ttt",
-    date: "23/04/18",
-  },
-  {
-    img: "https://images.pexels.com/photos/2783873/pexels-photo-2783873.jpeg?auto=compress&cs=tinysrgb&w=600",
-    name: "adidas3",
-    price: "77$",
-    stock: "59",
-    type: "حذاء",
-    reel: "#",
-    reelid: "ttt",
-    date: "19/09/17",
-  },
-  {
-    img: "https://images.pexels.com/photos/2783873/pexels-photo-2783873.jpeg?auto=compress&cs=tinysrgb&w=600",
-    name: "adidas4",
-    price: "77$",
-    stock: "55",
-    type: "حذاء",
-    reel: "#",
-    reelid: "ttt",
-    date: "24/12/08",
-  },
-  {
-    img: "https://images.pexels.com/photos/2783873/pexels-photo-2783873.jpeg?auto=compress&cs=tinysrgb&w=600",
-    name: "adidas5",
-    price: "77$",
-    stock: "52",
-    type: "حذاء",
-    reel: "#",
-    reelid: "ttt",
-    date: "04/10/21",
-  },
-];
+
 const max = 6;
-export default function page() {
+export default function Page() {
   const products2 = useSelector((store) => store.products).products.products;
   const [min, setMin] = useState(0);
   const [name, setName] = useState("");
