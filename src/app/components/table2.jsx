@@ -357,7 +357,7 @@ export default function CiTable2({
         <DialogBody divider className="overflow-y-auto h-[28rem]">
           <div className="grid grid-cols-1 md:grid-cols-3">
             {currentOrder?.productsIds?.map((e, i) => (
-              <CardOr order={e} />
+              <CardOr order={e} key={i} />
             ))}
           </div>
         </DialogBody>
