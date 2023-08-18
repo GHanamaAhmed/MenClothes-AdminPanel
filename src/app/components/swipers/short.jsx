@@ -70,6 +70,14 @@ export default function Short({ reel, edit }) {
           e.preventDefault();
           setPlay(false);
         }}
+        onTouchStart={(e) => {
+          e.preventDefault();
+          setPlay(true);
+        }}
+        onTouchCancel={(e) => {
+          e.preventDefault();
+          setPlay(false);
+        }}
       >
         <div className="relative m-0  max-w-none rounded-lg h-72 max-h-none w-52 md:h-80 md:w-60 flex items-center justify-start text-right">
           {!play && reel?.thumbanil && (
