@@ -168,7 +168,7 @@ const navListItems = [
   {
     label: "الموقع",
     icon: ShoppingBagIcon,
-    link: "/",
+    link: "https://fri7a.com",
   },
   {
     label: "الطلبيات",
