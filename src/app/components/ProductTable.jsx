@@ -26,6 +26,8 @@ import {
   DialogFooter,
   DialogHeader,
   Switch,
+  Select,
+  Option,
 } from "./import";
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -93,8 +95,8 @@ export default function ProductTable({
   return (
     <>
       <Card className="h-full md:w-fit lg:w-full shadow-lg text-right">
-        <CardHeader floated={false} shadow={false} className="rounded-none">
-          <div className="mb-8 flex items-center justify-between gap-8">
+        <CardHeader floated={false}  shadow={false} className="rounded-none overflow-visible">
+          <div className="mb-8 flex items-center overflow-visible justify-between gap-8">
             <div>
               <Typography
                 variant="h5"
@@ -109,22 +111,22 @@ export default function ProductTable({
             </div>
           </div>
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <Tabs value="all" className="w-full md:w-max">
-              <TabsHeader>
-                <Tab onClick={() => onChangeTab("")} value={""}>
+            <div className="w-fit">
+              <Select value="">
+                <Option onClick={() => onChangeTab("")} value={""}>
                   الكل
-                </Tab>
+                </Option>
                 {TABS?.map((value) => (
-                  <Tab
+                  <Option
                     key={value}
                     onClick={() => onChangeTab(value)}
                     value={value}
                   >
                     &nbsp;&nbsp;{value}&nbsp;&nbsp;
-                  </Tab>
+                  </Option>
                 ))}
-              </TabsHeader>
-            </Tabs>
+              </Select>
+            </div>
             <div className="w-full md:w-60 flex flex-row justify-evenly items-center">
               <MagnifyingGlassIcon className="h-5 w-5  " />
               <Input

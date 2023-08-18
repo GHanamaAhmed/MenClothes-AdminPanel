@@ -97,7 +97,7 @@ export default function Page() {
           footercolor={"text-green-400"}
         />
       </div>
-      <div>
+      <div >
         <ProductTable
           TABLE_HEAD={TABLE_HEAD}
           TABLE_ROWS={products2}

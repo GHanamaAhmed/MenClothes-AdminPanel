@@ -59,14 +59,14 @@ export default function AddINput({ num, onChanges, onDelete, photo, onShow }) {
       >
         <MinusIcon className="h-5 w-5 text-red-600" />
       </x.IconButton>
-      <x.Input
+      <input
+      className="min-w-[50px] border-none"
         value={color}
         defaultValue={color}
         onChange={(e) => setColor(e.currentTarget.value)}
-        label="لون"
-        type="text"
-      ></x.Input>
-
+        id="nativeColorPicker1"
+        type="color"
+      />
       <>
         <label
           htmlFor={`image${num}`}
@@ -86,7 +86,7 @@ export default function AddINput({ num, onChanges, onDelete, photo, onShow }) {
       <x.Input
         onChange={(e) => setSizes(e.currentTarget.value.split(","))}
         label="احجام"
-        value={sizes.toString().replace(" ", ",")}
+        value={sizes?.toString().replace(" ", ",")}
         type="text"
       ></x.Input>
       <x.Input
