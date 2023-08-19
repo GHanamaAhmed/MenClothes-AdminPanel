@@ -21,7 +21,6 @@ import { toast } from "react-toastify";
 import { fetchStatistique } from "../../redux/controlPanelReducer";
 const TABLE_HEAD = ["المنتج", "الكمية", "ريل", "تاريخ الاضافة", "تخفيض", ""];
 
-
 const max = 6;
 export default function Page() {
   const products2 = useSelector((store) => store.products).products.products;
@@ -31,7 +30,7 @@ export default function Page() {
   const [forceRendre, setForceRendre] = useState(0);
   const [reverse, setReverse] = useState(0);
   const {
-    products: { types },
+    products: { types, count },
   } = useSelector((state) => state.products);
   const {
     statistique: {
@@ -47,7 +46,7 @@ export default function Page() {
   } = useSelector((state) => state.statistique);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchProducts({ min, name, type,reverse }))
+    dispatch(fetchProducts({ min, name, type, reverse }))
       .unwrap()
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
@@ -57,6 +56,9 @@ export default function Page() {
       setForceRendre((prev) => prev + 1);
     }, 1000 * 120);
   }, []);
+  useEffect(() => {
+    setMin(0);
+  }, [name, type]);
   return (
     <>
       <div className="h-1/3 m-5 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-8">
@@ -65,7 +67,7 @@ export default function Page() {
           color={"bg-primaryColor"}
           title={"منتجات"}
           value={products}
-           footer={"اخر شهر"}
+          footer={"اخر شهر"}
           footervalue={lastProducts}
           footercolor={"text-green-400"}
         />
@@ -74,7 +76,7 @@ export default function Page() {
           color={"bg-azure"}
           title={"اعحاب"}
           value={likes}
-           footer={"اخر شهر"}
+          footer={"اخر شهر"}
           footervalue={lastLikes}
           footercolor={"text-red-400"}
         />
@@ -83,7 +85,7 @@ export default function Page() {
           color={"bg-pink-500"}
           title={"مبيعات "}
           value={sales}
-           footer={"اخر شهر"}
+          footer={"اخر شهر"}
           footervalue={lastSales}
           footercolor={"text-green-400"}
         />
@@ -92,18 +94,18 @@ export default function Page() {
           color={"bg-trueblue"}
           title={"الرتور"}
           value={returns}
-           footer={"اخر شهر"}
+          footer={"اخر شهر"}
           footervalue={lastReturns}
           footercolor={"text-green-400"}
         />
       </div>
-      <div >
+      <div>
         <ProductTable
           TABLE_HEAD={TABLE_HEAD}
           TABLE_ROWS={products2}
           TABS={types}
           Header={"products"}
-          count={products}
+          count={count}
           max={max}
           page={Math.ceil(min / max + 1)}
           subheader={"see products"}

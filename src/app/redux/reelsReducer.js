@@ -16,7 +16,7 @@ const fetchReels = createAsyncThunk(
   async ({ min, max, reverse }, { fulfillWithValue, rejectWithValue }) => {
     try {
       const res = await Axios.get(
-        `/reels/admin?min=${min || 0}&max=${max || (min || 0) + 3}&${
+        `/reels/admin?min=${min || 0}&max=${(max || min || 0) + 3}&${
           reverse ? `reverse=${reverse}` : ""
         }`
       );

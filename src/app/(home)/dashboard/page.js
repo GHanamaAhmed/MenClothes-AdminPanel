@@ -50,6 +50,9 @@ export default function Home() {
   const dispatch = useDispatch();
   const users2 = useSelector((store) => store.controlPanel).users.users;
   const {
+    users: { count },
+  } = useSelector((store) => store.controlPanel);
+  const {
     statistique: {
       users,
       sales,
@@ -67,6 +70,9 @@ export default function Home() {
       .catch((err) => console.error(err));
     console.log(users);
   }, [input, tab, min, forceRendre, reverse]);
+  useEffect(() => {
+    setMin(0);
+  }, [input, tab]);
   return (
     <>
       <div className="h-1/3 m-5 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-8">
@@ -116,7 +122,7 @@ export default function Home() {
           Header={"المستخدمون الاوفياء"}
           subheader={"عرض معلومات حول هؤلاء المستخدمين"}
           tab={tab}
-          count={users}
+          count={count}
           max={max}
           onChangeTab={(value) => setTab(value)}
           onChangeInpute={(value) => setInput(value)}

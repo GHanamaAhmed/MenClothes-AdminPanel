@@ -59,7 +59,7 @@ export default function CiPromoTable({
       });
   };
   useEffect(() => {
-    console.log(page);
+    console.log(count, max);
   });
   return (
     <>
@@ -254,7 +254,7 @@ export default function CiPromoTable({
               color="blue-gray"
               className="font-Hacen-Tunisia "
             >
-              {page}/{Math.ceil(count / max)}
+              {page}/{Math.ceil(count / max) || 1}
             </Typography>
             <button onClick={() => onReverse()}>
               <LuArrowUpDown />

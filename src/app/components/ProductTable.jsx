@@ -274,7 +274,7 @@ export default function ProductTable({
               color="blue-gray"
               className="font-Hacen-Tunisia "
             >
-              {page}/{Math.ceil(count / max)}
+              {page}/{Math.ceil(count / max)||1}
             </Typography>
             <button onClick={() => onReverse()}>
               <LuArrowUpDown />

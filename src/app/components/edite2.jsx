@@ -206,10 +206,10 @@ export default function Edit2({ onShowProduct, isOpen, onClose, product }) {
 
       <x.DialogBody
         divider
-        className="flex flex-col items-center justify-center gap-4 max-h-[30rem]"
+        className="flex flex-col items-center justify-center gap-4 max-h-[25rem] md:max-h-[30rem]"
       >
         <x.Card className="mx-auto  max-w-none w-full my-2 overflow-y-scroll max-h-[30rem] shadow-none">
-          <x.CardBody className="flex flex-col w-full  gap-4 justify-evenly items-center ">
+          <x.CardBody className="flex flex-col w-full  gap-4 justify-evenly items-center  ">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
               <x.Input
                 value={name}
@@ -263,18 +263,7 @@ export default function Edit2({ onShowProduct, isOpen, onClose, product }) {
                 className="w-[200px] h-[200px] min-w-[200px] object-cover rounded-lg shadow-lg hover:w-[225px] hover:h-[225px] hover:shadow-xl transition-all shadow-gray-600"
               />
             )}
-            {currentPhotos !== null && (
-              <Gallary
-                indexPhotos={currentPhotos}
-                images={
-                  Details.length && currentPhotos !== null
-                    ? Details[currentPhotos]?.photosUrl || []
-                    : []
-                }
-                onAdd={addPhoto}
-                onRemove={removePhoto}
-              />
-            )}
+
             <x.Button
               onClick={toggleOpen}
               className="font-Hacen-Tunisia"
@@ -313,6 +302,18 @@ export default function Edit2({ onShowProduct, isOpen, onClose, product }) {
                       <PlusIcon className="h-5 w-5"></PlusIcon>
                     </x.Button>
                   </div>
+                  {currentPhotos !== null && (
+                    <Gallary
+                      indexPhotos={currentPhotos}
+                      images={
+                        Details.length && currentPhotos !== null
+                          ? Details[currentPhotos]?.photosUrl || []
+                          : []
+                      }
+                      onAdd={addPhoto}
+                      onRemove={removePhoto}
+                    />
+                  )}
                 </div>
               </x.CardBody>
             </x.Card>

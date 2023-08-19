@@ -205,7 +205,11 @@ function NavList() {
           color="blue-gray"
           className={`font-Hacen Tunisia`}
           onClick={() => {
-            router.push(link);
+            if (link == "https://fri7a.com") {
+              window.open("https://fri7a.com", "__blank");
+            } else {
+              router.push(link);
+            }
           }}
         >
           <MenuItem

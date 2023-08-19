@@ -37,6 +37,7 @@ const controlPanelSlice = createSlice({
   initialState: {
     users: {
       users: [],
+      count: 0,
       isLoading: false,
       err: undefined,
     },
@@ -56,7 +57,8 @@ const controlPanelSlice = createSlice({
     builder
       .addCase(fetchUsers.fulfilled, ({ users }, { payload }) => {
         users.isLoading = false;
-        users.users = payload?.map((e) => {
+        users.count = payload?.count || 0;
+        users.users = payload?.users?.map((e) => {
           return {
             img: e?.Photo,
             name: e?.firstName + "-" + e?.lastName,

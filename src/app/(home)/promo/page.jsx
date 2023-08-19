@@ -51,7 +51,6 @@ const TABLE_HEAD = [
   "",
 ];
 
-
 const max = 6;
 export default function Page() {
   const [min, setMin] = useState(0);
@@ -73,6 +72,7 @@ export default function Page() {
     },
   } = useSelector((store) => store.statistique);
   const coupons = useSelector((store) => store.coupons).coupon.coupon;
+  const count = useSelector((store) => store.coupons).coupon.count;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchCoupon({ min, used, expire, name, reverse }))
@@ -86,7 +86,9 @@ export default function Page() {
         console.error(err);
       });
   }, [min, name, used, expire, forceRendre, reverse]);
-
+  useEffect(() => {
+    setMin(0);
+  }, [ name, used, expire]);
   useEffect(() => {
     setInterval(() => {
       setForceRendre((prev) => prev + 1);
@@ -143,7 +145,7 @@ export default function Page() {
           TABS2={TABS2}
           Header={"جدول الاكواد"}
           subheader={"جدول لعرض الاكواد التخفيض"}
-          count={coupon}
+          count={count}
           max={max}
           page={Math.ceil(min / max + 1)}
           onChangePage={(value) => setMin(value)}
