@@ -63,19 +63,18 @@ export default function Short({ reel, edit }) {
       <div
         className="my-3 text-right left-2"
         onMouseEnter={(e) => {
-          e.preventDefault();
           setPlay(true);
         }}
+        onTouchEnd={(e) => {
+          setPlay(false);
+        }}
         onMouseLeave={(e) => {
-          e.preventDefault();
           setPlay(false);
         }}
         onTouchStart={(e) => {
-          e.preventDefault();
           setPlay(true);
         }}
         onTouchCancel={(e) => {
-          e.preventDefault();
           setPlay(false);
         }}
       >
