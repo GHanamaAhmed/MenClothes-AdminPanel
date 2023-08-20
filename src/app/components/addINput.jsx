@@ -28,11 +28,11 @@ export default function AddINput({ num, onChanges, onDelete, photo, onShow }) {
       });
   }, [photosUrl]);
   useEffect(() => {
+    setColor(photo?.color || "#000");
     photo &&
-      (setColor(photo?.color),
-      setQuntity(photo?.quntity),
-      setSizes(photo?.sizes)),
-      setphotos(photo?.photos);
+      (setQuntity(photo?.quntity),
+      setSizes(photo?.sizes),
+      setphotos(photo?.photos));
   }, []);
 
   useEffect(() => {}, [photos]);
@@ -60,7 +60,7 @@ export default function AddINput({ num, onChanges, onDelete, photo, onShow }) {
         <MinusIcon className="h-5 w-5 text-red-600" />
       </x.IconButton>
       <input
-      className="min-w-[50px] border-none"
+        className="min-w-[50px] border-none"
         value={color}
         defaultValue={color}
         onChange={(e) => setColor(e.currentTarget.value)}
