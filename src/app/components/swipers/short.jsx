@@ -62,19 +62,19 @@ export default function Short({ reel, edit }) {
       />
       <div
         className="my-3 text-right left-2"
+        onPointerEnter={(e) => {
+          setPlay(true);
+        }}
+        onPointerOut={()=>{
+          setPlay(false);
+        }}
+        onPointerUp={()=>{
+          setPlay(false);
+        }}
         onMouseEnter={(e) => {
           setPlay(true);
         }}
-        onTouchEnd={(e) => {
-          setPlay(false);
-        }}
         onMouseLeave={(e) => {
-          setPlay(false);
-        }}
-        onTouchStart={(e) => {
-          setPlay(true);
-        }}
-        onTouchCancel={(e) => {
           setPlay(false);
         }}
       >
