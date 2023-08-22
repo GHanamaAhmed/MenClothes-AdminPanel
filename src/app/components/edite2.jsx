@@ -118,8 +118,15 @@ export default function Edit2({ onShowProduct, isOpen, onClose, product }) {
       )
     ) {
       details = Details.map((e, i) => {
+        const customSizes = e.sizes.filter((el, ind) => el?.includes("-"));
+        const sizeNormal = e.sizes.filter((el, ind) => !el?.includes("-"));
+        let sizes = [];
+        customSizes.map((el) => {
+          sizes = [...sizes, ...getValuesBetweenRange(el)];
+        });
+        sizes = [...sizes, ...sizeNormal];
         photos = [...photos, ...e.photos];
-        const ec = { ...e };
+        const ec = { ...e, sizes };
         delete ec.photos;
         delete ec.photosUrl;
         delete ec.num;
