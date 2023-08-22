@@ -35,7 +35,7 @@ const TABS = [
 
 const TABLE_HEAD = ["المستخدمين", "الكمية", "حساب", "سجل"];
 
-var max = 10;
+var max = 6;
 export default function Home() {
   const [tab, setTab] = useState("all");
   const [input, setInput] = useState("");

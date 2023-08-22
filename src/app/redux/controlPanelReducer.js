@@ -9,7 +9,7 @@ const fetchUsers = createAsyncThunk(
   ) => {
     try {
       const data = await Axios.get(
-        `/users?min=${min}&max=${min + 10}&${
+        `/users?min=${min}&max=${min + 6}&${
           tab != "all" && tab ? `type=${tab}` : ""
         }&${input ? `name=${input}` : ""}&${
           reverse ? `reverse=${reverse}` : ""
