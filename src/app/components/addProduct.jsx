@@ -116,8 +116,8 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
       )
     ) {
       details = Details.map((e, i) => {
-        const customSizes = e.sizes.filter(el, (ind) => el?.includes("-"));
-        const sizeNormal = e.sizes.filter(el, (ind) => !el?.includes("-"));
+        const customSizes = e.sizes.filter((el, ind) => el?.includes("-"));
+        const sizeNormal = e.sizes.filter((el, ind) => !el?.includes("-"));
         let sizes = [];
         customSizes.map((el) => {
           sizes = { ...sizes, ...getValuesBetweenRange(el) };
