@@ -78,6 +78,26 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
       return [...prev];
     });
   };
+  function getValuesBetweenRange(rangeString) {
+    const [start, end] = rangeString.split("-");
+
+    // Check if start and end values are valid numbers
+    const startValue = Number(start);
+    const endValue = Number(end);
+
+    if (isNaN(startValue) || isNaN(endValue)) {
+      return [rangeString]; // Return an empty array if the values are not valid numbers
+    }
+
+    const values = [];
+
+    // Generate values between startValue and endValue
+    for (let i = startValue; i <= endValue; i++) {
+      values.push(i);
+    }
+
+    return values;
+  }
   const addProduct = () => {
     let photos = [];
     let details = [];
@@ -96,8 +116,18 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
       )
     ) {
       details = Details.map((e, i) => {
+        const customSizes = e.sizes.filter(el, (ind) => el?.includes("-"));
+        const sizeNormal = e.sizes.filter(el, (ind) => !el?.includes("-"));
+        let sizes = [];
+        customSizes.map((el) => {
+          sizes = { ...sizes, ...getValuesBetweenRange(el) };
+        });
+        sizes = [...sizes, ...sizeNormal];
         photos = [...photos, ...e.photos];
-        const ec = { ...e };
+        const ec = {
+          ...e,
+          sizes,
+        };
         delete ec.photos;
         delete ec.photosUrl;
         delete ec.num;
