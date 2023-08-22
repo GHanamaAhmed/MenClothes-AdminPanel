@@ -120,7 +120,7 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
         const sizeNormal = e.sizes.filter((el, ind) => !el?.includes("-"));
         let sizes = [];
         customSizes.map((el) => {
-          sizes = { ...sizes, ...getValuesBetweenRange(el) };
+          sizes = [...sizes, ...getValuesBetweenRange(el)];
         });
         sizes = [...sizes, ...sizeNormal];
         photos = [...photos, ...e.photos];
