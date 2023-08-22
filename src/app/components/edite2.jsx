@@ -100,6 +100,26 @@ export default function Edit2({ onShowProduct, isOpen, onClose, product }) {
       return [...prev];
     });
   };
+  function getValuesBetweenRange(rangeString) {
+    const [start, end] = rangeString.split("-");
+
+    // Check if start and end values are valid numbers
+    const startValue = Number(start);
+    const endValue = Number(end);
+
+    if (isNaN(startValue) || isNaN(endValue)) {
+      return [rangeString]; // Return an empty array if the values are not valid numbers
+    }
+
+    const values = [];
+
+    // Generate values between startValue and endValue
+    for (let i = startValue; i <= endValue; i++) {
+      values.push(i);
+    }
+
+    return values;
+  }
   const addProduct = () => {
     let photos = [];
     let details = [];
