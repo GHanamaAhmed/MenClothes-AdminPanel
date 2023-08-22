@@ -39,7 +39,7 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
     setType("");
     setPrice("");
     setDescription("");
-    SetDetails([{ color: "#000" }]);
+    SetDetails([{}]);
     setThumbanil(null);
     setThumbanilUrl(null);
     setCourentPhotos(null);
