@@ -35,11 +35,12 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
     }
   }, [thumbanil]);
   const emptyField = () => {
+    sety((prev) => prev + 1);
     setName("");
     setType("");
     setPrice("");
     setDescription("");
-    SetDetails([{}]);
+    SetDetails([{ photos: [], photosUrl: [], color: "#000" }]);
     setThumbanil(null);
     setThumbanilUrl(null);
     setCourentPhotos(null);
@@ -60,23 +61,27 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
     });
   };
   const changeInpute = (e) => {
-    const nPhotos = e?.photos?.length || 0;
-    SetDetails((prev) => {
-      prev[e.num] = {
-        ...prev[e.num],
-        ...e,
-        photos:
-          prev[e?.num]?.photos?.length && e?.photos
-            ? [...prev[e?.num]?.photos, ...e?.photos]
-            : e?.photos || prev[e?.num]?.photos,
-        nPhotos: (prev[e.num]?.nPhotos || 0) + nPhotos,
-        photosUrl:
-          prev[e?.num].photosUrl?.length && e?.photosUrl
-            ? [...prev[e?.num].photosUrl, ...e?.photosUrl]
-            : e?.photosUrl || prev[e?.num].photosUrl,
-      };
-      return [...prev];
-    });
+    try {
+      const nPhotos = e?.photos?.length || 0;
+      SetDetails((prev) => {
+        prev[e.num] = {
+          ...prev[e.num],
+          ...e,
+          photos:
+            prev[e?.num]?.photos?.length && e?.photos?.length
+              ? [...prev[e?.num]?.photos, ...e?.photos]
+              : e?.photos || prev[e?.num]?.photos,
+          nPhotos: (prev[e.num]?.nPhotos || 0) + nPhotos,
+          photosUrl:
+            prev[e?.num].photosUrl?.length && e?.photosUrl?.length
+              ? [...prev[e?.num].photosUrl, ...e?.photosUrl]
+              : e?.photosUrl || prev[e?.num].photosUrl,
+        };
+        return [...prev];
+      });
+    } catch (err) {
+      console.error(err);
+    }
   };
   function getValuesBetweenRange(rangeString) {
     const [start, end] = rangeString.split("-");
@@ -285,8 +290,8 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
               }`}
             >
               <x.CardBody className="w-fit flex flex-row items-end justify-center  ">
-                <div className="flex flex-col gap-4 justify-evenly items-center">
-                  {[...Array(y)].map((e, i) => (
+                <div key={y} className="flex flex-col gap-4 justify-evenly items-center">
+                  {Details.map((e, i) => (
                     <div key={i}>
                       <AddINput
                         num={i}
@@ -296,10 +301,11 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
                       />
                     </div>
                   ))}
-                  <div className="flex flex-row gap-4 justify-evenly items-center">
+                  <div
+                    className="flex flex-row gap-4 justify-evenly items-center"
+                  >
                     <x.Button
                       onClick={() => {
-                        sety((prev) => prev + 1);
                         SetDetails([...Details, {}]);
                       }}
                       variant="gradient"

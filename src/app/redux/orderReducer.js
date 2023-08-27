@@ -25,6 +25,7 @@ const fetchOrders = createAsyncThunk(
           reverse ? `reverse=${reverse}` : ""
         }`
       );
+      console.log(res.data);
       return fulfillWithValue(res.data);
     } catch (error) {
       return rejectWithValue(error);

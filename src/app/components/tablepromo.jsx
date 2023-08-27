@@ -196,7 +196,7 @@ export default function CiPromoTable({
                           size="sm"
                           value={
                             coupon?.count >= coupon?.max ||
-                            coupon?.expireAt <= new Date()
+                            new Date(coupon?.expireAt) <= new Date()
                               ? "غير صالح"
                               : "صالح"
                           }
