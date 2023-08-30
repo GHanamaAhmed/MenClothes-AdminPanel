@@ -165,7 +165,7 @@ export default function CiPromoTable({
                             className="font-normal opacity-70"
                           >
                             {coupon?.porcent
-                              ? `${coupon?.porcent} %`
+                              ? `${Number(coupon?.porcent) * 100} %`
                               : `${coupon?.price} Dz`}
                           </Typography>
                         </div>

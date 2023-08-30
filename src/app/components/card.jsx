@@ -12,7 +12,13 @@ export default function CardOr({ order }) {
         />
         <div className="flex flex-col items-start justify-between">
           <p className="text-black">{order?.name}</p>
-          <p className="text-sm text-lightContent">اللون: {order?.color}</p>
+          <div className="flex gap-2">
+            <p className="text-sm text-lightContent">اللون:</p>
+            <div
+              className={`h-5 w-5 rounded-full border`}
+              style={{ backgroundColor: order?.color }}
+            ></div>
+          </div>
           <p className="text-sm text-lightContent">الحجم: {order?.size}</p>
           <p className="text-sm text-lightContent">الكمية: {order?.quntity}</p>
           <p className="text-sm text-lightContent">السعر: {order?.price}</p>
