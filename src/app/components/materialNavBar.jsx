@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import {
   Navbar,
-  MobileNav,
   Typography,
   Button,
   Menu,
@@ -9,18 +8,12 @@ import {
   MenuList,
   MenuItem,
   Avatar,
-  Card,
   IconButton,
   Collapse,
 } from "@material-tailwind/react";
 import {
-  CubeTransparentIcon,
-  UserCircleIcon,
-  CodeBracketSquareIcon,
-  Square3Stack3DIcon,
   ChevronDownIcon,
   PowerIcon,
-  RocketLaunchIcon,
   Bars2Icon,
   ShoppingBagIcon,
   InboxIcon,

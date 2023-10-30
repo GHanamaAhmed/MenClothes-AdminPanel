@@ -102,7 +102,7 @@ export default function Short({ reel, edit }) {
             </p>
             <p
               onClick={(e) => {
-                window.open(`http://localhost:3000/reels/${reel?._id}`);
+                window.open(`https://fri7a.com/reels/${reel?._id}`);
               }}
               className="text-sm text-scandaryColor flex flex-row-reverse items-center justify-end "
             >
