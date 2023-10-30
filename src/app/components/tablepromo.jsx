@@ -59,7 +59,7 @@ export default function CiPromoTable({
       });
   };
   useEffect(() => {
-    console.log(page);
+    console.log(count, max);
   });
   return (
     <>
@@ -165,7 +165,7 @@ export default function CiPromoTable({
                             className="font-normal opacity-70"
                           >
                             {coupon?.porcent
-                              ? `${coupon?.porcent} %`
+                              ? `${Number(coupon?.porcent) * 100} %`
                               : `${coupon?.price} Dz`}
                           </Typography>
                         </div>
@@ -196,7 +196,7 @@ export default function CiPromoTable({
                           size="sm"
                           value={
                             coupon?.count >= coupon?.max ||
-                            coupon?.expireAt <= new Date()
+                            new Date(coupon?.expireAt) <= new Date()
                               ? "غير صالح"
                               : "صالح"
                           }
@@ -254,7 +254,7 @@ export default function CiPromoTable({
               color="blue-gray"
               className="font-Hacen-Tunisia "
             >
-              {page}/{Math.ceil(count / max)}
+              {page}/{Math.ceil(count / max) || 1}
             </Typography>
             <button onClick={() => onReverse()}>
               <LuArrowUpDown />

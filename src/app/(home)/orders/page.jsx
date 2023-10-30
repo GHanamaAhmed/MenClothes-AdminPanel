@@ -39,11 +39,12 @@ const TABS = [
   },
 ];
 
-const TABLE_HEAD = ["المستخدمين", "روتور", "الكمية", "الطلبية", "سجل",""];
+const TABLE_HEAD = ["المستخدمين", "روتور", "الكمية", "الطلبية", "سجل", ""];
 
 const max = 6;
 export default function Page() {
   const order2 = useSelector((store) => store.orders).orders.orders;
+  const count = useSelector((store) => store.orders).orders.count;
   const {
     statistique: {
       orders,
@@ -68,10 +69,13 @@ export default function Page() {
   }, []);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchOrders({ min, name, type,reverse }))
+    dispatch(fetchOrders({ min, name, type, reverse }))
       .unwrap()
       .catch((err) => console.error(err));
-  }, [min, name, type, forceRendre,reverse]);
+  }, [min, name, type, forceRendre, reverse]);
+  useEffect(() => {
+    setMin(0);
+  }, [name, type]);
   return (
     <>
       <div className="h-1/3 m-5 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-x-8">
@@ -80,7 +84,7 @@ export default function Page() {
           color={"bg-primaryColor"}
           title={"الطلبات"}
           value={orders}
-           footer={"اخر شهر"}
+          footer={"اخر شهر"}
           footervalue={lastOrders}
           footercolor={"text-green-400"}
         />
@@ -89,7 +93,7 @@ export default function Page() {
           color={"bg-azure"}
           title={"اعحاب"}
           value={likes}
-           footer={"اخر شهر"}
+          footer={"اخر شهر"}
           footervalue={lastLikes}
           footercolor={"text-green-400"}
         />
@@ -98,7 +102,7 @@ export default function Page() {
           color={"bg-pink-500"}
           title={"مبيعات "}
           value={sales}
-           footer={"اخر شهر"}
+          footer={"اخر شهر"}
           footervalue={lastSales}
           footercolor={"text-green-400"}
         />
@@ -107,7 +111,7 @@ export default function Page() {
           color={"bg-trueblue"}
           title={"الرتور"}
           value={returns}
-           footer={"اخر شهر"}
+          footer={"اخر شهر"}
           footervalue={lastReturns}
           footercolor={"text-green-400"}
         />
@@ -117,7 +121,7 @@ export default function Page() {
           TABS={TABS}
           TABLE_HEAD={TABLE_HEAD}
           TABLE_ROWS={order2}
-          count={orders}
+          count={count}
           max={max}
           page={Math.ceil(min / max + 1)}
           onChangePage={(value) => setMin(value)}

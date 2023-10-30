@@ -19,7 +19,7 @@ const fetchProducts = createAsyncThunk(
   ) => {
     try {
       const res = await Axios.get(
-        `/products?min=${min || 0}&max=${min || 0 + 6}${
+        `/products?min=${min || 0}&max=${(min || 0) + 6}${
           name?.length > 0 ? `&name=${name}` : ""
         }${type?.length > 0 ? `&type=${type}` : ""}&${
           reverse ? `reverse=${reverse}` : ""
@@ -57,6 +57,7 @@ const productsSlice = createSlice({
   name: "products",
   initialState: {
     products: {
+      count:0,
       products: [],
       types: [],
       isLoading: false,
@@ -125,8 +126,9 @@ const productsSlice = createSlice({
         }
       )
       .addCase(fetchProducts.fulfilled, ({ products }, { payload }) => {
-        products.products = [...payload.products];
-        products.types = [...payload.types];
+        products.count=payload?.count
+        products.products = [...payload?.products];
+        products.types = [...payload?.types];
         products.isLoading = false;
       })
       .addCase(fetchProducts.pending, ({ products }) => {

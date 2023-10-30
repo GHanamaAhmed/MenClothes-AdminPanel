@@ -13,6 +13,10 @@ const nextConfig = {
       {
         hostname: "swiperjs.com",
       },
+      {
+        protocol: "https",
+        hostname: "api.fri7a.com",
+      },
     ],
   },
 };

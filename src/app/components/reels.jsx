@@ -26,21 +26,33 @@ export default function Reels() {
   const [file, setFile] = useState();
   const [fileUrl, setFileUrl] = useState();
   const [productUrl, setProductUrl] = useState("");
+  const [isLoadVideo, setIsLoadVideo] = useState(null);
   const dispatch = useDispatch();
   const toggleOpen = () => setOpen((cur) => !cur);
   const handleTitle = (e) => {
     setTitle(e.target.value);
   };
   const handleFile = (e) => {
+    setIsLoadVideo(null);
     if (!e.currentTarget?.files[0]) return;
     setFile(e.currentTarget?.files[0]);
     const fileReader = new FileReader();
     fileReader.readAsDataURL(e.currentTarget?.files[0]);
     fileReader.addEventListener("loadend", (e) => {
+      setIsLoadVideo(false);
       setFileUrl(fileReader.result);
     });
   };
   const addReel = () => {
+    if (isLoadVideo === true) {
+      toasty(`يتم رفع فيديو حاليا...`, {
+        toastId: "uploadReel",
+        type: "pending",
+        autoClose: false,
+      });
+      return;
+    }
+    setIsLoadVideo(true);
     const formData = new FormData();
     formData.append("name", title);
     productUrl.split("/").length > 1 &&
@@ -71,10 +83,12 @@ export default function Reels() {
           type: "success",
           autoClose: 5000,
         });
+        setIsLoadVideo(null);
         dispatch(uploadReel(res.data));
         restInputes();
       })
       .catch((err) => {
+        setIsLoadVideo(false);
         toasty(`${err?.response?.data || "فشل رفع الريل"}`, {
           toastId: "uploadReel",
           type: "error",
@@ -157,6 +171,7 @@ export default function Reels() {
           </CardBody>
           <CardFooter className="pt-0">
             <Button
+              disabled={isLoadVideo === null}
               onClick={addReel}
               className="bg-scandaryColor shadow-scandaryColor hover:shadow-scandaryColor"
               fullWidth

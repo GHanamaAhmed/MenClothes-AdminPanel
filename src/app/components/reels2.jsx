@@ -36,8 +36,8 @@ export default function Reels2({ reel, isOpen, onChaneOpen }) {
   };
   useEffect(() => {
     setName(reel?.name);
-    reel?._productId &&
-      setLink("http://localhos:3000/reels/" + reel?._productId);
+    reel?.productId &&
+      setLink("https://fri7a.com/reels/" + reel?.productId);
   }, [reel]);
   useEffect(() => {
     setOpen(isOpen);
@@ -48,7 +48,7 @@ export default function Reels2({ reel, isOpen, onChaneOpen }) {
         updateReel({
           name,
           id: reel?._id,
-          productId: link.split("/")[link?.split()?.length - 1],
+          productId: link.split("/")[link?.split("/")?.length - 1],
         })
       )
         .unwrap()

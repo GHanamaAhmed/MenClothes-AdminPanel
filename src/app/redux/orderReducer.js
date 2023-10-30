@@ -19,12 +19,13 @@ const fetchOrders = createAsyncThunk(
   ) => {
     try {
       const res = await Axios.get(
-        `/orders?min=${min || 0}&max=${min || 0 + 6}${
+        `/orders?min=${min || 0}&max=${(min || 0) + 6}${
           name?.length > 0 ? `&name=${name}` : ""
         }${type?.length > 0 ? `&type=${type}` : ""}&${
           reverse ? `reverse=${reverse}` : ""
         }`
       );
+      console.log(res.data);
       return fulfillWithValue(res.data);
     } catch (error) {
       return rejectWithValue(error);
@@ -62,6 +63,7 @@ const ordersSlice = createSlice({
   name: "orders",
   initialState: {
     orders: {
+      count: 0,
       isLoading: false,
       err: undefined,
       orders: [],
@@ -140,8 +142,9 @@ const ordersSlice = createSlice({
       )
       .addCase(fetchOrders.fulfilled, ({ orders }, { payload }) => {
         orders.isLoading = false;
+        orders.count = payload?.count;
         orders.orders = [
-          ...payload.map((e) => {
+          ...payload?.orders.map((e) => {
             return {
               ...e,
               accepted: calculateStatus(e, "accepted"),

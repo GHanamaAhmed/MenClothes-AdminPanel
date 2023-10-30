@@ -47,7 +47,7 @@ export default function Signin() {
                 Continue with Google
               </Button>
 
-              <Button
+              {/* <Button
                 onClick={(e) =>
                   window.open(
                     "https://api.fri7a.com/auth/facebook?role=admin",
@@ -61,7 +61,7 @@ export default function Signin() {
               >
                 <GrFacebookOption size={25} />
                 Continue with facebook
-              </Button>
+              </Button> */}
             </ul>
           </CardBody>
           <CardFooter className="pt-0"></CardFooter>

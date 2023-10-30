@@ -51,6 +51,11 @@ export default function Short({ reel, edit }) {
         console.error(err);
       });
   };
+  const timeout = () => {
+    setTimeout(() => {
+      setPlay(false);
+    }, 3000);
+  };
   return (
     <>
       <DialogDefault
@@ -62,12 +67,15 @@ export default function Short({ reel, edit }) {
       />
       <div
         className="my-3 text-right left-2"
+        onTouchStart={(e) => {
+          if (play) return;
+          setPlay(true);
+          timeout();
+        }}
         onMouseEnter={(e) => {
-          e.preventDefault();
           setPlay(true);
         }}
         onMouseLeave={(e) => {
-          e.preventDefault();
           setPlay(false);
         }}
       >

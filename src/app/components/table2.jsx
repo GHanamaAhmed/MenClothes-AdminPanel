@@ -98,7 +98,7 @@ export default function CiTable2({
     dispatch(removeOrder({ id: currentOrder?._id }))
       .unwrap()
       .then((res) => {
-        toasty("تم حذف المنتج", {
+        toasty("تم حذف الطلبية", {
           type: "success",
           toastId: "deleteOrder",
           autoClose: 5000,
@@ -107,7 +107,7 @@ export default function CiTable2({
       })
       .catch((err) => {
         console.error(err);
-        toasty("فشل حذف المنتج", {
+        toasty("فشل حذف الطلبية", {
           type: "error",
           toastId: "deleteOrder",
           autoClose: 5000,
@@ -286,7 +286,7 @@ export default function CiTable2({
               color="blue-gray"
               className="font-Hacen-Tunisia"
             >
-              {page}/{Math.ceil(count / max)}
+              {page}/{Math.ceil(count / max)||1}
             </Typography>
             <button onClick={() => onReverse()}>
               <LuArrowUpDown />

@@ -9,7 +9,7 @@ const fetchUsers = createAsyncThunk(
   ) => {
     try {
       const data = await Axios.get(
-        `/users?min=${min}&max=${min + 10}&${
+        `/users?min=${min}&max=${min + 6}&${
           tab != "all" && tab ? `type=${tab}` : ""
         }&${input ? `name=${input}` : ""}&${
           reverse ? `reverse=${reverse}` : ""
@@ -37,6 +37,7 @@ const controlPanelSlice = createSlice({
   initialState: {
     users: {
       users: [],
+      count: 0,
       isLoading: false,
       err: undefined,
     },
@@ -56,7 +57,8 @@ const controlPanelSlice = createSlice({
     builder
       .addCase(fetchUsers.fulfilled, ({ users }, { payload }) => {
         users.isLoading = false;
-        users.users = payload?.map((e) => {
+        users.count = payload?.count || 0;
+        users.users = payload?.users?.map((e) => {
           return {
             img: e?.Photo,
             name: e?.firstName + "-" + e?.lastName,

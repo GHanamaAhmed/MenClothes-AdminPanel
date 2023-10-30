@@ -35,11 +35,12 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
     }
   }, [thumbanil]);
   const emptyField = () => {
+    sety((prev) => prev + 1);
     setName("");
     setType("");
     setPrice("");
     setDescription("");
-    SetDetails([{}]);
+    SetDetails([{ photos: [], photosUrl: [], color: "#000" }]);
     setThumbanil(null);
     setThumbanilUrl(null);
     setCourentPhotos(null);
@@ -60,24 +61,48 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
     });
   };
   const changeInpute = (e) => {
-    const nPhotos = e?.photos?.length || 0;
-    SetDetails((prev) => {
-      prev[e.num] = {
-        ...prev[e.num],
-        ...e,
-        photos:
-          prev[e?.num]?.photos?.length && e?.photos
-            ? [...prev[e?.num]?.photos, ...e?.photos]
-            : e?.photos || prev[e?.num]?.photos,
-        nPhotos: (prev[e.num]?.nPhotos || 0) + nPhotos,
-        photosUrl:
-          prev[e?.num].photosUrl?.length && e?.photosUrl
-            ? [...prev[e?.num].photosUrl, ...e?.photosUrl]
-            : e?.photosUrl || prev[e?.num].photosUrl,
-      };
-      return [...prev];
-    });
+    try {
+      const nPhotos = e?.photos?.length || 0;
+      SetDetails((prev) => {
+        prev[e.num] = {
+          ...prev[e.num],
+          ...e,
+          photos:
+            prev[e?.num]?.photos?.length && e?.photos?.length
+              ? [...prev[e?.num]?.photos, ...e?.photos]
+              : e?.photos || prev[e?.num]?.photos,
+          nPhotos: (prev[e.num]?.nPhotos || 0) + nPhotos,
+          photosUrl:
+            prev[e?.num].photosUrl?.length && e?.photosUrl?.length
+              ? [...prev[e?.num].photosUrl, ...e?.photosUrl]
+              : e?.photosUrl || prev[e?.num].photosUrl,
+        };
+        return [...prev];
+      });
+    } catch (err) {
+      console.error(err);
+    }
   };
+  function getValuesBetweenRange(rangeString) {
+    const [start, end] = rangeString.split("-");
+
+    // Check if start and end values are valid numbers
+    const startValue = Number(start);
+    const endValue = Number(end);
+
+    if (isNaN(startValue) || isNaN(endValue)) {
+      return [rangeString]; // Return an empty array if the values are not valid numbers
+    }
+
+    const values = [];
+
+    // Generate values between startValue and endValue
+    for (let i = startValue; i <= endValue; i++) {
+      values.push(i);
+    }
+
+    return values;
+  }
   const addProduct = () => {
     let photos = [];
     let details = [];
@@ -96,8 +121,18 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
       )
     ) {
       details = Details.map((e, i) => {
+        const customSizes = e.sizes.filter((el, ind) => el?.includes("-"));
+        const sizeNormal = e.sizes.filter((el, ind) => !el?.includes("-"));
+        let sizes = [];
+        customSizes.map((el) => {
+          sizes = [...sizes, ...getValuesBetweenRange(el)];
+        });
+        sizes = [...sizes, ...sizeNormal];
         photos = [...photos, ...e.photos];
-        const ec = { ...e };
+        const ec = {
+          ...e,
+          sizes,
+        };
         delete ec.photos;
         delete ec.photosUrl;
         delete ec.num;
@@ -184,7 +219,7 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
 
       <x.DialogBody
         divider
-        className="flex flex-col items-center justify-center gap-4 max-h-[30rem]"
+        className="flex flex-col items-center justify-center gap-4 max-h-[25rem] md:max-h-[30rem]"
       >
         <x.Card className="mx-auto  max-w-none w-full my-2 overflow-y-scroll max-h-[30rem] shadow-none">
           <x.CardBody className="flex flex-col w-full  gap-4 justify-evenly items-center ">
@@ -241,18 +276,6 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
                 className="w-[200px] h-[200px] min-w-[200px] object-cover rounded-lg shadow-lg hover:w-[225px] hover:h-[225px] hover:shadow-xl transition-all shadow-gray-600"
               />
             )}
-            {currentPhotos !== null && (
-              <Gallary
-                indexPhotos={currentPhotos}
-                images={
-                  Details.length && currentPhotos !== null
-                    ? Details[currentPhotos]?.photosUrl || []
-                    : []
-                }
-                onAdd={addPhoto}
-                onRemove={removePhoto}
-              />
-            )}
             <x.Button
               onClick={toggleOpen}
               className="font-Hacen-Tunisia"
@@ -267,8 +290,8 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
               }`}
             >
               <x.CardBody className="w-fit flex flex-row items-end justify-center  ">
-                <div className="flex flex-col gap-4 justify-evenly items-center">
-                  {[...Array(y)].map((e, i) => (
+                <div key={y} className="flex flex-col gap-4 justify-evenly items-center">
+                  {Details.map((e, i) => (
                     <div key={i}>
                       <AddINput
                         num={i}
@@ -278,10 +301,11 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
                       />
                     </div>
                   ))}
-                  <div className="flex flex-row gap-4 justify-evenly items-center">
+                  <div
+                    className="flex flex-row gap-4 justify-evenly items-center"
+                  >
                     <x.Button
                       onClick={() => {
-                        sety((prev) => prev + 1);
                         SetDetails([...Details, {}]);
                       }}
                       variant="gradient"
@@ -290,6 +314,18 @@ export default function AddProduct({ onShowProduct, isOpen, onClose }) {
                       <PlusIcon className="h-5 w-5"></PlusIcon>
                     </x.Button>
                   </div>
+                  {currentPhotos !== null && (
+                    <Gallary
+                      indexPhotos={currentPhotos}
+                      images={
+                        Details.length && currentPhotos !== null
+                          ? Details[currentPhotos]?.photosUrl || []
+                          : []
+                      }
+                      onAdd={addPhoto}
+                      onRemove={removePhoto}
+                    />
+                  )}
                 </div>
               </x.CardBody>
             </x.Card>

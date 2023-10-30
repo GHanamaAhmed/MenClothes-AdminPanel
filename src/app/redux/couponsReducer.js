@@ -9,7 +9,7 @@ const fetchCoupon = createAsyncThunk(
   ) => {
     try {
       const res = await Axios.get(
-        `/coupon?min=${min || 0}&max=${min || 0 + 6}${
+        `/coupon?min=${min || 0}&max=${(min || 0) + 6}${
           name?.length > 0 ? `&name=${name}` : ""
         }${expire !== "" ? `&expire=${expire}` : ""}${
           used !== "" ? `&used=${used}` : ""
@@ -52,6 +52,7 @@ const couponSlice = createSlice({
   name: "coupon",
   initialState: {
     coupon: {
+      count: 0,
       isLoading: false,
       err: undefined,
       coupon: [],
@@ -93,8 +94,10 @@ const couponSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchCoupon.fulfilled, ({ coupon }, { payload }) => {
+        console.log(payload);
         coupon.isLoading = false;
-        coupon.coupon = [...payload];
+        coupon.count = payload?.count;
+        coupon.coupon = [...payload?.coupons];
       })
       .addCase(fetchCoupon.pending, ({ coupon }) => {
         coupon.isLoading = true;
